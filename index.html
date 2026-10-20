@@ -1,10 +1,10 @@
 <title>Trilha do Chico Pitico</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Figtree:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Figtree:wght@400;600;800&family=JetBrains+Mono:wght@500;700&family=Poppins:wght@400;500;600;700;800&display=swap">
 <style>
 /* Layout: trilha de jogo (mapa vertical com dois blocos) + telas de nível em coluna única com mascote narrando. Modo aula adiciona cronômetro e navegação por teclado. */
 :root{
-  --brand:#00f87d; --brand-deep:#00b85a; --brand-ink:#04301b;
+  --brand:#2ddb60; --brand-deep:#1aa84a; --brand-ink:#04301b;
   --bg:#f1f9f4; --surface:#ffffff; --surface2:#e3f4ea; --line:#c9e3d3;
   --fg:#0a2316; --muted:#4a6757;
   --pink:#ffb1c7; --pink-deep:#e0527f;
@@ -24,6 +24,19 @@
   --fg:#e7f7ed; --muted:#93b8a3;
   --good:#3fe088; --good-bg:#0f3a24; --bad:#ff7a90; --bad-bg:#3d1620; --warn:#ffcb6b; --warn-bg:#3b2d0b;
   --code-bg:#030d08; color-scheme:dark;}
+
+/* modo Treinamento: identidade da EJ (CITi 30 anos) — escuro fixo, verde técnico, Poppins */
+body[data-mode="train"]{
+  --f-display:'Poppins',system-ui,sans-serif !important;
+  --f-body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif !important;
+  --brand:#2ddb60 !important; --brand-deep:#1aa84a !important; --brand-ink:#04150a !important;
+  --bg:#050b08 !important; --surface:#0d1a15 !important; --surface2:#122621 !important; --line:#1d3a2d !important;
+  --fg:#f3f8f6 !important; --muted:#8fa8a0 !important;
+  --pink:#2ddb60 !important; --pink-deep:#1aa84a !important;
+  --good:#2ddb60 !important; --good-bg:#102a1c !important; --bad:#ff6b7a !important; --bad-bg:#2a1016 !important; --warn:#ffcb6b !important; --warn-bg:#2a2208 !important;
+  --code-bg:#020806 !important; --code-fg:#dff3ea !important;
+  color-scheme:dark;
+}
 
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 var(--f-body);min-height:100%}
@@ -269,6 +282,7 @@ textarea.ed{width:100%;min-height:190px;resize:vertical;background:var(--code-bg
 body[data-sky="dawn"] .backdrop{--tint:#ff9fbd}
 body[data-sky="dusk"] .backdrop{--tint:#8b7cf0}
 body[data-sky="night"] .backdrop{--tint:#5a3fb0;background:radial-gradient(color-mix(in srgb,var(--fg) 30%,transparent) 1px,transparent 1.6px) 0 0/46px 46px,var(--sky)}
+body[data-mode="train"] .backdrop{--tint:#2ddb60 !important;background:var(--sky) !important}
 .backdrop::before,.backdrop::after{content:"";position:absolute;bottom:-15vh;border-radius:50%;background:color-mix(in srgb,var(--brand) 20%,var(--bg))}
 .backdrop::before{left:-22vw;width:88vw;height:36vh}
 .backdrop::after{right:-26vw;width:92vw;height:30vh;background:color-mix(in srgb,var(--brand) 12%,var(--bg))}
@@ -325,7 +339,6 @@ textarea.ed{white-space:pre;overflow:auto;tab-size:2;font-variant-ligatures:none
 .newb{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:10px 0}.newb span{background:var(--brand);color:var(--brand-ink);border-radius:99px;padding:4px 14px;font:800 .9rem var(--f-display)}
 /* ===== modo treinamento: slides ===== */
 .scenery{display:none;position:absolute;inset:0;width:100%;height:100%}
-body[data-mode="train"] .scenery{display:block}
 .scenery .sun{fill:#ffe27a}.scenery .glow{opacity:.8}
 body[data-sky="dusk"] .scenery .sun{fill:#ff9a6a}body[data-sky="dawn"] .scenery .sun{fill:#ffb98a}
 body[data-sky="night"] .scenery .sun{fill:#fff6d8}body[data-sky="night"] .scenery .glow{opacity:.35}
@@ -363,11 +376,9 @@ body[data-mode="train"] .ribbon{display:none}
 .slide{position:relative;background:color-mix(in srgb,var(--surface) 93%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-radius:30px;padding:clamp(18px,3.2vw,44px);min-height:min(64vh,660px);box-shadow:0 10px 0 -2px color-mix(in srgb,var(--line) 80%,transparent),0 30px 60px -28px rgba(0,0,0,.4);animation:slidein .35s ease both}
 @keyframes slidein{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .slide h2{font-size:clamp(1.8rem,4.2vw,3rem);margin-bottom:18px}
-.slide h2.hp{padding-right:110px}
 .slide p,.slide li{font-size:clamp(1.05rem,1.8vw,1.3rem)}
 .slide .code{font-size:clamp(1rem,1.7vw,1.25rem)}
 .stag{display:inline-block;font:800 .8rem var(--f-display);text-transform:uppercase;letter-spacing:.1em;background:var(--brand);color:var(--brand-ink);border-radius:99px;padding:3px 14px;margin-bottom:10px}
-.sv-pig{position:absolute;top:18px;right:22px;width:76px}.sv-pig .pig{width:76px}
 .rv{transition:opacity .45s ease,transform .45s ease}
 .rv.off{opacity:0;transform:translateY(16px);pointer-events:none}
 .sv-cap{margin-top:22px;font-weight:700;color:var(--muted)}
@@ -456,18 +467,17 @@ body[data-mode="train"] .ribbon{display:none}
 .cover h2{font-size:clamp(2.3rem,6vw,4.4rem);line-height:1.02}
 .cv-sub{font-size:clamp(1.15rem,2.2vw,1.6rem)!important;color:var(--muted);font-weight:700}
 .cv-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.cv-meta span{font:800 1.05rem var(--f-display);background:var(--warn-bg);color:var(--warn);border-radius:99px;padding:5px 16px}
-.cv-pig{flex:0 1 300px}.cv-pig .pig{width:min(300px,100%)}
-@media(max-width:700px){.slide h2.hp{padding-right:0}.sv-pig{display:none}}
+.cv-pig{flex:0 0 96px}.cv-pig .pig{width:96px}
 @media(prefers-reduced-motion:reduce){.slide,.scenery .cloud,.gear,.belt{animation:none}.rv{transition:none}}
 
 /* apresentação contínua: capa, abertura e fim */
 .slide::before{content:"";position:absolute;left:0;right:0;top:0;height:8px;background:linear-gradient(90deg,var(--brand),var(--pink) 60%,#ffd95a)}
-.slide h2:not(.hp)::after,.slide h2.hp::after{content:"";display:block;width:70px;height:6px;border-radius:99px;background:linear-gradient(90deg,var(--brand),var(--pink));margin-top:10px}
+.slide h2::after{content:"";display:block;width:70px;height:6px;border-radius:99px;background:linear-gradient(90deg,var(--brand),var(--pink));margin-top:10px}
 .cover h2::after,.open h1::after{display:none!important}
 .stopic{margin-left:10px;font:800 .85rem var(--f-display);color:var(--muted);letter-spacing:.04em}
 .gbar{height:8px;border-radius:99px;background:var(--line);overflow:hidden}.gbar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--brand),var(--pink));transition:width .4s ease}
 .cover{overflow:hidden;position:relative}
-.cover .cv-big{position:absolute;left:2%;bottom:-8%;font:800 clamp(10rem,32vw,24rem)/1 var(--f-display);color:color-mix(in srgb,var(--brand) 22%,transparent);pointer-events:none;user-select:none}
+.cover .cv-big{position:absolute;right:3%;bottom:-20%;font:800 clamp(6rem,16vw,13rem)/1 var(--f-display);color:color-mix(in srgb,var(--brand) 18%,transparent);pointer-events:none;user-select:none}
 .cover .cv-txt,.cover .cv-pig{position:relative;z-index:1}
 .cv-journey{display:flex;gap:6px;margin-top:28px;max-width:440px}
 .cv-journey i{flex:1;height:10px;border-radius:99px;background:var(--line)}.cv-journey i.past{background:var(--brand-deep)}.cv-journey i.now{background:var(--pink-deep);box-shadow:0 0 0 4px color-mix(in srgb,var(--pink-deep) 25%,transparent)}
@@ -481,7 +491,7 @@ body[data-mode="train"] .ribbon{display:none}
 :root[data-theme="dark"] .open h1 em{color:var(--brand)}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .open h1 em{color:var(--brand)}}
 .op-sub{font-size:clamp(1.1rem,2.2vw,1.6rem)!important;color:var(--muted);font-weight:700;max-width:34ch}
 .open .cv-journey{margin-top:30px}.end .cv-journey{display:none}
-.op-pigs{flex:0 1 460px;display:flex;align-items:flex-end;justify-content:center}.op-pigs .pig{width:min(240px,46%)}.op-pigs .pig+.pig{margin-left:-14px}
+.op-pigs{flex:0 0 auto;display:flex;align-items:center;justify-content:center}.op-pigs .pig{width:88px}.op-pigs .pig+.pig{margin-left:-10px}
 
 .sv-lamp{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}@media(max-width:760px){.sv-lamp{grid-template-columns:1fr}}.sv-lamp>.rv{display:flex}
 .sv-lamp .stp{display:flex;align-items:center;gap:14px;width:100%;border:3px solid var(--line);border-radius:20px;padding:14px 16px;background:var(--surface)}
@@ -579,7 +589,7 @@ let toastT;function toast(t){const e=$('#toast');e.textContent=t;e.classList.add
 
 /* ============ progresso salvo ============ */
 const KEY='citi-chico-pitico-v1';
-let S={xp:0,got:{},done:{},mode:'asp',ver:90,badges:{},tstart:'19:00',pos:null};
+let S={xp:0,got:{},done:{},mode:'train',ver:90,badges:{},tstart:'19:00',pos:null};
 try{const raw=localStorage.getItem(KEY);if(raw)S=Object.assign(S,JSON.parse(raw));}catch(e){}
 if(S.mode==='play')S.mode='asp';if(S.mode==='class')S.mode='train';if(S.mode!=='train')S.mode='asp';S.ver=90;
 const TR=()=>S.mode==='train';
@@ -1299,17 +1309,16 @@ function trainSteps(l){
 }
 function rCover(s,st){
   const l=cur.L;
-  st.innerHTML='<article class="card slide cover"><div class="cv-big" aria-hidden="true">'+l.id+'</div><div class="cv-txt"><span class="sv-num">Bloco '+l.block+' · Tópico '+l.id+' de '+LV.length+'</span><h2>'+esc(l.title)+'</h2><p class="cv-sub">'+l.desc+'</p><div class="cv-journey" aria-hidden="true">'+LV.map(x=>'<i class="'+(x.id<l.id?'past':x.id===l.id?'now':'')+'"></i>').join('')+'</div></div><div class="cv-pig">'+pig(l.block===1?'chico':'diva','cheer','bob')+'</div></article>';
+  st.innerHTML='<article class="card slide cover"><div class="cv-big" aria-hidden="true">'+l.id+'</div><div class="cv-txt"><span class="sv-num">Bloco '+l.block+' · Tópico '+l.id+' de '+LV.length+'</span><h2>'+esc(l.title)+'</h2><p class="cv-sub">'+l.desc+'</p><div class="cv-journey" aria-hidden="true">'+LV.map(x=>'<i class="'+(x.id<l.id?'past':x.id===l.id?'now':'')+'"></i>').join('')+'</div></div><div class="cv-pig">'+pigFace(l.block===1?'chico':'diva','cheer','bob')+'</div></article>';
 }
 function rOpening(s,st){
-  st.innerHTML='<article class="card slide open"><div class="op-txt"><div class="op-top"><span class="op-logo"><img src="'+LOGO_W+'" alt="CITi" height="34"></span><span class="op-tag">Processo Seletivo</span></div><h1>Lógica de Programação<em>JavaScript e TypeScript</em></h1><p class="op-sub">Do primeiro algoritmo ao seu primeiro código tipado, com o Chico e a Diva.</p><div class="cv-journey" aria-hidden="true">'+LV.map(()=>'<i></i>').join('')+'</div></div><div class="op-pigs">'+pig('chico','cheer','bob')+pig('diva','cheer','bob')+'</div></article>';
+  st.innerHTML='<article class="card slide open"><div class="op-txt"><div class="op-top"><span class="op-logo"><img src="'+LOGO_W+'" alt="CITi" height="34"></span><span class="op-tag">Processo Seletivo</span></div><h1>Lógica de Programação<em>JavaScript e TypeScript</em></h1><p class="op-sub">Do primeiro algoritmo ao seu primeiro código tipado, com o Chico e a Diva.</p><div class="cv-journey" aria-hidden="true">'+LV.map(()=>'<i></i>').join('')+'</div></div><div class="op-pigs">'+pigFace('chico','cheer','bob')+pigFace('diva','cheer','bob')+'</div></article>';
 }
 function rEnding(s,st){
-  st.innerHTML='<article class="card slide open end"><div class="op-txt"><span class="op-tag">Fechamento</span><h1>Dúvidas?</h1><p class="op-sub">Continue treinando no modo Aspirante: tem historinha, desafios bônus e conquistas.</p></div><div class="op-pigs">'+pig('chico','cheer','hop')+pig('diva','cheer','hop')+'</div></article>';
+  st.innerHTML='<article class="card slide open end"><div class="op-txt"><span class="op-tag">Fechamento</span><h1>Dúvidas?</h1><p class="op-sub">Continue treinando no modo Aspirante: tem historinha, desafios bônus e conquistas.</p></div><div class="op-pigs">'+pigFace('chico','cheer','hop')+pigFace('diva','cheer','hop')+'</div></article>';
 }
 function rSlide(s,st){
-  const who=s.who||(cur.L.block===1?'chico':'diva');
-  st.innerHTML='<article class="card slide"><span class="stag">'+(s.kicker||'Conceito')+'</span><h2 class="hp">'+s.title+'</h2><div class="sv-body">'+s.html+(s.live==='ts'?tsBox():s.live?labBox('',6,'Código ao vivo'):'')+'</div><div class="sv-pig">'+pigFace(who,s.mood||'happy','bob')+'</div></article>';
+  st.innerHTML='<article class="card slide"><span class="stag">'+(s.kicker||'Conceito')+'</span><h2>'+s.title+'</h2><div class="sv-body">'+s.html+(s.live==='ts'?tsBox():s.live?labBox('',6,'Código ao vivo'):'')+'</div></article>';
   if(s.live==='ts')mountTsBox(st);else if(s.live)mountLabBox(st,'');
 }
 function rRecap(s,st){
