@@ -339,6 +339,8 @@ textarea.ed{white-space:pre;overflow:auto;tab-size:2;font-variant-ligatures:none
 .newb{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:10px 0}.newb span{background:var(--brand);color:var(--brand-ink);border-radius:99px;padding:4px 14px;font:800 .9rem var(--f-display)}
 /* ===== modo treinamento: slides ===== */
 .scenery{display:none;position:absolute;inset:0;width:100%;height:100%}
+.ejglow{display:none;position:absolute;inset:0;width:100%;height:100%;opacity:.6}
+body[data-mode="train"] .ejglow{display:block}
 .scenery .sun{fill:#ffe27a}.scenery .glow{opacity:.8}
 body[data-sky="dusk"] .scenery .sun{fill:#ff9a6a}body[data-sky="dawn"] .scenery .sun{fill:#ffb98a}
 body[data-sky="night"] .scenery .sun{fill:#fff6d8}body[data-sky="night"] .scenery .glow{opacity:.35}
@@ -467,7 +469,6 @@ body[data-mode="train"] .ribbon{display:none}
 .cover h2{font-size:clamp(2.3rem,6vw,4.4rem);line-height:1.02}
 .cv-sub{font-size:clamp(1.15rem,2.2vw,1.6rem)!important;color:var(--muted);font-weight:700}
 .cv-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.cv-meta span{font:800 1.05rem var(--f-display);background:var(--warn-bg);color:var(--warn);border-radius:99px;padding:5px 16px}
-.cv-pig{flex:0 0 96px}.cv-pig .pig{width:96px}
 @media(prefers-reduced-motion:reduce){.slide,.scenery .cloud,.gear,.belt{animation:none}.rv{transition:none}}
 
 /* apresentação contínua: capa, abertura e fim */
@@ -478,7 +479,7 @@ body[data-mode="train"] .ribbon{display:none}
 .gbar{height:8px;border-radius:99px;background:var(--line);overflow:hidden}.gbar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--brand),var(--pink));transition:width .4s ease}
 .cover{overflow:hidden;position:relative}
 .cover .cv-big{position:absolute;right:3%;bottom:-20%;font:800 clamp(6rem,16vw,13rem)/1 var(--f-display);color:color-mix(in srgb,var(--brand) 18%,transparent);pointer-events:none;user-select:none}
-.cover .cv-txt,.cover .cv-pig{position:relative;z-index:1}
+.cover .cv-txt{position:relative;z-index:1}
 .cv-journey{display:flex;gap:6px;margin-top:28px;max-width:440px}
 .cv-journey i{flex:1;height:10px;border-radius:99px;background:var(--line)}.cv-journey i.past{background:var(--brand-deep)}.cv-journey i.now{background:var(--pink-deep);box-shadow:0 0 0 4px color-mix(in srgb,var(--pink-deep) 25%,transparent)}
 .open{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
@@ -491,7 +492,6 @@ body[data-mode="train"] .ribbon{display:none}
 :root[data-theme="dark"] .open h1 em{color:var(--brand)}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .open h1 em{color:var(--brand)}}
 .op-sub{font-size:clamp(1.1rem,2.2vw,1.6rem)!important;color:var(--muted);font-weight:700;max-width:34ch}
 .open .cv-journey{margin-top:30px}.end .cv-journey{display:none}
-.op-pigs{flex:0 0 auto;display:flex;align-items:center;justify-content:center}.op-pigs .pig{width:88px}.op-pigs .pig+.pig{margin-left:-10px}
 
 .sv-lamp{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}@media(max-width:760px){.sv-lamp{grid-template-columns:1fr}}.sv-lamp>.rv{display:flex}
 .sv-lamp .stp{display:flex;align-items:center;gap:14px;width:100%;border:3px solid var(--line);border-radius:20px;padding:14px 16px;background:var(--surface)}
@@ -634,10 +634,6 @@ function pigHeadParts(who,mood){
    +'<ellipse cx="100" cy="106" rx="25" ry="17" fill="'+snout+'"/><ellipse cx="91" cy="106" rx="3.6" ry="5.6" fill="'+nos+'"/><ellipse cx="109" cy="106" rx="3.6" ry="5.6" fill="'+nos+'"/>'
    +mouth+bow+extra;
   return{d,skin,aria,head};
-}
-function pigFace(who,mood,cls){
-  const hp=pigHeadParts(who,mood);
-  return '<svg class="pig face '+(cls||'')+'" viewBox="24 2 152 150" role="img" aria-label="'+hp.aria+'">'+hp.head+'</svg>';
 }
 function pig(who,mood,cls){
   const hp=pigHeadParts(who,mood);
@@ -1309,13 +1305,13 @@ function trainSteps(l){
 }
 function rCover(s,st){
   const l=cur.L;
-  st.innerHTML='<article class="card slide cover"><div class="cv-big" aria-hidden="true">'+l.id+'</div><div class="cv-txt"><span class="sv-num">Bloco '+l.block+' · Tópico '+l.id+' de '+LV.length+'</span><h2>'+esc(l.title)+'</h2><p class="cv-sub">'+l.desc+'</p><div class="cv-journey" aria-hidden="true">'+LV.map(x=>'<i class="'+(x.id<l.id?'past':x.id===l.id?'now':'')+'"></i>').join('')+'</div></div><div class="cv-pig">'+pigFace(l.block===1?'chico':'diva','cheer','bob')+'</div></article>';
+  st.innerHTML='<article class="card slide cover"><div class="cv-big" aria-hidden="true">'+l.id+'</div><div class="cv-txt"><span class="sv-num">Bloco '+l.block+' · Tópico '+l.id+' de '+LV.length+'</span><h2>'+esc(l.title)+'</h2><p class="cv-sub">'+l.desc+'</p><div class="cv-journey" aria-hidden="true">'+LV.map(x=>'<i class="'+(x.id<l.id?'past':x.id===l.id?'now':'')+'"></i>').join('')+'</div></div></article>';
 }
 function rOpening(s,st){
-  st.innerHTML='<article class="card slide open"><div class="op-txt"><div class="op-top"><span class="op-logo"><img src="'+LOGO_W+'" alt="CITi" height="34"></span><span class="op-tag">Processo Seletivo</span></div><h1>Lógica de Programação<em>JavaScript e TypeScript</em></h1><p class="op-sub">Do primeiro algoritmo ao seu primeiro código tipado, com o Chico e a Diva.</p><div class="cv-journey" aria-hidden="true">'+LV.map(()=>'<i></i>').join('')+'</div></div><div class="op-pigs">'+pigFace('chico','cheer','bob')+pigFace('diva','cheer','bob')+'</div></article>';
+  st.innerHTML='<article class="card slide open"><div class="op-txt"><div class="op-top"><span class="op-logo"><img src="'+LOGO_W+'" alt="CITi" height="34"></span><span class="op-tag">Processo Seletivo</span></div><h1>Lógica de Programação<em>JavaScript e TypeScript</em></h1><p class="op-sub">Do primeiro algoritmo ao seu primeiro código tipado.</p><div class="cv-journey" aria-hidden="true">'+LV.map(()=>'<i></i>').join('')+'</div></div></article>';
 }
 function rEnding(s,st){
-  st.innerHTML='<article class="card slide open end"><div class="op-txt"><span class="op-tag">Fechamento</span><h1>Dúvidas?</h1><p class="op-sub">Continue treinando no modo Aspirante: tem historinha, desafios bônus e conquistas.</p></div><div class="op-pigs">'+pigFace('chico','cheer','hop')+pigFace('diva','cheer','hop')+'</div></article>';
+  st.innerHTML='<article class="card slide open end"><div class="op-txt"><span class="op-tag">Fechamento</span><h1>Dúvidas?</h1><p class="op-sub">Continue treinando no modo Aspirante: tem historinha, desafios bônus e conquistas.</p></div></article>';
 }
 function rSlide(s,st){
   st.innerHTML='<article class="card slide"><span class="stag">'+(s.kicker||'Conceito')+'</span><h2>'+s.title+'</h2><div class="sv-body">'+s.html+(s.live==='ts'?tsBox():s.live?labBox('',6,'Código ao vivo'):'')+'</div></article>';
@@ -1379,7 +1375,19 @@ function buildScenery(){
  
  +'</g><rect class="shade" width="1600" height="900"/></svg>';
 }
-document.querySelector('.backdrop').innerHTML=buildScenery();
+function buildEjGlow(){
+ return '<svg class="ejglow" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><defs>'
+  +'<linearGradient id="egRib1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0a1812" stop-opacity="0"/><stop offset="45%" stop-color="#1c4a30"/><stop offset="60%" stop-color="#8affc0"/><stop offset="100%" stop-color="#0a1812" stop-opacity="0"/></linearGradient>'
+  +'<linearGradient id="egRib2" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#0a1812" stop-opacity="0"/><stop offset="50%" stop-color="#2ddb60"/><stop offset="100%" stop-color="#0a1812" stop-opacity="0"/></linearGradient>'
+  +'<radialGradient id="egGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#9dffc6" stop-opacity=".85"/><stop offset="100%" stop-color="#2ddb60" stop-opacity="0"/></radialGradient>'
+  +'</defs>'
+  +'<circle cx="1180" cy="730" r="210" fill="url(#egGlow)"/>'
+  +'<path d="M1650,470 C1380,430 1180,540 1100,660 C1020,780 1150,880 1280,780 C1370,710 1440,550 1650,600" fill="none" stroke="url(#egRib1)" stroke-width="56" stroke-linecap="round"/>'
+  +'<path d="M1650,550 C1400,510 1230,600 1150,700 C1090,780 1190,840 1270,760" fill="none" stroke="url(#egRib2)" stroke-width="20" stroke-linecap="round"/>'
+  +[0,1,2,3,4,5,6].map(i=>'<path d="M1650,'+(40+i*26)+' Q1420,'+(20+i*44)+' 1200,'+(120+i*58)+'" fill="none" stroke="#2ddb60" stroke-width="1.6" opacity="'+(0.07+i*0.035).toFixed(2)+'"/>').join('')
+  +'</svg>';
+}
+document.querySelector('.backdrop').innerHTML=buildScenery()+buildEjGlow();
 
 function renderHud(){
   const r=rank();document.body.dataset.mode=S.mode;document.body.classList.remove('big');
