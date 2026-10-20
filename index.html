@@ -139,14 +139,8 @@ main{padding-block:22px 80px}
 .timer .tnum{font-variant-numeric:tabular-nums;min-width:3.4em}
 .card{background:var(--surface);border:2px solid var(--line);border-radius:24px;padding:20px}
 .card h2{margin-bottom:12px}
-.coach{display:flex;gap:12px;align-items:flex-end;margin-bottom:16px}
-.coach .mascot{flex:0 0 auto;width:92px;display:flex}
-.coach .mascot .pig{width:92px}
-.coach .mascot.two{width:150px}
-.coach .mascot.two .pig{width:84px;margin-left:-14px}
-.coach .mascot.two .pig:first-child{margin-left:0}
+.coach{margin-bottom:16px}
 .say{position:relative;background:var(--surface2);border-radius:18px;padding:12px 16px;font-weight:600;min-width:0}
-.say::before{content:"";position:absolute;left:-9px;bottom:20px;border:9px solid transparent;border-left:0;border-right-color:var(--surface2)}
 .pig{display:block;height:auto;overflow:visible}
 .pig.bob{animation:bob 2.6s ease-in-out infinite;transform-origin:50% 100%}
 .pig.hop{animation:hop .7s ease-in-out infinite;transform-origin:50% 100%}
@@ -594,86 +588,16 @@ try{const raw=localStorage.getItem(KEY);if(raw)S=Object.assign(S,JSON.parse(raw)
 if(S.mode==='play')S.mode='asp';if(S.mode==='class')S.mode='train';if(S.mode!=='train')S.mode='asp';S.ver=90;
 const TR=()=>S.mode==='train';
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}};
-const RANKS=[[0,'Leitão Curioso'],[150,'Porquinho Dev'],[350,'Pitico Programador'],[650,'Suíno Sênior'],[950,'Mestre Pitico']];
+const RANKS=[[0,'Iniciante'],[150,'Aprendiz'],[350,'Programador(a)'],[650,'Avançado(a)'],[950,'Mestre em Lógica']];
 function rank(){let r=0;RANKS.forEach((x,i)=>{if(S.xp>=x[0])r=i;});const n=RANKS[r+1];return{name:RANKS[r][1],pct:n?(S.xp-RANKS[r][0])/(n[0]-RANKS[r][0]):1};}
 function award(key,amt){if(TR()||S.got[key])return false;S.got[key]=1;S.xp+=amt;save();toast('+'+amt+' XP');renderHud();return true;}
 
 /* ============ mascotes ============ */
-function pigHeadParts(who,mood){
-  who=who||'chico';mood=mood||'happy';
-  const d=who==='diva';
-  const skin=d?'#ffc4d6':'#ffb1c7',ear='#ff8fb0',snout='#ff93b4',nos='#b93d66',ink='#1b1b1b';
-  const cheer=mood==='cheer',sad=mood==='sad',think=mood==='think';
-  let eyes,brows='',mouth,extra='';
-  const eye=(x,y,dx,dy)=>'<circle cx="'+(x+dx)+'" cy="'+(y+dy)+'" r="6.5" fill="'+ink+'"/><circle cx="'+(x+dx+2)+'" cy="'+(y+dy-2)+'" r="2" fill="#fff"/>';
-  if(cheer){
-    eyes='<path d="M69 82Q78 70 87 82M113 82Q122 70 131 82" stroke="'+ink+'" stroke-width="4.5" fill="none" stroke-linecap="round"/>';
-    mouth='<path d="M82 127Q100 156 118 127Z" fill="#7a1f3d"/><path d="M92 141Q100 134 108 141Q100 148 92 141Z" fill="#ff7f9f"/>';
-  }else if(think){
-    eyes=eye(78,80,3,-3)+eye(122,80,3,-3);
-    brows='<path d="M67 64Q78 56 91 63" stroke="'+ink+'" stroke-width="3.5" fill="none" stroke-linecap="round"/><path d="M110 68L132 68" stroke="'+ink+'" stroke-width="3.5" stroke-linecap="round"/>';
-    mouth='<path d="M91 133Q101 129 111 134" stroke="#7a1f3d" stroke-width="3.5" fill="none" stroke-linecap="round"/>';
-    extra='<text x="150" y="40" font-size="40" font-weight="800" font-family="Baloo 2,sans-serif" fill="#e0527f">?</text>';
-  }else if(sad){
-    eyes=eye(78,82,0,0)+eye(122,82,0,0);
-    brows='<path d="M66 76L88 66M134 76L112 66" stroke="'+ink+'" stroke-width="3.5" stroke-linecap="round"/>';
-    mouth='<path d="M88 136Q100 124 112 136" stroke="#7a1f3d" stroke-width="3.5" fill="none" stroke-linecap="round"/>';
-    extra='<path d="M64 94Q58 103 64 108Q70 103 64 94Z" fill="#7cc6ff"/>';
-  }else{
-    eyes=eye(78,80,0,0)+eye(122,80,0,0);
-    mouth='<path d="M86 128Q100 144 114 128" stroke="#7a1f3d" stroke-width="3.5" fill="none" stroke-linecap="round"/>';
-  }
-  const lashes=d?'<path d="M70 75L62 71M72 72L66 64M130 75L138 71M128 72L134 64" stroke="'+ink+'" stroke-width="2.8" stroke-linecap="round"/>':'';
-  const bow=d?'<path d="M100 30L76 17L76 43Z M100 30L124 17L124 43Z" fill="#ff4f8b"/><circle cx="100" cy="30" r="7" fill="#e0306f"/>':'';
-  const aria=d?'Diva Pitica':'Chico Pitico';
-  const head='<path d="M50 58Q36 20 70 27Q89 33 91 52Z" fill="'+skin+'"/><path d="M57 52Q51 34 68 36Q80 40 83 50Z" fill="'+ear+'"/>'
-   +'<path d="M150 58Q164 20 130 27Q111 33 109 52Z" fill="'+skin+'"/><path d="M143 52Q149 34 132 36Q120 40 117 50Z" fill="'+ear+'"/>'
-   +'<circle cx="100" cy="86" r="58" fill="'+skin+'"/>'
-   +'<ellipse cx="62" cy="102" rx="9" ry="6" fill="#ff7fa3" opacity=".55"/><ellipse cx="138" cy="102" rx="9" ry="6" fill="#ff7fa3" opacity=".55"/>'
-   +eyes+lashes+brows
-   +'<ellipse cx="100" cy="106" rx="25" ry="17" fill="'+snout+'"/><ellipse cx="91" cy="106" rx="3.6" ry="5.6" fill="'+nos+'"/><ellipse cx="109" cy="106" rx="3.6" ry="5.6" fill="'+nos+'"/>'
-   +mouth+bow+extra;
-  return{d,skin,aria,head};
-}
-function pig(who,mood,cls){
-  const hp=pigHeadParts(who,mood);
-  const d=hp.d,skin=hp.skin,aria=hp.aria;
-  const hoof='#e0527f';
-  const cheer=mood==='cheer';
-  const armL=cheer?'<ellipse cx="38" cy="118" rx="11" ry="27" transform="rotate(-35 38 118)" fill="'+skin+'"/>':'<ellipse cx="48" cy="167" rx="11" ry="26" transform="rotate(14 48 167)" fill="'+skin+'"/>';
-  const armR=cheer?'<ellipse cx="162" cy="118" rx="11" ry="27" transform="rotate(35 162 118)" fill="'+skin+'"/>':'<ellipse cx="152" cy="167" rx="11" ry="26" transform="rotate(-14 152 167)" fill="'+skin+'"/>';
-  const outfit=d
-   /* Diva: vestidinho rosa evasê, mangas bufantes, cinto verde CITi e barra branca */
-   ?'<path d="M52 150Q52 128 74 124L126 124Q148 128 148 150L151 188L163 223Q165 231 155 231L45 231Q35 231 37 223L49 188Z" fill="#ff5fa2"/>'
-    +'<path d="M126 128Q148 132 148 152L151 188L163 223L150 228Q146 190 126 128Z" fill="#e8438b" opacity=".6"/>'
-    +'<path d="M38 224Q100 236 162 224" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>'
-    +'<g fill="#fff" opacity=".7"><circle cx="66" cy="196" r="3"/><circle cx="92" cy="206" r="3"/><circle cx="118" cy="198" r="3"/><circle cx="140" cy="210" r="3"/><circle cx="62" cy="216" r="3"/><circle cx="104" cy="220" r="3"/></g>'
-    +'<rect x="50" y="162" width="100" height="10" rx="3" fill="#00f87d"/>'
-    +'<path d="M100 167L88 159L88 175Z M100 167L112 159L112 175Z" fill="#00c25f"/><circle cx="100" cy="167" r="4.5" fill="#00a050"/>'
-    +'<ellipse cx="54" cy="140" rx="15" ry="13" fill="#ff5fa2"/><ellipse cx="146" cy="140" rx="15" ry="13" fill="#ff5fa2"/>'
-    +'<path d="M42 147Q54 154 66 147" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M134 147Q146 154 158 147" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>'
-   /* Chico: camisa CITi com barra e punhos mais escuros, sombra lateral, logo maior, bermuda jeans */
-   :'<path d="M50 150Q50 128 72 124L128 124Q150 128 150 150L153 210Q153 224 140 224L60 224Q47 224 47 210Z" fill="#00f87d"/>'
-    +'<path d="M47 210L153 210Q153 224 140 224L60 224Q47 224 47 210Z" fill="#00d36a"/>'
-    +'<path d="M126 128Q148 132 150 152L153 210Q153 221 146 223L134 223Q142 180 126 128Z" fill="#00d36a" opacity=".6"/>'
-    +'<ellipse cx="54" cy="141" rx="14" ry="15" fill="#00f87d"/><ellipse cx="146" cy="141" rx="14" ry="15" fill="#00f87d"/>'
-    +'<path d="M40 150Q54 160 68 150L66 155Q54 164 42 156Z" fill="#00b85a"/><path d="M132 150Q146 160 160 150L158 156Q146 164 134 155Z" fill="#00b85a"/>'
-    +'<image href="'+LOGO_W+'" x="64" y="158" width="72" height="37" preserveAspectRatio="xMidYMid meet"/>';
-  return '<svg class="pig '+(cls||'')+'" viewBox="0 0 200 250" role="img" aria-label="'+aria+'">'
-   +'<ellipse cx="100" cy="242" rx="62" ry="7" fill="rgba(0,0,0,.14)"/>'
-   +'<rect x="68" y="210" width="24" height="28" rx="10" fill="'+skin+'"/><rect x="108" y="210" width="24" height="28" rx="10" fill="'+skin+'"/>'
-   +'<ellipse cx="80" cy="238" rx="14" ry="6.5" fill="'+hoof+'"/><ellipse cx="120" cy="238" rx="14" ry="6.5" fill="'+hoof+'"/>'
-   +armL+armR
-   +outfit
-   +hp.head+'</svg>';
-}
+const actorMark=()=>'<svg class="pig" viewBox="0 0 100 100" role="img" aria-label="Posição atual"><circle cx="50" cy="50" r="40" fill="var(--brand)" stroke="var(--brand-deep)" stroke-width="6"/><circle cx="50" cy="50" r="14" fill="var(--brand-ink)"/></svg>';
 const heart=(full)=>'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-5.2-8-11a4.6 4.6 0 0 1 8-3 4.6 4.6 0 0 1 8 3c0 5.8-8 11-8 11z" fill="'+(full?'#e0306f':'rgba(4,48,27,.25)')+'"/></svg>';
 const star=(on)=>'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z" fill="'+(on?'#ffb800':'var(--line)')+'"/></svg>';
 const stars=(n)=>'<span class="stars" aria-label="'+n+' de 3 estrelas">'+[1,2,3].map(i=>star(i<=n)).join('')+'</span>';
-const coach=(who,mood,say)=>{
-  const m=who==='both'?'<div class="mascot two">'+pig('chico',mood)+pig('diva',mood)+'</div>':'<div class="mascot">'+pig(who||'chico',mood,mood==='cheer'?'hop':'bob')+'</div>';
-  return '<div class="coach">'+m+'<div class="say">'+say+'</div></div>';
-};
+const coach=(who,mood,say)=>'<div class="coach"><div class="say">'+say+'</div></div>';
 
 /* ============ executor de código dos alunos ============ */
 async function execTests(p){
@@ -733,7 +657,7 @@ const LV=[];
 /* ---- Nível 1: lógica ---- */
 LV.push({id:1,block:1,title:'O que é lógica?',desc:'Algoritmo: entrada, processamento, saída',t90:5,t60:3,steps:[
  L({title:'Programar é dar instruções',who:'chico',mood:'happy',
-  say:'Oi, eu sou o <b>Chico Pitico</b>, mascote do CITi! Vou levar um bolo de presente para a Diva, e o forno só faz o que a receita manda.',
+  say:'Toda receita é uma sequência de passos que só funciona na ordem certa. O forno só faz o que a receita manda.',
   html:'<p>Uma <b>receita de bolo</b> é um algoritmo: uma sequência de passos que transforma ingredientes em um bolo. Todo algoritmo tem três partes:</p>'
   +'<div class="ipo"><div class="b"><b>Entrada</b><span>o que entra<br>(os ingredientes)</span></div><div class="a">→</div><div class="b"><b>Processamento</b><span>o que se faz<br>(misturar, assar)</span></div><div class="a">→</div><div class="b"><b>Saída</b><span>o que sai<br>(o bolo pronto)</span></div></div>'
   +'<div class="lab"><h4>Receita interativa: marque os ingredientes</h4><div class="row" id="ing"></div><ol class="steps" id="rcs"></ol><div class="out" id="rout"></div></div>'
@@ -762,7 +686,7 @@ LV.push({id:2,block:1,title:'Variáveis e tipos',desc:'let, const, tipos primiti
  L({title:'let e const: caixas com nome',who:'chico',mood:'happy',say:'Uma variável é uma caixa com etiqueta, como os dois baús da estrada. O <code>let</code> deixa trocar o conteúdo, o <code>const</code> vem lacrado.',
   html:code('let fatias = 8;\nconst presente = "bolo de chocolate";')+'<div class="lab"><h4>Tente mudar os valores</h4><div class="row"><button class="chip" id="b1">fatias = 7;</button><button class="chip" id="b2">presente = "torta";</button></div><div class="out" id="o">Clique em um dos botões.</div></div><p>Regra do CITi: comece com <code>const</code> e só use <code>let</code> quando o valor precisar mudar. Evite <code>var</code>.</p>',
   mount(el){const o=$('#o',el);$('#b1',el).onclick=()=>{o.className='out ok';o.textContent='OK! fatias agora vale 7.';};$('#b2',el).onclick=()=>{o.className='out err';o.textContent='TypeError: Assignment to constant variable.';};}}),
- L({title:'Tipos primitivos',who:'chico',mood:'think',say:'Tudo que Chico guardou na cesta tem um tipo: o nome do bolo é texto, as fatias são número, "está embrulhado?" é verdadeiro ou falso. O <code>typeof</code> revela o tipo. Cuidado com uma pegadinha...',
+ L({title:'Tipos primitivos',who:'chico',mood:'think',say:'Todo valor em um programa tem um tipo: o nome do bolo é texto, as fatias são número, "está embrulhado?" é verdadeiro ou falso. O <code>typeof</code> revela o tipo. Cuidado com uma pegadinha...',
   html:'<div class="lab"><h4>typeof de cada valor</h4><div class="row" id="ty"></div><div class="out" id="tyo">Escolha um valor.</div></div><div class="grid2"><div class="mini"><b>string</b><br>texto entre aspas: <code>"bolo"</code></div><div class="mini"><b>number</b><br>inteiros e decimais: <code>8</code></div><div class="mini"><b>boolean</b><br>true ou false: <code>embrulhado</code></div><div class="mini"><b>null / undefined</b><br>vazio de propósito / sem valor ainda</div></div>',
   mount(el){const vals=[['"bolo"','string',''],['8','number',''],['true','boolean',''],['undefined','undefined',''],['null','object','Pegadinha famosa do JavaScript: typeof null devolve "object". É um bug antigo da linguagem.']];
    vals.forEach(v=>{const b=document.createElement('button');b.className='chip';b.textContent=v[0];b.onclick=()=>{$('#tyo',el).className='out';$('#tyo',el).innerHTML='typeof '+esc(v[0])+'  →  <b>"'+v[1]+'"</b>'+(v[2]?'<br><small>'+v[2]+'</small>':'');};$('#ty',el).appendChild(b);});}}),
@@ -778,15 +702,15 @@ LV.push({id:2,block:1,title:'Variáveis e tipos',desc:'let, const, tipos primiti
 
 /* ---- Nível 3: operadores e condicionais ---- */
 LV.push({id:3,block:1,title:'Operadores e condicionais',desc:'&&, ||, !, if/else e ternário',t90:7,t60:5,steps:[
- L({title:'E, OU e NÃO',who:'chico',mood:'happy',say:'O portão do festival só abre para quem atende às condições. Os operadores lógicos combinam condições: mexa nos botões e veja o resultado.',
-  html:'<div class="lab"><h4>Na entrada do festival</h4><div class="row"><button class="chip on" id="ta" aria-pressed="true"></button><button class="chip on" id="tb" aria-pressed="true"></button></div><table class="tbl" style="margin-top:10px"><thead><tr><th>Expressão</th><th>Resultado</th></tr></thead><tbody id="lg"></tbody></table></div><p><code>&&</code> só é verdadeiro se os <b>dois</b> forem. <code>||</code> basta que <b>um</b> seja. <code>!</code> inverte.</p>',
+ L({title:'E, OU e NÃO',who:'chico',mood:'happy',say:'O acesso só é liberado para quem atende às condições. Os operadores lógicos combinam condições: mexa nos botões e veja o resultado.',
+  html:'<div class="lab"><h4>Controle de acesso</h4><div class="row"><button class="chip on" id="ta" aria-pressed="true"></button><button class="chip on" id="tb" aria-pressed="true"></button></div><table class="tbl" style="margin-top:10px"><thead><tr><th>Expressão</th><th>Resultado</th></tr></thead><tbody id="lg"></tbody></table></div><p><code>&&</code> só é verdadeiro se os <b>dois</b> forem. <code>||</code> basta que <b>um</b> seja. <code>!</code> inverte.</p>',
   mount(el){let A=true,B=true;const draw=()=>{$('#ta',el).textContent='temIngresso = '+A;$('#tb',el).textContent='temCracha = '+B;$('#ta',el).classList.toggle('on',A);$('#tb',el).classList.toggle('on',B);
    const r=(e,v,n)=>'<tr><td><code>'+e+'</code><br><small>'+n+'</small></td><td class="'+(v?'t':'f')+'">'+v+'</td></tr>';
-   $('#lg',el).innerHTML=r('temIngresso && temCracha',A&&B,'o portão abre só com os dois')+r('temIngresso || temCracha',A||B,'basta ter um dos dois')+r('!temIngresso',!A,'inverte: não tem ingresso');};
+   $('#lg',el).innerHTML=r('temIngresso && temCracha',A&&B,'o acesso libera só com os dois')+r('temIngresso || temCracha',A||B,'basta ter um dos dois')+r('!temIngresso',!A,'inverte: não tem ingresso');};
    $('#ta',el).onclick=()=>{A=!A;draw();};$('#tb',el).onclick=()=>{B=!B;draw();};draw();}}),
- L({title:'if, else e ternário',who:'chico',mood:'think',say:'Chico vai contando as fatias de bolo que sobram e o programa escolhe um caminho. Arraste e veja qual bloco roda.',
+ L({title:'if, else e ternário',who:'chico',mood:'think',say:'Imagine contar as fatias de bolo que sobram: o programa escolhe um caminho dependendo do valor. Arraste e veja qual bloco roda.',
   html:'<div class="lab"><h4>Fatias que sobraram: <b id="nv">5</b></h4><input type="range" id="nota" min="0" max="8" value="5" aria-label="fatias que sobraram"><pre class="code" id="ifc"></pre><div class="out" id="tern"></div></div><p>O ternário <code>condição ? a : b</code> é um if/else em uma linha. As condições são testadas de cima para baixo, e só o <b>primeiro</b> bloco verdadeiro roda. Existe também o <code>switch</code>, que vemos depois.</p>',
-  mount(el){const lines=['if (fatias >= 6) {','  msg = "Dá para dividir com todo mundo";','} else if (fatias >= 2) {','  msg = "Só para mim e para a Diva";','} else {','  msg = "Quase acabou o bolo!";','}'];
+  mount(el){const lines=['if (fatias >= 6) {','  msg = "Dá para dividir com todo mundo";','} else if (fatias >= 2) {','  msg = "Só para duas pessoas";','} else {','  msg = "Quase acabou o bolo!";','}'];
    const draw=()=>{const n=+$('#nota',el).value;$('#nv',el).textContent=n;const on=n>=6?[0,1]:n>=2?[2,3]:[4,5];
     $('#ifc',el).innerHTML=lines.map((l,i)=>on.includes(i)?'<span class="hl">'+hl(l)+'</span>':hl(l)).join('\n');
     $('#tern',el).textContent='fatias > 0 ? "Ainda tem bolo" : "Acabou o bolo"  →  '+(n>0?'"Ainda tem bolo"':'"Acabou o bolo"');};
@@ -799,11 +723,11 @@ LV.push({id:3,block:1,title:'Operadores e condicionais',desc:'&&, ||, !, if/else
 
 /* ---- Nível 4: laços ---- */
 LV.push({id:4,block:1,title:'Laços',desc:'for, while, for...of, break e continue',t90:7,t60:5,steps:[
- L({title:'O laço for, passo a passo',who:'chico',mood:'happy',say:'Para chegar ao portão, Chico precisa subir uma escada. Um laço repete um bloco de código, e o <code>for</code> tem três partes: início, condição e passo.',
+ L({title:'O laço for, passo a passo',who:'chico',mood:'happy',say:'Imagine subir uma escada de cinco degraus. Um laço repete um bloco de código, e o <code>for</code> tem três partes: início, condição e passo.',
   html:code('for (let degrau = 1; degrau <= 5; degrau++) {\n  console.log("Subi o degrau", degrau);\n}')+'<div class="lab"><h4>Suba a escada devagar</h4><div class="row"><label>Escada de <select id="lim"><option>3</option><option selected>5</option><option>7</option></select> degraus</label><button class="btn small" id="nx">Próximo passo</button><button class="btn ghost small" id="rs">Reiniciar</button></div><div class="row" style="margin-top:10px"><div class="out" style="flex:1" id="lst">Clique em "Próximo passo".</div><div class="out" style="flex:1;white-space:pre-wrap" id="lout">saída:</div></div></div>',
   mount(el){let step=0,outs=[];const lim=()=>+$('#lim',el).value;
    const reset=()=>{step=0;outs=[];$('#lst',el).textContent='Clique em "Próximo passo".';$('#lout',el).textContent='saída:';$('#nx',el).disabled=false;};
-   $('#nx',el).onclick=()=>{const n=lim(),d=step+1;if(d<=n){outs.push('Subi o degrau '+d);$('#lst',el).textContent='degrau = '+d+'. Teste: '+d+' <= '+n+' é true, então roda o bloco.';$('#lout',el).textContent='saída:\n'+outs.join('\n');step++;}else{$('#lst',el).textContent='degrau = '+(n+1)+'. Teste: '+(n+1)+' <= '+n+' é false, o laço termina. Chegou ao portão!';$('#nx',el).disabled=true;}};
+   $('#nx',el).onclick=()=>{const n=lim(),d=step+1;if(d<=n){outs.push('Subi o degrau '+d);$('#lst',el).textContent='degrau = '+d+'. Teste: '+d+' <= '+n+' é true, então roda o bloco.';$('#lout',el).textContent='saída:\n'+outs.join('\n');step++;}else{$('#lst',el).textContent='degrau = '+(n+1)+'. Teste: '+(n+1)+' <= '+n+' é false, o laço termina. Chegou ao topo!';$('#nx',el).disabled=true;}};
    $('#rs',el).onclick=reset;$('#lim',el).onchange=reset;}}),
 
  L({title:'while, for...of, break e continue',who:'chico',mood:'think',say:'Use <code>while</code> quando você não sabe quantas voltas serão. Use <code>for...of</code> para percorrer listas.',
@@ -833,7 +757,7 @@ LV.push({id:5,block:1,title:'Funções',desc:'Declaração, arrow function, reto
 /* ---- Nível 6: exercícios do bloco 1 ---- */
 LV.push({id:6,block:1,title:'Desafios do Bloco 1',desc:'Par ou ímpar, FizzBuzz, soma e número primo',t90:10,t60:5,steps:[
  L({phase:'pratica',title:'Hora de sujar as patas',who:'chico',mood:'cheer',say:'Cada desafio tem testes automáticos. Escreva a função, clique em <b>Rodar testes</b> e leia o que falhou.',
-  html:'<p>Dicas do Chico:</p><ul><li>Releia a mensagem de cada teste que falhou.</li><li>Use <b>Dica</b> se travar. O <b>gabarito</b> aparece depois da primeira tentativa.</li></ul>'}),
+  html:'<p>Dicas:</p><ul><li>Releia a mensagem de cada teste que falhou.</li><li>Use <b>Dica</b> se travar. O <b>gabarito</b> aparece depois da primeira tentativa.</li></ul>'}),
  C({title:'Desafio 1: par ou ímpar',fn:'parOuImpar',task:'Escreva <code>parOuImpar(n)</code>, que devolve <code>"par"</code> ou <code>"ímpar"</code>.',
   starter:'function parOuImpar(n) {\n  // seu código aqui\n}',hint:'O operador % devolve o resto da divisão. Todo número par tem resto 0 ao dividir por 2.',
   sol:'function parOuImpar(n) {\n  return n % 2 === 0 ? "par" : "ímpar";\n}',cases:[T([4],'par'),T([7],'ímpar'),T([0],'par'),T([-3],'ímpar')]}),
@@ -851,7 +775,7 @@ LV.push({id:6,block:1,title:'Desafios do Bloco 1',desc:'Par ou ímpar, FizzBuzz,
 /* ---- Nível 7: arrays ---- */
 const SRC7=[3,8,5,12,7,2];
 LV.push({id:7,block:2,title:'Arrays e métodos',desc:'map, filter, reduce e find',t90:10,t60:7,steps:[
- L({title:'Quatro métodos que você vai usar sempre',who:'diva',mood:'happy',say:'Oi, eu sou a <b>Diva Pitica</b>, namorada do Chico! Um array é uma lista, e estes métodos transformam listas sem precisar de for.',
+ L({title:'Quatro métodos que você vai usar sempre',who:'diva',mood:'happy',say:'Um array é uma lista, e estes métodos transformam listas sem precisar de for.',
   html:'<div class="grid2"><div class="mini"><b>map</b> transforma cada item'+code('[1, 2, 3].map(x => x * 2)\n// [2, 4, 6]')+'</div><div class="mini"><b>filter</b> mantém só alguns'+code('[1, 2, 3].filter(x => x > 1)\n// [2, 3]')+'</div><div class="mini"><b>reduce</b> junta tudo em um valor'+code('[1, 2, 3].reduce((a, x) => a + x, 0)\n// 6')+'</div><div class="mini"><b>find</b> acha o primeiro'+code('[1, 2, 3].find(x => x > 1)\n// 2')+'</div></div>'}),
  L({title:'Monte um pipeline',who:'diva',mood:'think',say:'Métodos podem ser encadeados. Escolha as etapas e veja o array mudar.',
   html:'<div class="lab"><h4>Array original: [3, 8, 5, 12, 7, 2]</h4><div class="row"><button class="chip" id="pf">filter(x => x % 2 === 0)</button><button class="chip" id="pm">map(x => x * 10)</button></div><div class="row" style="margin-top:8px"><span>Finalizar com:</span><select id="pe"><option value="">nada</option><option value="reduce">reduce (soma)</option><option value="find">find(x => x > 50)</option></select></div><pre class="code" id="pc"></pre><div class="out" id="po"></div></div>',
@@ -868,8 +792,8 @@ LV.push({id:7,block:2,title:'Arrays e métodos',desc:'map, filter, reduce e find
 /* ---- Nível 8: objetos ---- */
 LV.push({id:8,block:2,title:'Objetos',desc:'Acesso, desestruturação, spread e arrays de objetos',t90:6,t60:4,steps:[
  L({title:'Objetos guardam dados com nome',who:'diva',mood:'happy',say:'Um objeto agrupa informações relacionadas em pares chave: valor. Clique nas expressões para ver o que elas devolvem.',
-  html:code('const aluno = {\n  nome: "Chico",\n  idade: 20,\n  curso: "SI"\n};')+'<div class="lab"><h4>O que cada linha faz?</h4><div class="row" id="ob"></div><div class="out" id="obo">Escolha uma expressão.</div></div>',
-  mount(el){const A={nome:'Chico',idade:20,curso:'SI'};const ex=[['aluno.nome',()=>show(A.nome)],['aluno["idade"]',()=>show(A['idade'])],['const { nome, curso } = aluno',()=>{const{nome,curso}=A;return'nome = '+show(nome)+', curso = '+show(curso);}],['{ ...aluno, idade: 21 }',()=>JSON.stringify({...A,idade:21})]];
+  html:code('const aluno = {\n  nome: "Ana",\n  idade: 20,\n  curso: "SI"\n};')+'<div class="lab"><h4>O que cada linha faz?</h4><div class="row" id="ob"></div><div class="out" id="obo">Escolha uma expressão.</div></div>',
+  mount(el){const A={nome:'Ana',idade:20,curso:'SI'};const ex=[['aluno.nome',()=>show(A.nome)],['aluno["idade"]',()=>show(A['idade'])],['const { nome, curso } = aluno',()=>{const{nome,curso}=A;return'nome = '+show(nome)+', curso = '+show(curso);}],['{ ...aluno, idade: 21 }',()=>JSON.stringify({...A,idade:21})]];
    ex.forEach(x=>{const b=document.createElement('button');b.className='chip';b.textContent=x[0];b.onclick=()=>{$('#obo',el).textContent=x[0]+'  →  '+x[1]();};$('#ob',el).appendChild(b);});}}),
  L({title:'Array de objetos',who:'diva',mood:'think',say:'Na vida real, quase todo dado vem assim: uma lista de objetos. Combine filter e map!',
   html:code('const alunos = [\n  { nome: "Ana", idade: 17 },\n  { nome: "Bia", idade: 19 },\n  { nome: "Caio", idade: 22 },\n  { nome: "Duda", idade: 16 }\n];')+'<div class="lab"><h4>Idade mínima: <b id="am">18</b></h4><input type="range" id="age" min="15" max="23" value="18" aria-label="idade mínima"><pre class="code" id="ac"></pre><div class="out" id="ao"></div></div>',
@@ -900,11 +824,11 @@ LV.push({id:10,block:2,title:'Introdução ao TypeScript',desc:'Tipos, funções
     const o=$('#mo',el);if(ts){o.className='out err';o.textContent='Erro: Argument of type \'string\' is not assignable to parameter of type \'number\'.';}else{o.className='out';o.textContent='→ "510"  (nenhum aviso: o bug só aparece para o usuário)';}};
    $('#mj',el).onclick=()=>draw(false);$('#mt',el).onclick=()=>draw(true);draw(false);}}),
  L({title:'Tipos, funções tipadas e interface',who:'diva',mood:'think',say:'Você anota o tipo depois dos dois pontos. Para objetos, descreva o formato com uma <code>interface</code>.',
-  html:'<div class="grid2"><div class="mini"><b>Variáveis</b>'+code('let nome: string = "Diva";\nlet idade: number = 21;\nlet ativo: boolean = true;')+'</div><div class="mini"><b>Funções</b>'+code('function dobrar(x: number): number {\n  return x * 2;\n}')+'</div></div>'+code('interface Pessoa {\n  nome: string;\n  idade: number;\n  email?: string; // opcional\n}\n\nconst p: Pessoa = { nome: "Chico", idade: 20 };')+'<p>Para testar sem instalar nada, use o <b>TS Playground</b> (typescriptlang.org/play).</p>'}),
+  html:'<div class="grid2"><div class="mini"><b>Variáveis</b>'+code('let nome: string = "Ana";\nlet idade: number = 21;\nlet ativo: boolean = true;')+'</div><div class="mini"><b>Funções</b>'+code('function dobrar(x: number): number {\n  return x * 2;\n}')+'</div></div>'+code('interface Pessoa {\n  nome: string;\n  idade: number;\n  email?: string; // opcional\n}\n\nconst p: Pessoa = { nome: "Ana", idade: 20 };')+'<p>Para testar sem instalar nada, use o <b>TS Playground</b> (typescriptlang.org/play).</p>'}),
  Q('Este código tem problema de tipos?',YN,0,'"18" é uma string e a variável foi declarada como number.','let idade: number = "18";'),
- Q('E este?',YN,1,'O objeto tem exatamente os campos que a interface Pessoa exige.','interface Pessoa { nome: string; idade: number; }\nconst p: Pessoa = { nome: "Chico", idade: 20 };'),
+ Q('E este?',YN,1,'O objeto tem exatamente os campos que a interface Pessoa exige.','interface Pessoa { nome: string; idade: number; }\nconst p: Pessoa = { nome: "Ana", idade: 20 };'),
  Q('E esta chamada?',YN,0,'A função espera um number e recebeu uma string.','function dobrar(x: number): number {\n  return x * 2;\n}\ndobrar("4");'),
- Q('E este objeto?',YN,0,'Falta o campo idade, que é obrigatório na interface.','interface Pessoa { nome: string; idade: number; }\nconst p: Pessoa = { nome: "Diva" };')
+ Q('E este objeto?',YN,0,'Falta o campo idade, que é obrigatório na interface.','interface Pessoa { nome: string; idade: number; }\nconst p: Pessoa = { nome: "Ana" };')
 ]});
 
 /* ---- Nível 11: exercícios do bloco 2 ---- */
@@ -941,45 +865,6 @@ LV.push({id:12,block:2,title:'Fechamento',desc:'Recap, como estudar e dúvidas s
   html:'<p>Esta é a hora de tirar dúvidas sobre as próximas etapas e sobre como é a vida no CITi. Volte quando quiser: seu progresso fica salvo neste navegador.</p>'})
 ]});
 
-/* ============ a historinha: uma cena curta abre cada nível ============ */
-const STORY={
- 1:{bg:'dawn',who:'chico',mood:'think',sign:'Festival do CITi',title:'O bilhete debaixo da porta',
-  text:'Chico Pitico acordou com um bilhete cor-de-rosa debaixo da porta. Era da Diva Pitica: "Estou no Festival do CITi! Para chegar até mim, resolva os enigmas do caminho." Antes de sair, Chico decidiu levar um presente: um bolo de chocolate. Mas bolo não sai de qualquer jeito. Precisa de uma receita, um passo a passo. Ou seja, um algoritmo.',
-  talk:['Chico','Ingredientes entram, eu sigo os passos na ordem, e o bolo sai!']},
- 2:{bg:'day',who:'chico',mood:'think',sign:'let / const',title:'Os baús da estrada',
-  text:'No meio da estrada, dois baús com etiquetas. O baú let deixa trocar o que está dentro, como as fatias de bolo que Chico ia comendo pelo caminho. O baú const vem lacrado: nele, Chico guardou o presente, "bolo de chocolate". E cada coisa tinha um tipo: texto, número ou verdadeiro/falso.',
-  talk:['Chico','Cada baú guarda um tipo de coisa. Melhor conferir antes de comparar!']},
- 3:{bg:'day',who:'chico',mood:'think',sign:'Chuva? Ponte. Sol? Campo.',title:'A bifurcação',
-  text:'A estrada se dividiu em duas. A placa dizia: SE estiver chovendo, vá pela ponte; SENÃO, pelo campo. Mais adiante, o portão do festival só abria SE Chico tivesse o ingresso E o crachá. Enquanto isso, ele ia contando as fatias de bolo que sobravam.',
-  talk:['Chico','O programa escolhe um caminho dependendo da condição.']},
- 4:{bg:'dusk',who:'chico',mood:'happy',sign:'Portão: 5 degraus',title:'A escada que se repete',
-  text:'Para chegar ao portão, Chico tinha que subir cinco degraus, um depois do outro. Quanto mais ele subia, mais alta ficava a música da festa.',
-  talk:['Chico','Subir um degrau, conferir se já chegou, subir outro. Isso é um laço!']},
- 5:{bg:'dusk',who:'chico',mood:'think',sign:'Porteiro-Máquina',title:'O porteiro-máquina',
-  text:'Na entrada, um porteiro-máquina. Chico entrega um número, a máquina processa e devolve outro. Ela só enxerga o que está dentro da própria cabine, e o que fica do lado de fora nunca viu.',
-  talk:['Chico','Entrada, processamento e saída de novo, só que agora com nome: função!']},
- 6:{bg:'night',who:'chico',mood:'cheer',sign:'4 guardas, 4 desafios',title:'O portão do festival',
-  text:'Quatro guardas protegiam o portão, cada um com um desafio. Chico respirou fundo, segurou o bolo com cuidado e pensou: era hora de escrever código de verdade.',
-  talk:['Chico','Se eu passar por eles, a Diva está logo ali!']},
- 7:{bg:'night',who:'both',mood:'cheer',sign:'Festival do CITi',title:'O encontro!',
-  text:'O portão se abriu e lá estava ela: Diva Pitica, de vestidinho rosa, rindo do jeito cansado do Chico. "Você trouxe o bolo!" Agora a festa pedia um tipo novo de enigma: listas e dados.',
-  talk:['Diva','Vem, eu te mostro como organizar a festa com arrays.']},
- 8:{bg:'night',who:'diva',mood:'happy',sign:'Lista de convidados',title:'A lista de convidados',
-  text:'Diva abriu um caderno cheio de convidados. Cada um tinha nome, idade e mesa, ou seja, um objeto. E o caderno inteiro era uma lista de objetos.',
-  talk:['Diva','Quer saber quem pode entrar na pista? É só filtrar a lista!']},
- 9:{bg:'night',who:'both',mood:'happy',sign:'Lanchonete Pitica',title:'O lanche que demora',
-  text:'Chico pediu um lanche na barraquinha e ficou olhando para o balcão. Diva puxou ele pela mão: "Não fica parado esperando. Vem dançar que o lanche chega!" Foi assim que Chico entendeu o assincronismo.',
-  talk:['Diva','O JavaScript também não fica parado. Ele faz outras coisas enquanto espera.']},
- 10:{bg:'night',who:'diva',mood:'think',sign:'Segurança: TypeScript',title:'O segurança do TypeScript',
-  text:'Na pista, um segurança conferia tudo: "Convidado precisa de nome (texto) e idade (número). Sem isso, não entra." Era o TypeScript, que avisa o erro antes de a festa começar.',
-  talk:['Diva','Melhor o segurança barrar agora do que a confusão estourar na pista!']},
- 11:{bg:'night',who:'both',mood:'cheer',sign:'Palco aberto',title:'O palco',
-  text:'Para abrir o palco, os dois precisavam resolver os últimos desafios. Juntos, claro.',
-  talk:['Chico','Dessa vez eu não estou sozinho!']},
- 12:{bg:'night',who:'both',mood:'cheer',sign:'Até a próxima!',title:'A festa',
-  text:'Chico e Diva dividiram o bolo e dançaram a noite toda. No caminho, o Chico aprendeu a pensar como programador. E amanhã tem mais enigma.',
-  talk:['Diva','Foi só o começo. Agora é com você!']}
-};
 
 const PH={historia:'História',teoria:'Teoria',pratica:'Prática',fim:'Fechamento'};
 const PHDESC={historia:'Entenda o cenário',teoria:'Aprenda o conceito',pratica:'Agora é com você',fim:'Hora de fechar'};
@@ -1009,17 +894,17 @@ const RESUMO={
 
 /* caixinhas de código nas aulas (JavaScript executável) */
 const LAB={
- 'let e const: caixas com nome':'let fatias = 8;\nconst presente = "bolo de chocolate";\nfatias = 7; // Chico provou uma fatia\nconsole.log(presente, "com", fatias, "fatias");\n// tente trocar o valor de presente e veja o erro',
+ 'let e const: caixas com nome':'let fatias = 8;\nconst presente = "bolo de chocolate";\nfatias = 7; // uma fatia foi comida\nconsole.log(presente, "com", fatias, "fatias");\n// tente trocar o valor de presente e veja o erro',
  'Tipos primitivos':'console.log(typeof "bolo", typeof 8, typeof true, typeof undefined, typeof null);',
  '== contra ===':'console.log(5 == "5");\nconsole.log(5 === "5");',
  'E, OU e NÃO':'const temIngresso = true;\nconst temCracha = false;\nconsole.log(temIngresso && temCracha, temIngresso || temCracha, !temIngresso);',
- 'if, else e ternário':'const fatias = 5;\nif (fatias >= 6) {\n  console.log("Dá para dividir com todo mundo");\n} else if (fatias >= 2) {\n  console.log("Só para mim e para a Diva");\n} else {\n  console.log("Quase acabou o bolo!");\n}',
+ 'if, else e ternário':'const fatias = 5;\nif (fatias >= 6) {\n  console.log("Dá para dividir com todo mundo");\n} else if (fatias >= 2) {\n  console.log("Só para duas pessoas");\n} else {\n  console.log("Quase acabou o bolo!");\n}',
  'O laço for, passo a passo':'for (let degrau = 1; degrau <= 5; degrau++) {\n  console.log("Subi o degrau", degrau);\n}',
  'while, for...of, break e continue':'const convidados = ["Ana", "Bia", "Caio"];\nfor (const amigo of convidados) {\n  console.log("Oi,", amigo);\n}',
  'Funções são máquinas':'function dobrar(x) {\n  return x * 2;\n}\nconsole.log(dobrar(21));',
  'Escopo':'function calcular() {\n  const resultado = 10;\n  return resultado;\n}\nconsole.log(calcular());\n// descomente para ver o erro:\n// console.log(resultado);',
  'Quatro métodos que você vai usar sempre':'const nums = [1, 2, 3, 4];\nconsole.log(nums.map(x => x * 2));\nconsole.log(nums.filter(x => x > 2));\nconsole.log(nums.reduce((a, x) => a + x, 0));\nconsole.log(nums.find(x => x > 2));',
- 'Objetos guardam dados com nome':'const aluno = { nome: "Chico", idade: 20 };\nconst { nome } = aluno;\nconsole.log(nome, aluno.idade);\nconsole.log({ ...aluno, idade: 21 });',
+ 'Objetos guardam dados com nome':'const aluno = { nome: "Ana", idade: 20 };\nconst { nome } = aluno;\nconsole.log(nome, aluno.idade);\nconsole.log({ ...aluno, idade: 21 });',
  'Array de objetos':'const alunos = [\n  { nome: "Ana", idade: 17 },\n  { nome: "Bia", idade: 19 }\n];\nconsole.log(alunos.filter(a => a.idade >= 18).map(a => a.nome));',
  'Esperar sem travar':'const esperar = (ms) => new Promise(r => setTimeout(r, ms));\nconsole.log("1. pedido feito");\nawait esperar(1000); // aqui o await funciona direto\nconsole.log("2. lanche pronto");'
 };
@@ -1030,10 +915,10 @@ const addSteps=(id,arr)=>LV.find(l=>l.id===id).steps.push(...arr);
 const refTab=n=>Array.from({length:10},(_,i)=>n*(i+1));
 
 addSteps(1,[
- B({title:'Quebra-cabeça: o caminho até o portão',say:'Agora é a sua vez de montar um algoritmo, com blocos! Leve o Chico, com o bolo, até o portão do festival.',
-  task:'O Chico começa olhando para a direita. Arraste os blocos para montar a sequência e clique em <b>Executar</b>.',
+ B({title:'Quebra-cabeça: o caminho até o destino',say:'Agora é a sua vez de montar um algoritmo, com blocos! Leve o personagem até o destino.',
+  task:'O personagem começa olhando para a direita. Arraste os blocos para montar a sequência e clique em <b>Executar</b>.',
   grid:['S..#','##.#','...G'],blocks:['move','left','right'],max:10,
-  hint:'Anote em voz alta: andar, andar, virar à direita (o Chico passa a olhar para baixo), andar, andar, virar à esquerda, andar.',
+  hint:'Anote em voz alta: andar, andar, virar à direita (o personagem passa a olhar para baixo), andar, andar, virar à esquerda, andar.',
   why:'Isso é um algoritmo: passos simples, um depois do outro. Trocar a ordem muda o resultado, igual na receita do bolo.'}),
  B({title:'Quebra-cabeça: repetir para economizar',say:'O caminho agora é comprido. Repare no limite de blocos: dá para fazer sem repetir?',
   task:'Use o bloco <b>repetir</b>: encaixe outros blocos dentro da "boca" dele.',
@@ -1045,8 +930,8 @@ addSteps(2,[C({title:'Desafio: iguais de verdade',fn:'saoIguais',task:'Escreva <
   starter:'function saoIguais(a, b) {\n  // seu código aqui\n}',hint:'Qual operador compara valor e tipo? São três sinais de igual.',
   sol:'function saoIguais(a, b) {\n  return a === b;\n}',cases:[T([5,5],true),T([5,'5'],false),T(['bolo','bolo'],true),T([true,1],false),T([null,null],true)]})]);
 addSteps(3,[
- B({title:'Quebra-cabeça: o Chico decide sozinho',who:'chico',mood:'think',say:'Agora com o bloco <b>se</b>. A cada passo o Chico olha à frente e decide, sem você dizer quantos passos dar.',
-  task:'Faça o Chico contornar o muro do festival até o portão. Use <b>repetir</b> com um <b>se caminho livre</b> dentro: se estiver livre, anda; senão, vira à direita.',
+ B({title:'Quebra-cabeça: decidindo sozinho',who:'chico',mood:'think',say:'Agora com o bloco <b>se</b>. A cada passo o personagem olha à frente e decide, sem você dizer quantos passos dar.',
+  task:'Faça o personagem contornar o muro até o destino. Use <b>repetir</b> com um <b>se caminho livre</b> dentro: se estiver livre, anda; senão, vira à direita.',
   grid:['S...','.##.','.##.','G...'],blocks:['move','right','repeat','if'],max:5,
   hint:'Repetir 12 vezes: dentro dele, o bloco "se caminho livre". Em "então" coloque andar; em "senão" coloque virar à direita. Arraste "andar" para dentro do "então" e "virar à direita" para dentro do "senão".',
   why:'O bloco "se" é o if/else do JavaScript: o programa escolhe um caminho de acordo com a situação.'}),
@@ -1055,8 +940,8 @@ addSteps(3,[
   sol:'function classificar(nota) {\n  if (nota >= 7) return "Aprovado";\n  if (nota >= 5) return "Recuperação";\n  return "Reprovado";\n}',cases:[T([9],'Aprovado'),T([7],'Aprovado'),T([6],'Recuperação'),T([5],'Recuperação'),T([4.9],'Reprovado'),T([0],'Reprovado')]})
 ]);
 addSteps(4,[
- B({title:'Quebra-cabeça: a escadinha do festival',say:'Um padrão que se repete pede um laço. Descubra o padrão desta escadinha!',
-  task:'Leve o Chico pela escadinha de bandeirinhas até o portão usando no máximo 5 blocos.',
+ B({title:'Quebra-cabeça: a escadinha',say:'Um padrão que se repete pede um laço. Descubra o padrão desta escadinha!',
+  task:'Leve o personagem pela escadinha até o destino usando no máximo 5 blocos.',
   grid:['S.###','#..##','##..#','###..','####G'],blocks:['move','left','right','repeat'],max:5,
   hint:'O padrão é: andar, virar à direita, andar, virar à esquerda. Coloque esses 4 blocos dentro de um repetir.',
   why:'Um padrão que se repete vira um laço: em vez de 15 blocos, bastaram 5. É para isso que serve o for.'}),
@@ -1064,15 +949,15 @@ addSteps(4,[
   starter:'function tabuada(n) {\n  const resultado = [];\n  // seu código aqui\n  return resultado;\n}',hint:'Use um for de 1 até 10 e faça resultado.push(n * i).',
   sol:'function tabuada(n) {\n  const resultado = [];\n  for (let i = 1; i <= 10; i++) {\n    resultado.push(n * i);\n  }\n  return resultado;\n}',cases:[T([3],refTab(3)),T([1],refTab(1)),T([0],refTab(0)),T([12],refTab(12))]})
 ]);
-addSteps(5,[C({title:'Desafio: média das notas do festival',fn:'media',task:'Escreva a função <code>media(a, b)</code>, que devolve a média dos dois números. Pode ser função normal ou arrow function.',
+addSteps(5,[C({title:'Desafio: média de duas notas',fn:'media',task:'Escreva a função <code>media(a, b)</code>, que devolve a média dos dois números. Pode ser função normal ou arrow function.',
   starter:'const media = (a, b) => {\n  // seu código aqui\n};',hint:'Some os dois e divida por 2. Lembre do return, ou use a arrow function de uma linha.',
   sol:'const media = (a, b) => (a + b) / 2;',cases:[T([4,6],5),T([10,0],5),T([7,8],7.5),T([0,0],0)]})]);
 addSteps(7,[C({title:'Desafio: soma de tudo',fn:'somaTudo',task:'Escreva <code>somaTudo(arr)</code>, que devolve a soma de todos os números do array. Use <code>reduce</code>!',
   starter:'function somaTudo(arr) {\n  // seu código aqui\n}',hint:'arr.reduce((acc, n) => acc + n, 0): o 0 é o valor inicial.',
   sol:'function somaTudo(arr) {\n  return arr.reduce((acc, n) => acc + n, 0);\n}',cases:[T([[1,2,3,4]],10),T([[]],0),T([[5]],5),T([[-1,1]],0)]})]);
-addSteps(8,[C({title:'Desafio: apresente o convidado',fn:'resumo',task:'Escreva <code>resumo(pessoa)</code>, que recebe <code>{ nome, idade }</code> e devolve um texto como <code>"Chico tem 20 anos"</code>. Tente usar desestruturação no parâmetro.',
+addSteps(8,[C({title:'Desafio: apresente o convidado',fn:'resumo',task:'Escreva <code>resumo(pessoa)</code>, que recebe <code>{ nome, idade }</code> e devolve um texto como <code>"Ana tem 20 anos"</code>. Tente usar desestruturação no parâmetro.',
   starter:'function resumo({ nome, idade }) {\n  // seu código aqui\n}',hint:'Monte o texto juntando partes: nome + " tem " + idade + " anos".',
-  sol:'function resumo({ nome, idade }) {\n  return nome + " tem " + idade + " anos";\n}',cases:[T([{nome:'Chico',idade:20}],'Chico tem 20 anos'),T([{nome:'Diva',idade:21}],'Diva tem 21 anos')]})]);
+  sol:'function resumo({ nome, idade }) {\n  return nome + " tem " + idade + " anos";\n}',cases:[T([{nome:'Ana',idade:20}],'Ana tem 20 anos'),T([{nome:'Bia',idade:21}],'Bia tem 21 anos')]})]);
 addSteps(9,[C({title:'Desafio: dobre depois de esperar',fn:'dobrarDepois',task:'Escreva a função <b>async</b> <code>dobrarDepois(n)</code>, que espera um instante (use o <code>esperar</code> que já está pronto) e depois devolve n × 2.',
   starter:'const esperar = (ms) => new Promise((r) => setTimeout(r, ms));\n\nasync function dobrarDepois(n) {\n  // espere 10 ms e devolva n * 2\n}',hint:'Dentro da função async, escreva await esperar(10); e depois o return.',
   sol:'const esperar = (ms) => new Promise((r) => setTimeout(r, ms));\n\nasync function dobrarDepois(n) {\n  await esperar(10);\n  return n * 2;\n}',cases:[T([4],8),T([0],0),T([-5],-10)]})]);
@@ -1097,7 +982,7 @@ addSteps(5,[C(BN({title:'Bônus: fatorial',fn:'fatorial',task:'Escreva <code>fat
   sol:'function fatorial(n) {\n  let resultado = 1;\n  for (let i = 2; i <= n; i++) {\n    resultado *= i;\n  }\n  return resultado;\n}',cases:[T([0],1),T([1],1),T([5],120),T([10],3628800)]}))]);
 addSteps(6,[C(BN({title:'Bônus: inverter o texto',fn:'inverterTexto',task:'Escreva <code>inverterTexto(texto)</code>, que devolve o texto de trás para frente.',
   starter:'function inverterTexto(texto) {\n  // seu código aqui\n}',hint:'Strings não têm reverse, mas arrays têm: split("") → reverse() → join("").',
-  sol:'function inverterTexto(texto) {\n  return texto.split("").reverse().join("");\n}',cases:[T(['oi'],'io'),T(['Chico'],'ocihC'),T([''],'')]}))]);
+  sol:'function inverterTexto(texto) {\n  return texto.split("").reverse().join("");\n}',cases:[T(['oi'],'io'),T(['Ana'],'anA'),T([''],'')]}))]);
 addSteps(7,[C(BN({title:'Bônus: o maior número',fn:'maiorNumero',task:'Escreva <code>maiorNumero(arr)</code>, que devolve o maior número do array usando <code>reduce</code> (sem Math.max).',
   starter:'function maiorNumero(arr) {\n  // seu código aqui\n}',hint:'arr.reduce((maior, n) => ..., arr[0]): em cada volta, devolva o maior entre maior e n.',
   sol:'function maiorNumero(arr) {\n  return arr.reduce((maior, n) => (n > maior ? n : maior), arr[0]);\n}',cases:[T([[3,9,2]],9),T([[-5,-2,-9]],-2),T([[7]],7)]}))]);
@@ -1113,38 +998,7 @@ addSteps(11,[C(BN({title:'Bônus: sem duplicados',fn:'semDuplicados',task:'Escre
   sol:'function semDuplicados(arr) {\n  return [...new Set(arr)];\n}',cases:[T([[1,2,2,3,1]],[1,2,3]),T([[]],[]),T([['a','a']],['a'])]}))]);
 /* nos níveis do roteiro (6 e 11) os exercícios são do PDF; nos demais, os desafios de código são extras do modo aspirante */
 
-/* contexto da historinha em cada desafio (modo Aspirante) */
-const CTX={
- 'Desafio: iguais de verdade':'Os baús da estrada só abrem se a chave for exatamente igual à etiqueta: mesmo valor e mesmo tipo.',
- 'Bônus: o tipo certo':'Diva quer etiquetar cada baú com o tipo do que tem dentro. Ajude com uma função que descobre o tipo.',
- 'Desafio: classifique a nota':'No portão, um letreiro mostra a nota que o festival recebeu. Escreva a regra que classifica cada nota.',
- 'Bônus: ano bissexto':'O festival quer saber se o ano tem 29 de fevereiro. Ajude o calendário da festa.',
- 'Desafio: a tabuada':'Cada degrau da escada do festival mostra a tabuada de um número. Escreva o laço que a gera.',
- 'Bônus: contar vogais':'A placa do portão é um texto. Diva quer contar quantas vogais ela tem.',
- 'Desafio: média das notas do festival':'O porteiro-máquina recebe as notas de cada barraca e devolve a média. Escreva essa máquina.',
- 'Bônus: fatorial':'De quantas formas dá para organizar as mesas da festa? O porteiro-máquina quer calcular o fatorial.',
- 'Desafio 1: par ou ímpar':'Primeiro guarda: só deixa passar quem disser se o número do ingresso é par ou ímpar.',
- 'Desafio 2: FizzBuzz':'Segundo guarda: conta de 1 até N, trocando os múltiplos de 3 por Fizz e os de 5 por Buzz.',
- 'Desafio 3: soma de 1 até N':'Terceiro guarda: quer a soma de todos os ingressos, de 1 até N.',
- 'Desafio 4: número primo':'Último guarda: a senha do portão é um número primo. Só passa quem souber conferir.',
- 'Bônus: inverter o texto':'Diva escreveu o bilhete de trás para frente, de brincadeira. Desfaça o truque.',
- 'Desafio: soma de tudo':'A barraquinha anotou o valor de cada lanche. Some tudo para fechar a conta da noite.',
- 'Bônus: o maior número':'Qual foi o maior pedido da noite? Descubra com reduce.',
- 'Desafio: apresente o convidado':'No caderno da Diva, cada convidado é um objeto. Escreva a frase de boas-vindas de cada um.',
- 'Bônus: o mais velho':'O convidado mais velho ganha a primeira fatia do bolo. Descubra quem é.',
- 'Desafio: dobre depois de esperar':'O lanche demora: a barraquinha dobra a porção depois de um tempinho de espera.',
- 'Desafio: tipando a função somar':'O segurança do TypeScript só deixa passar funções com tipos claros. Tipe a função.',
- 'Bônus: interface com campo opcional':'A barraquinha vende bolo. Descreva o produto com uma interface, com desconto opcional.',
- 'Desafio 1: filter + map':'Para abrir o palco, os dois precisam separar os números pares e dobrar cada um.',
- 'Desafio 2: array de objetos':'No caderno de convidados, só quem tem 18 anos ou mais pode entrar na pista. Liste os nomes.',
- 'Desafio 3: frequência de palavras':'Quais palavras mais aparecem nos cartazes da festa? Conte cada uma.',
- 'Desafio 4: de JS para TS':'O segurança do TypeScript pediu o código da apresentação já com tipos e interface.',
- 'Bônus: sem duplicados':'Um convidado assinou o caderno duas vezes. Deixe cada nome uma vez só.'
-};
-LV.forEach(l=>l.steps.forEach(x=>{if(CTX[x.title])x.ctx=CTX[x.title];}));
-
-LV.forEach(l=>{const s=STORY[l.id];if(s)l.steps.unshift(Object.assign({kind:'story'},s));
-  l.steps.sort((a,b)=>PR[phaseOf(a)]-PR[phaseOf(b)]||KR[a.kind]-KR[b.kind]);});
+LV.forEach(l=>{l.steps.sort((a,b)=>PR[phaseOf(a)]-PR[phaseOf(b)]||KR[a.kind]-KR[b.kind]);});
 
 /* ============ estado e navegação ============ */
 let cur=null,tick=null,view='map';
@@ -1155,33 +1009,19 @@ const fmt=s=>{const a=Math.abs(s);return(s<0?'+':'')+String(Math.floor(a/60)).pa
 /* ============ conquistas, epílogos e notas do apresentador ============ */
 const cnt=re=>Object.keys(S.got).filter(k=>re.test(k)).length;
 const BADGES=[
- {id:'first',name:'Primeira patinha',desc:'Conclua o primeiro nível',ok:()=>!!S.done[1]},
- {id:'cake',name:'Confeiteiro lógico',desc:'Conclua o nível 1 sem perder vidas',ok:()=>S.done[1]===3},
+ {id:'first',name:'Primeiro passo',desc:'Conclua o primeiro nível',ok:()=>!!S.done[1]},
+ {id:'cake',name:'Nota máxima',desc:'Conclua o nível 1 sem perder vidas',ok:()=>S.done[1]===3},
  {id:'blocks',name:'Mestre dos blocos',desc:'Resolva os 4 quebra-cabeças',ok:()=>cnt(/^b\d+-/)>=4},
  {id:'coder',name:'Codador',desc:'Passe em 5 desafios de código',ok:()=>cnt(/^c\d+-/)>=5},
  {id:'bonus',name:'Caçador de bônus',desc:'Resolva 3 desafios bônus',ok:()=>cnt(/^k\d+-/)>=3},
- {id:'b1',name:'Portão aberto',desc:'Conclua o Bloco 1',ok:()=>[1,2,3,4,5,6].every(i=>S.done[i])},
- {id:'b2',name:'Dança com a Diva',desc:'Conclua o Bloco 2',ok:()=>[7,8,9,10,11,12].every(i=>S.done[i])},
- {id:'stars',name:'Estrelinha',desc:'Tire 3 estrelas em 5 níveis',ok:()=>Object.values(S.done).filter(v=>v===3).length>=5}
+ {id:'b1',name:'Bloco 1 completo',desc:'Conclua o Bloco 1',ok:()=>[1,2,3,4,5,6].every(i=>S.done[i])},
+ {id:'b2',name:'Bloco 2 completo',desc:'Conclua o Bloco 2',ok:()=>[7,8,9,10,11,12].every(i=>S.done[i])},
+ {id:'stars',name:'Estrela de ouro',desc:'Tire 3 estrelas em 5 níveis',ok:()=>Object.values(S.done).filter(v=>v===3).length>=5}
 ];
 function checkBadges(){
   if(TR())return;S.badges=S.badges||{};
   BADGES.forEach(b=>{if(!S.badges[b.id]&&b.ok()){S.badges[b.id]=1;save();setTimeout(()=>toast('Conquista: '+b.name),700);}});
 }
-const EPI={
- 1:'Chico embrulhou o bolo com carinho e tomou a estrada. Cada passo estava na ordem certa, e o cheirinho de chocolate ia junto.',
- 2:'Os baús ficaram para trás. Chico guardou o presente no const e seguiu confiante: agora sabia com que tipo de valor estava lidando.',
- 3:'A ponte estava firme e o portão já aparecia no horizonte. Chico decidiu cada caminho com um bom SE.',
- 4:'Cinco degraus depois, Chico ouvia a música bem de perto. Faltava pouco!',
- 5:'O porteiro-máquina devolveu um carimbo: Chico estava quase dentro do festival. Ainda havia quatro guardas.',
- 6:'Os guardas abriram caminho. E lá estava ela, de vestidinho rosa, acenando no meio da pista.',
- 7:'Diva e Chico organizaram a playlist da festa. Uma lista bem cuidada deixa tudo mais fácil.',
- 8:'Com a lista de convidados em ordem, ninguém ficou de fora. Nem o primo que veio sem avisar.',
- 9:'O lanche chegou sem ninguém ficar parado. Dançar enquanto espera é o jeito assíncrono de viver.',
- 10:'O segurança liberou a entrada: tudo certinho, com nome e idade. Nenhuma confusão na pista hoje.',
- 11:'O palco abriu. Os dois dividiram o bolo, os aplausos e os últimos desafios.',
- 12:'A festa terminou com música baixinha, bolo na mão e a certeza de que amanhã tem mais.'
-};
 const NOTES={
  1:['Abertura: apresente-se, o objetivo da aula e como vai funcionar (dois blocos, troca de apresentador).','Dinâmica da receita do bolo: peça à turma para ditar os passos antes de revelar a ordem.','Fixe: entrada, processamento e saída.','Se atrasar: pule o segundo quebra-cabeça (repetir).'],
  2:['Reforce: const por padrão, let só quando muda.','Mostre a pegadinha do typeof null.','Use sempre ===. O == entra só para explicar a diferença.'],
@@ -1239,7 +1079,7 @@ const SL={
  'E, OU e NÃO':[
   S_('Três operadores lógicos','<div class="sv-gates">'+rv('<div class="sv-gate"><h3>&amp;&amp; <small>E</small></h3><p>os dois precisam ser verdadeiros</p>'+V.tt('and',[['true && true',true],['true && false',false],['false && true',false],['false && false',false]])+'</div>')+rv('<div class="sv-gate"><h3>|| <small>OU</small></h3><p>basta um ser verdadeiro</p>'+V.tt('or',[['true || true',true],['true || false',true],['false || true',true],['false || false',false]])+'</div>')+rv('<div class="sv-gate"><h3>! <small>NÃO</small></h3><p>inverte o valor</p>'+V.tt('not',[['!true',false],['!false',true]])+'</div>')+'</div>',{kicker:'Operadores'})],
  'if, else e ternário':[
-  S_('if escolhe um caminho','<div class="sv-decide">'+rv('<div class="dq">fatias &gt;= 6 ?</div>')+'<div class="dbr">'+rv('<div class="dyes"><span>sim</span><div class="sv-box g"><b>Dá para todos</b></div></div>')+rv('<div class="dno"><span>não</span><div class="sv-box p"><b>Só eu e a Diva</b></div></div>')+'</div></div>'+rv(code('const msg = fatias >= 6 ? "Dá para todos" : "Só eu e a Diva";')),{kicker:'Condicionais'})],
+  S_('if escolhe um caminho','<div class="sv-decide">'+rv('<div class="dq">fatias &gt;= 6 ?</div>')+'<div class="dbr">'+rv('<div class="dyes"><span>sim</span><div class="sv-box g"><b>Dá para todos</b></div></div>')+rv('<div class="dno"><span>não</span><div class="sv-box p"><b>Só para duas pessoas</b></div></div>')+'</div></div>'+rv(code('const msg = fatias >= 6 ? "Dá para todos" : "Só para duas pessoas";')),{kicker:'Condicionais'})],
  'O laço for, passo a passo':[
   S_('for tem três partes','<pre class="sv-anat"><span class="a1">let degrau = 1</span><span class="s">; </span><span class="a2">degrau &lt;= 5</span><span class="s">; </span><span class="a3">degrau++</span></pre><div class="sv-legend">'+rv('<span class="l1">início: onde começa</span>')+rv('<span class="l2">condição: até quando</span>')+rv('<span class="l3">passo: o que muda a cada volta</span>')+'</div>'+rv('<div class="sv-stairs">'+[1,2,3,4,5].map(n=>'<i style="height:'+(n*22)+'px"><b>'+n+'</b></i>').join('')+'</div>'),{kicker:'Laço for'})],
  'while, for...of, break e continue':[
@@ -1263,7 +1103,7 @@ const SL={
  'Monte um pipeline':[
   S_('Pipeline: cada etapa usa o resultado da anterior',V.flow([{k:'array',t:'[3, 8, 5, 12, 7, 2]',c:'g'},{k:'filter',t:'pares',s:'[8, 12, 2]',c:'y'},{k:'map',t:'x * 10',s:'[80, 120, 20]',c:'p'},{k:'reduce',t:'soma',s:'220',c:'b'}]),{kicker:'Arrays',mood:'think'})],
  'Objetos guardam dados com nome':[
-  S_('Objeto: dados com nome','<div class="sv-row start">'+rv(V.card('aluno',[['nome','"Chico"'],['idade','20'],['curso','"SI"']]))+'<div class="sv-calls">'+rv('<div><code>aluno.nome</code><span>→ "Chico"</span></div>')+rv('<div><code>aluno["idade"]</code><span>→ 20</span></div>')+rv('<div><code>const { curso } = aluno</code><span>→ curso = "SI"</span></div>')+rv('<div><code>{ ...aluno, idade: 21 }</code><span>→ cópia com idade nova</span></div>')+'</div></div>',{kicker:'Objetos',mood:'happy'})],
+  S_('Objeto: dados com nome','<div class="sv-row start">'+rv(V.card('aluno',[['nome','"Ana"'],['idade','20'],['curso','"SI"']]))+'<div class="sv-calls">'+rv('<div><code>aluno.nome</code><span>→ "Ana"</span></div>')+rv('<div><code>aluno["idade"]</code><span>→ 20</span></div>')+rv('<div><code>const { curso } = aluno</code><span>→ curso = "SI"</span></div>')+rv('<div><code>{ ...aluno, idade: 21 }</code><span>→ cópia com idade nova</span></div>')+'</div></div>',{kicker:'Objetos',mood:'happy'})],
  'Array de objetos':[
   S_('Lista de objetos: o dado real','<div class="sv-people">'+[['Ana',17],['Bia',19],['Caio',22],['Duda',16]].map(p=>rv('<div class="sv-person '+(p[1]>=18?'ok':'')+'"><b>'+p[0]+'</b><span>'+p[1]+' anos</span></div>')).join('')+'</div>'+rv(code('alunos\n  .filter(a => a.idade >= 18)\n  .map(a => a.nome);\n// ["Bia", "Caio"]')),{kicker:'Objetos',mood:'think'})],
  'Esperar sem travar':[
@@ -1435,11 +1275,11 @@ function worldMap(first){
    +cloud(90,60,1)+cloud(560,110,.8)+cloud(300,10,.6)
    +'<path class="wpath0" d="'+d+'"/><path class="wpath" d="'+d+'"/><path class="wpath1" d="'+d+'"/>'
    +deco+house+fest+'</svg>';
-  const sign=(y,t,who,left)=>'<div class="wsign'+(left?' wleft':'')+'" style="top:'+(y/H*100).toFixed(2)+'%">'+pig(who,'happy','bob')+'<b>'+t+'</b></div>';
+  const sign=(y,t,left)=>'<div class="wsign'+(left?' wleft':'')+'" style="top:'+(y/H*100).toFixed(2)+'%"><b>'+t+'</b></div>';
   const nodes=pts.map(p=>{const l=p.l,dn=S.done[l.id],nx=first&&first.id===l.id;
     return '<button class="wn '+(dn?'done':nx?'next':'')+' '+(p.x<400?'l':'r')+'" style="left:'+(p.x/W*100).toFixed(2)+'%;top:'+(p.y/H*100).toFixed(2)+'%" data-id="'+l.id+'" aria-label="'+l.id+'. '+l.title+'">'
-     +(nx?'<span class="wpig">'+pig('chico','cheer','bob')+'</span>':'')+'<span class="wc">'+(dn?'✓':l.id)+'</span><span class="wl"><b>'+l.title+'</b>'+(dn?stars(dn):'')+'</span></button>';}).join('');
-  return '<div class="wmap">'+bg+sign(112,'Bloco 1 · Lógica e fundamentos','chico')+sign(840,'Bloco 2 · Dados e TypeScript','diva',true)+nodes+'<div class="wend">O festival!</div></div>';
+     +'<span class="wc">'+(dn?'✓':l.id)+'</span><span class="wl"><b>'+l.title+'</b>'+(dn?stars(dn):'')+'</span></button>';}).join('');
+  return '<div class="wmap">'+bg+sign(112,'Bloco 1 · Lógica e fundamentos')+sign(840,'Bloco 2 · Dados e TypeScript',true)+nodes+'<div class="wend">Você chegou!</div></div>';
 }
 function hhmm(m){m=((m%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');}
 function renderMap(){
@@ -1448,7 +1288,7 @@ function renderMap(){
   if(TR())return mapTrain();
   const first=LV.find(l=>!S.done[l.id]);
   const nb=Object.keys(S.badges||{}).length;
-  app.innerHTML='<div class="hero"><div class="pigs">'+pig('chico','happy','bob')+pig('diva','happy','bob')+'</div><div class="txt"><span class="tag" style="margin-left:0">Modo Aspirante</span><h1>Trilha do Chico Pitico</h1><p>Acompanhe o Chico até o festival da Diva e pratique o que viu no treinamento: quebra-cabeças, quizzes e desafios de código, com bônus e conquistas. O conteúdo está no modo Treinamento. Em cada nível, use <b>Rever o conteúdo</b> se precisar.</p><div class="row"><button class="btn" id="go">'+(first?(S.xp?'Continuar: '+first.title:'Começar a trilha'):'Rever a trilha')+'</button><button class="btn ghost" id="labgo">Laboratório de código</button></div></div></div>'
+  app.innerHTML='<div class="hero"><div class="txt"><span class="tag" style="margin-left:0">Modo Aspirante</span><h1>Lógica de Programação</h1><p>Pratique o que viu no treinamento: quebra-cabeças, quizzes e desafios de código, com bônus e conquistas. O conteúdo está no modo Treinamento. Em cada nível, use <b>Rever o conteúdo</b> se precisar.</p><div class="row"><button class="btn" id="go">'+(first?(S.xp?'Continuar: '+first.title:'Começar'):'Rever')+'</button><button class="btn ghost" id="labgo">Laboratório de código</button></div></div></div>'
    +worldMap(first)
    +'<section class="block"><div class="bhead"><div><h3>Conquistas</h3><small>'+nb+' de '+BADGES.length+' desbloqueadas</small></div></div><div class="badges">'
    +BADGES.map(b=>'<div class="badge '+(S.badges[b.id]?'on':'')+'"><b>'+(S.badges[b.id]?'★ ':'☆ ')+b.name+'</b><span>'+b.desc+'</span></div>').join('')+'</div></section>'
@@ -1483,8 +1323,7 @@ function startLevel(id,toEnd,fresh){
 function renderLevelChrome(){
   if(!cur)return;clearInterval(tick);
   const cls=TR();
-  const sc=STORY[cur.L.id]||{bg:'day',sign:''};
-  document.body.dataset.sky=sc.bg;document.body.dataset.lv=cur.L.id;
+  document.body.dataset.sky='day';document.body.dataset.lv=cur.L.id;
   $('#lvhead').innerHTML='<div class="lvbar"><button class="back" id="bk" aria-label="Voltar ao mapa">←</button><h1>'+cur.L.id+'. '+esc(cur.L.title)+'</h1>'
    +'</div><div class="phases" id="phases"></div><div class="dots" id="dots"></div>';
   $('#bk').onclick=renderMap;
@@ -1521,7 +1360,7 @@ function lose(){
   if(TR())return false;
   cur.hearts--;renderHud();
   if(cur.hearts<=0){
-    $('#stage').innerHTML='<article class="card finish">'+'<div class="pigs">'+pig('chico','sad')+'</div><h2>Acabaram as vidas</h2><p>Sem stress: errar faz parte. Releia as explicações e tente de novo. O XP que você ganhou continua com você.</p><div class="row"><button class="btn" id="again">Recomeçar o nível</button><button class="btn ghost" id="tomap">Voltar ao mapa</button></div></article>';
+    $('#stage').innerHTML='<article class="card finish"><h2>Acabaram as vidas</h2><p>Sem stress: errar faz parte. Releia as explicações e tente de novo. O XP que você ganhou continua com você.</p><div class="row"><button class="btn" id="again">Recomeçar o nível</button><button class="btn ghost" id="tomap">Voltar ao mapa</button></div></article>';
     $('#again').onclick=()=>{S.pos=null;save();startLevel(cur.L.id,false,true);};$('#tomap').onclick=renderMap;$('.foot').hidden=true;return true;
   }
   return false;
@@ -1531,7 +1370,7 @@ function renderStep(){
   if(!TR()){S.pos={L:cur.L.id,idx:cur.idx};save();}
   const s=cur.steps[cur.idx],st=$('#stage');$('.foot').hidden=false;
   clearTimeout(cur.pzT);clearInterval(cur.exT);
-  const R={opening:rOpening,ending:rEnding,cover:rCover,slide:rSlide,recap:rRecap,story:rStory,lesson:rLesson,quiz:rQuiz,order:rOrder,code:rCode,tscheck:rTs,blocks:rBlocks}[s.kind];
+  const R={opening:rOpening,ending:rEnding,cover:rCover,slide:rSlide,recap:rRecap,lesson:rLesson,quiz:rQuiz,order:rOrder,code:rCode,tscheck:rTs,blocks:rBlocks}[s.kind];
   R(s,st);st.insertAdjacentHTML('afterbegin',ribbon());
   if(TR()){const card=$('#stage > article.card');if(card&&!card.classList.contains('slide')){card.classList.add('slide');
       const lab={lesson:s.phase==='fim'?'Fechamento':'Ao vivo',quiz:'Prática',order:'Prática',blocks:'Prática',code:'Prática',tscheck:'Prática'}[s.kind];
@@ -1539,12 +1378,6 @@ function renderStep(){
     trainExtras(s,st);if(!cur.back)$$('#stage .rv').forEach(e=>e.classList.add('off'));
     const c2=$('#stage > article.slide');if(c2){const sg=c2.querySelector('.stag');if(sg)sg.insertAdjacentHTML('afterend','<span class="stopic">Tópico '+cur.L.id+' · '+esc(cur.L.title)+'</span>');const w=document.createElement('div');w.className='fit';while(c2.firstChild)w.appendChild(c2.firstChild);c2.appendChild(w);watchFit(w);}}
   syncFoot();fitSlide();
-}
-function rStory(s,st){
-  const sprites=s.who==='both'?pig('chico',s.mood,'bob')+pig('diva',s.mood,'bob'):pig(s.who,s.mood,'bob');
-  st.innerHTML='<article class="card"><div class="scene '+s.bg+'"><div class="sprites">'+sprites+'</div>'+'</div>'
-   +'<span class="tag" style="margin-left:0">Historinha</span><h2 style="margin-top:8px">'+s.title+'</h2><p class="narr">'+s.text+'</p>'
-   +(s.talk?'<div class="speech"><b>'+s.talk[0]+':</b><span>'+s.talk[1]+'</span></div>':'')+'</article>';
 }
 function rLesson(s,st){
   const sum=RESUMO[s.title],lab=LAB[s.title];
@@ -1637,7 +1470,7 @@ function renderLabView(){
   view='lab';cur=null;clearInterval(tick);document.body.dataset.sky='day';renderHud();
   const ex=[['Variáveis','let e const: caixas com nome'],['Condicional','if, else e ternário'],['Laço','O laço for, passo a passo'],['Funções','Funções são máquinas'],['Arrays','Quatro métodos que você vai usar sempre'],['Objetos','Objetos guardam dados com nome'],['Async','Esperar sem travar']];
   app.innerHTML='<div class="lvwrap"><div class="lvbar"><button class="back" id="bk" aria-label="Voltar ao mapa">←</button><h1>Laboratório de código</h1></div></div>'
-   +'<article class="card"><div class="coach"><div class="mascot">'+pig('chico','happy','bob')+'</div><div class="say">Aqui você escreve JavaScript livremente e vê o resultado na hora. Use <code>console.log</code> para mostrar valores.</div></div><div class="row" id="exs" style="margin-bottom:10px"></div>'+labBox(LAB[ex[0][1]],14,'Seu código')+'</article>';
+   +'<article class="card">'+coach(null,null,'Aqui você escreve JavaScript livremente e vê o resultado na hora. Use <code>console.log</code> para mostrar valores.')+'<div class="row" id="exs" style="margin-bottom:10px"></div>'+labBox(LAB[ex[0][1]],14,'Seu código')+'</article>';
   const box=mountLabBox(app,LAB[ex[0][1]]);
   ex.forEach(x=>{const b=document.createElement('button');b.className='chip';b.textContent=x[0];b.onclick=()=>box.set(LAB[x[1]]);$('#exs').appendChild(b);});
   $('#bk').onclick=renderMap;window.scrollTo(0,0);
@@ -1691,7 +1524,7 @@ function rBlocks(s,st){
   const motion=s.blocks.filter(b=>b==='move'||b==='left'||b==='right'),control=s.blocks.filter(b=>b==='repeat'||b==='if');
   const tpls=arr=>arr.map(b=>'<div class="tplwrap">'+blk({t:b,body:[],els:[]},true)+'</div>').join('');
   st.innerHTML='<article class="card"><h2>'+s.title+'</h2>'+coach(s.who,s.mood,s.say)+'<p>'+s.task+'</p>'
-   +'<div class="stagebar"><div class="board-wrap"><div class="board" id="bd" style="--cols:'+cols+'">'+cells+'<div class="actor" id="ac" style="--r:'+start.r+';--c:'+start.c+'">'+pig('chico','happy')+'<i class="dir" id="dr">'+DARR[start.d]+'</i></div></div></div>'
+   +'<div class="stagebar"><div class="board-wrap"><div class="board" id="bd" style="--cols:'+cols+'">'+cells+'<div class="actor" id="ac" style="--r:'+start.r+';--c:'+start.c+'">'+actorMark()+'<i class="dir" id="dr">'+DARR[start.d]+'</i></div></div></div>'
    +'<div class="runbox"><button class="btn" id="go">▶ Executar</button><button class="btn ghost small" id="clr">Limpar</button><button class="btn ghost small" id="hint">Dica</button><span id="cnt" class="tchip"></span></div></div>'
    +'<p class="muted">Arraste os blocos da esquerda e encaixe embaixo de "quando ▶ for clicado". Para apagar, arraste o bloco de volta para a paleta.</p>'
    +'<div class="build"><aside class="palette2" id="pal"><h4>Blocos</h4>'+(motion.length?'<div class="cat">Movimento</div>'+tpls(motion):'')+(control.length?'<div class="cat ctl">Controle</div>'+tpls(control):'')+'</aside><div class="ws" id="ws"></div></div>'
@@ -1767,8 +1600,8 @@ function rBlocks(s,st){
   $('#hint',st).onclick=()=>{fb.innerHTML='<div class="fb info">Dica: '+s.hint+'</div>';};
   function endRun(sim){
     busy=false;
-    if(sim.status==='goal'){const first=!cur.tries[i];award('b'+cur.L.id+'-'+i,first?30:20);fb.innerHTML='<div class="fb good">O Chico chegou! '+s.why+'</div>';markOk();}
-    else{cur.tries[i]=(cur.tries[i]||0)+1;const m={wall:'O Chico bateu na parede. Confira onde ele vira.',limit:'O programa não termina (passos demais). Confira os blocos de repetição.',end:'O programa acabou e o Chico ainda não chegou ao portão. Faltou algum passo?'}[sim.status];fb.innerHTML='<div class="fb bad">'+m+'</div>';}
+    if(sim.status==='goal'){const first=!cur.tries[i];award('b'+cur.L.id+'-'+i,first?30:20);fb.innerHTML='<div class="fb good">Chegou ao destino! '+s.why+'</div>';markOk();}
+    else{cur.tries[i]=(cur.tries[i]||0)+1;const m={wall:'Bateu na parede. Confira onde ele vira.',limit:'O programa não termina (passos demais). Confira os blocos de repetição.',end:'O programa acabou sem chegar ao destino. Faltou algum passo?'}[sim.status];fb.innerHTML='<div class="fb bad">'+m+'</div>';}
   }
   function run(){
     if(busy)return;
@@ -1801,8 +1634,7 @@ function finish(){
   const had=Object.assign({},S.badges);checkBadges();
   const newB=BADGES.filter(b=>S.badges[b.id]&&!had[b.id]);
   view='done';renderHud();
-  const who=l.block===1?'chico':'diva';
-  app.innerHTML='<article class="card finish"><div class="pigs">'+pig(who,'cheer','hop')+(l.id===12?pig('chico','cheer','hop'):'')+'</div><h2>'+(l.id===12?'Trilha completa!':'Nível completo!')+'</h2><p>'+esc(l.title)+' concluído.</p>'+(EPI[l.id]?'<p class="narr">'+EPI[l.id]+'</p>':'')+stars(n)
+  app.innerHTML='<article class="card finish"><h2>'+(l.id===12?'Tudo completo!':'Nível completo!')+'</h2><p>'+esc(l.title)+' concluído.</p>'+stars(n)
    +(newB.length?'<div class="newb">'+newB.map(b=>'<span>★ '+b.name+'</span>').join('')+'</div>':'')
    +'<p><b>'+S.xp+' XP</b> no total · '+rank().name+'</p><div class="row">'+(nextL?'<button class="btn" id="nx">Próximo nível</button>':'')+'<button class="btn ghost" id="mp">Voltar ao mapa</button></div></article>';
   if(nextL)$('#nx').onclick=()=>startLevel(nextL.id);
