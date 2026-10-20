@@ -1,4 +1,4 @@
-# Trilha do Chico Pitico (CITi)
+# Lógica de Programação (CITi)
 
 Site estático de um único arquivo (`index.html`). Não precisa de servidor nem de banco de dados.
 
