@@ -1,4 +1,4 @@
-<title>Trilha do Chico Pitico</title>
+<title>Lógica de Programação — CITi</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Figtree:wght@400;600;800&family=JetBrains+Mono:wght@500;700&family=Poppins:wght@400;500;600;700;800&display=swap">
 <style>
@@ -1311,7 +1311,7 @@ function rOpening(s,st){
   st.innerHTML='<article class="card slide open"><div class="op-txt"><div class="op-top"><span class="op-logo"><img src="'+LOGO_W+'" alt="CITi" height="34"></span><span class="op-tag">Processo Seletivo</span></div><h1>Lógica de Programação<em>JavaScript e TypeScript</em></h1><p class="op-sub">Do primeiro algoritmo ao seu primeiro código tipado.</p><div class="cv-journey" aria-hidden="true">'+LV.map(()=>'<i></i>').join('')+'</div></div></article>';
 }
 function rEnding(s,st){
-  st.innerHTML='<article class="card slide open end"><div class="op-txt"><span class="op-tag">Fechamento</span><h1>Dúvidas?</h1><p class="op-sub">Continue treinando no modo Aspirante: tem historinha, desafios bônus e conquistas.</p></div></article>';
+  st.innerHTML='<article class="card slide open end"><div class="op-txt"><span class="op-tag">Fechamento</span><h1>Dúvidas?</h1><p class="op-sub">Para praticar mais, use o modo Aspirante: exercícios, desafios bônus e conquistas.</p></div></article>';
 }
 function rSlide(s,st){
   st.innerHTML='<article class="card slide"><span class="stag">'+(s.kicker||'Conceito')+'</span><h2>'+s.title+'</h2><div class="sv-body">'+s.html+(s.live==='ts'?tsBox():s.live?labBox('',6,'Código ao vivo'):'')+'</div></article>';
@@ -1376,15 +1376,22 @@ function buildScenery(){
  +'</g><rect class="shade" width="1600" height="900"/></svg>';
 }
 function buildEjGlow(){
+ const fan=(cx,cy,r0,r1,a0,a1,n)=>{let out='';for(let i=0;i<n;i++){const t=i/(n-1);const a=(a0+(a1-a0)*t)*Math.PI/180;const r=r0+(r1-r0)*(0.4+0.6*Math.sin(t*Math.PI));const x2=cx+Math.cos(a)*r,y2=cy+Math.sin(a)*r;const midR=r*0.55;const mx=cx+Math.cos(a)*midR-Math.sin(a)*30,my=cy+Math.sin(a)*midR+Math.cos(a)*30;const op=0.8*(0.25+0.75*Math.sin(t*Math.PI));const w=(1.2+1.6*Math.sin(t*Math.PI)).toFixed(2);
+   out+='<path d="M'+cx+','+cy+' Q'+mx.toFixed(1)+','+my.toFixed(1)+' '+x2.toFixed(1)+','+y2.toFixed(1)+'" fill="none" stroke="url(#egFan)" stroke-width="'+w+'" opacity="'+op.toFixed(2)+'" stroke-linecap="round"/>';}
+  return out;};
  return '<svg class="ejglow" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><defs>'
-  +'<linearGradient id="egRib1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0a1812" stop-opacity="0"/><stop offset="45%" stop-color="#1c4a30"/><stop offset="60%" stop-color="#8affc0"/><stop offset="100%" stop-color="#0a1812" stop-opacity="0"/></linearGradient>'
-  +'<linearGradient id="egRib2" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#0a1812" stop-opacity="0"/><stop offset="50%" stop-color="#2ddb60"/><stop offset="100%" stop-color="#0a1812" stop-opacity="0"/></linearGradient>'
-  +'<radialGradient id="egGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#9dffc6" stop-opacity=".85"/><stop offset="100%" stop-color="#2ddb60" stop-opacity="0"/></radialGradient>'
+  +'<linearGradient id="egFan" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#eafff2"/><stop offset="35%" stop-color="#5dffa0"/><stop offset="100%" stop-color="#0d3a24" stop-opacity=".15"/></linearGradient>'
+  +'<radialGradient id="egPivot" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#bfffdc" stop-opacity=".95"/><stop offset="40%" stop-color="#2ddb60" stop-opacity=".5"/><stop offset="100%" stop-color="#2ddb60" stop-opacity="0"/></radialGradient>'
+  +'<linearGradient id="egRib" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0a1812" stop-opacity="0"/><stop offset="40%" stop-color="#1c4a30" stop-opacity=".8"/><stop offset="58%" stop-color="#9dffc6"/><stop offset="75%" stop-color="#1c4a30" stop-opacity=".8"/><stop offset="100%" stop-color="#0a1812" stop-opacity="0"/></linearGradient>'
+  +'<radialGradient id="egRibGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#d4ffe6" stop-opacity=".95"/><stop offset="100%" stop-color="#2ddb60" stop-opacity="0"/></radialGradient>'
+  +'<filter id="egBlurS" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>'
+  +'<filter id="egBlurL" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="22"/></filter>'
   +'</defs>'
-  +'<circle cx="1180" cy="730" r="210" fill="url(#egGlow)"/>'
-  +'<path d="M1650,470 C1380,430 1180,540 1100,660 C1020,780 1150,880 1280,780 C1370,710 1440,550 1650,600" fill="none" stroke="url(#egRib1)" stroke-width="56" stroke-linecap="round"/>'
-  +'<path d="M1650,550 C1400,510 1230,600 1150,700 C1090,780 1190,840 1270,760" fill="none" stroke="url(#egRib2)" stroke-width="20" stroke-linecap="round"/>'
-  +[0,1,2,3,4,5,6].map(i=>'<path d="M1650,'+(40+i*26)+' Q1420,'+(20+i*44)+' 1200,'+(120+i*58)+'" fill="none" stroke="#2ddb60" stroke-width="1.6" opacity="'+(0.07+i*0.035).toFixed(2)+'"/>').join('')
+  +'<g transform="translate(-60 900)"><circle cx="0" cy="-80" r="130" fill="url(#egPivot)" filter="url(#egBlurL)"/>'+fan(0,-80,80,760,-85,5,26)+'</g>'
+  +'<g><circle cx="1180" cy="700" r="170" fill="url(#egRibGlow)" filter="url(#egBlurL)" opacity=".8"/>'
+  +'<path d="M1680,440 C1400,400 1190,520 1100,650 C1010,780 1150,890 1290,780 C1380,710 1460,540 1680,580" fill="none" stroke="url(#egRib)" stroke-width="70" stroke-linecap="round" opacity=".9"/>'
+  +'<path d="M1680,460 C1410,425 1210,535 1120,660 C1040,775 1165,870 1290,775" fill="none" stroke="#bfffdc" stroke-width="4" stroke-linecap="round" opacity=".8" filter="url(#egBlurS)"/>'
+  +'<path d="M1680,560 C1430,520 1250,610 1160,710 C1090,790 1190,840 1270,765" fill="none" stroke="url(#egRib)" stroke-width="26" stroke-linecap="round" opacity=".7"/></g>'
   +'</svg>';
 }
 document.querySelector('.backdrop').innerHTML=buildScenery()+buildEjGlow();
@@ -1456,7 +1463,7 @@ function mapTrain(){
   const blk=(b,title,sub)=>{return '<section class="block"><div class="bhead"><div><h3>'+title+'</h3><small>'+sub+'</small></div></div><ol class="trail">'
    +LV.filter(l=>l.block===b).map(l=>{let t=0;for(const x of LV){if(x.id===l.id)break;t+=minsOf(x);}const ini=hhmm(toMin(S.tstart)+t);
      return '<li><button class="node" data-id="'+l.id+'"><span class="n">'+l.id+'</span><span class="info"><b>'+l.title+'</b><span>'+l.desc+'</span></span><span class="meta"></span></button></li>';}).join('')+'</ol></section>';};
-  app.innerHTML='<div class="hero"><div class="txt"><span class="tag" style="margin-left:0">Modo Treinamento</span><h1>Roteiro da aula</h1><p>Apresentação contínua: avance com a seta → ou a barra de espaço e os tópicos se encadeiam sozinhos. Sem historinha, vidas ou XP: só o conteúdo e a prática.</p><div class="row"><button class="btn" id="go">Começar a apresentação</button><button class="btn ghost" id="labgo">Laboratório de código</button></div></div></div>'
+  app.innerHTML='<div class="hero"><div class="txt"><span class="tag" style="margin-left:0">Modo Treinamento</span><h1>Roteiro da aula</h1><p>Apresentação contínua: avance com a seta → ou a barra de espaço e os tópicos se encadeiam sozinhos.</p><div class="row"><button class="btn" id="go">Começar a apresentação</button><button class="btn ghost" id="labgo">Laboratório de código</button></div></div></div>'
    +blk(1,'Bloco 1: Lógica e fundamentos de JS','Apresentador A')+blk(2,'Bloco 2: Estruturas de dados e TypeScript','Apresentador B');
   $$('.node').forEach(n=>n.onclick=()=>startLevel(+n.dataset.id));
   $('#go').onclick=()=>startLevel(1);$('#labgo').onclick=renderLabView;
