@@ -25,17 +25,20 @@
   --good:#3fe088; --good-bg:#0f3a24; --bad:#ff7a90; --bad-bg:#3d1620; --warn:#ffcb6b; --warn-bg:#3b2d0b;
   --code-bg:#030d08; color-scheme:dark;}
 
-/* modo Treinamento: identidade da EJ (CITi 30 anos) — escuro fixo, verde técnico, Poppins */
-body[data-mode="train"]{
-  --f-display:'Poppins',system-ui,sans-serif !important;
-  --f-body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif !important;
+/* tema escuro fixo (os dois modos) — identidade da EJ (CITi 30 anos), verde técnico */
+body{
   --brand:#2ddb60 !important; --brand-deep:#1aa84a !important; --brand-ink:#04150a !important;
   --bg:#050b08 !important; --surface:#0d1a15 !important; --surface2:#122621 !important; --line:#1d3a2d !important;
   --fg:#f3f8f6 !important; --muted:#8fa8a0 !important;
-  --pink:#2ddb60 !important; --pink-deep:#1aa84a !important;
   --good:#2ddb60 !important; --good-bg:#102a1c !important; --bad:#ff6b7a !important; --bad-bg:#2a1016 !important; --warn:#ffcb6b !important; --warn-bg:#2a2208 !important;
   --code-bg:#020806 !important; --code-fg:#dff3ea !important;
   color-scheme:dark;
+}
+/* modo Treinamento: Poppins e rosa substituído por verde (a EJ não usa rosa) */
+body[data-mode="train"]{
+  --f-display:'Poppins',system-ui,sans-serif !important;
+  --f-body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif !important;
+  --pink:#2ddb60 !important; --pink-deep:#1aa84a !important;
 }
 
 *{box-sizing:border-box}
@@ -262,7 +265,7 @@ textarea.ed{width:100%;min-height:190px;resize:vertical;background:var(--code-bg
 .lvwrap{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
 .lvbar{position:relative;z-index:2;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .lvbar .back{border:2px solid var(--line);background:var(--surface);border-radius:12px;width:40px;height:40px;cursor:pointer;font:800 1.2rem var(--f-display);color:var(--fg)}
-.lvbar h1{font-size:1.1rem;font-weight:800;background:var(--surface);color:var(--fg);padding:6px 14px;border-radius:14px;flex:1 1 auto;min-width:0}
+.lvbar h1{font-size:1.1rem;font-weight:800;background:var(--surface);color:var(--fg);padding:6px 14px;border-radius:14px;flex:1 1 0;min-width:0}
 .steps{list-style:none;counter-reset:s;padding:0;margin:10px 0;display:flex;flex-direction:column;gap:6px}
 .steps li{counter-increment:s;background:var(--surface);border-radius:10px;padding:7px 12px;font-weight:700;display:flex;gap:10px;align-items:center}
 .steps li::before{content:counter(s);font:800 .85rem var(--f-display);width:24px;height:24px;border-radius:50%;background:var(--line);display:grid;place-items:center;flex:0 0 auto}
@@ -276,7 +279,7 @@ textarea.ed{width:100%;min-height:190px;resize:vertical;background:var(--code-bg
 body[data-sky="dawn"] .backdrop{--tint:#ff9fbd}
 body[data-sky="dusk"] .backdrop{--tint:#8b7cf0}
 body[data-sky="night"] .backdrop{--tint:#5a3fb0;background:radial-gradient(color-mix(in srgb,var(--fg) 30%,transparent) 1px,transparent 1.6px) 0 0/46px 46px,var(--sky)}
-body[data-mode="train"] .backdrop{--tint:#2ddb60 !important;background:var(--sky) !important}
+.backdrop{--tint:#2ddb60 !important;background:var(--sky) !important}
 .backdrop::before,.backdrop::after{content:"";position:absolute;bottom:-15vh;border-radius:50%;background:color-mix(in srgb,var(--brand) 20%,var(--bg))}
 .backdrop::before{left:-22vw;width:88vw;height:36vh}
 .backdrop::after{right:-26vw;width:92vw;height:30vh;background:color-mix(in srgb,var(--brand) 12%,var(--bg))}
@@ -425,6 +428,7 @@ body[data-mode="train"] .ribbon{display:none}
 .sv-cells .svcell i{font:700 .8rem var(--f-mono);color:var(--muted);font-style:normal}
 .sv-cells .svcell.hl b{background:var(--warn-bg);border-color:var(--warn)}.sv-cells .svcell.off b{opacity:.3;text-decoration:line-through}
 .sv-machine{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;margin:6px 0 18px}
+.sv-machine>.rv{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap}
 .sv-machine .mi{text-align:center;border-radius:18px;background:var(--good-bg);border:3px solid var(--good);padding:10px 22px;display:grid}.sv-machine .mi.mout{background:var(--warn-bg);border-color:var(--warn)}
 .sv-machine .mi small{font:800 .75rem var(--f-display);text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}.sv-machine .mi b{font:800 2.2rem var(--f-display)}
 .sv-machine .mb{position:relative;min-width:200px;text-align:center;padding:22px 24px 30px;border-radius:24px;background:var(--surface2);border:4px solid var(--brand-deep)}
@@ -523,6 +527,8 @@ body[data-mode="train"] .slide .labbox{margin:4px 0;padding:10px 12px}
 body[data-mode="train"] .slide .live-hint{margin-bottom:8px!important}
 .ctx{background:var(--warn-bg);color:var(--warn);border-radius:14px;padding:10px 14px;font-weight:700;margin:6px 0 12px}
 .lvbar #rev{margin-left:auto;white-space:nowrap}
+.lvbar h1{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:480px){.lvbar #rev span{display:none}}
 
 /* mapa do aspirante */
 .wmap{position:relative;width:100%;max-width:720px;margin:6px auto 26px;aspect-ratio:800/1700;border-radius:30px;overflow:hidden;border:3px solid var(--line);box-shadow:0 8px 0 -2px var(--line)}
@@ -593,7 +599,74 @@ function rank(){let r=0;RANKS.forEach((x,i)=>{if(S.xp>=x[0])r=i;});const n=RANKS
 function award(key,amt){if(TR()||S.got[key])return false;S.got[key]=1;S.xp+=amt;save();toast('+'+amt+' XP');renderHud();return true;}
 
 /* ============ mascotes ============ */
-const actorMark=()=>'<svg class="pig" viewBox="0 0 100 100" role="img" aria-label="Posição atual"><circle cx="50" cy="50" r="40" fill="var(--brand)" stroke="var(--brand-deep)" stroke-width="6"/><circle cx="50" cy="50" r="14" fill="var(--brand-ink)"/></svg>';
+function pigHeadParts(who,mood){
+  who=who||'chico';mood=mood||'happy';
+  const d=who==='diva';
+  const skin=d?'#ffc4d6':'#ffb1c7',ear='#ff8fb0',snout='#ff93b4',nos='#b93d66',ink='#1b1b1b';
+  const cheer=mood==='cheer',sad=mood==='sad',think=mood==='think';
+  let eyes,brows='',mouth,extra='';
+  const eye=(x,y,dx,dy)=>'<circle cx="'+(x+dx)+'" cy="'+(y+dy)+'" r="6.5" fill="'+ink+'"/><circle cx="'+(x+dx+2)+'" cy="'+(y+dy-2)+'" r="2" fill="#fff"/>';
+  if(cheer){
+    eyes='<path d="M69 82Q78 70 87 82M113 82Q122 70 131 82" stroke="'+ink+'" stroke-width="4.5" fill="none" stroke-linecap="round"/>';
+    mouth='<path d="M82 127Q100 156 118 127Z" fill="#7a1f3d"/><path d="M92 141Q100 134 108 141Q100 148 92 141Z" fill="#ff7f9f"/>';
+  }else if(think){
+    eyes=eye(78,80,3,-3)+eye(122,80,3,-3);
+    brows='<path d="M67 64Q78 56 91 63" stroke="'+ink+'" stroke-width="3.5" fill="none" stroke-linecap="round"/><path d="M110 68L132 68" stroke="'+ink+'" stroke-width="3.5" stroke-linecap="round"/>';
+    mouth='<path d="M91 133Q101 129 111 134" stroke="#7a1f3d" stroke-width="3.5" fill="none" stroke-linecap="round"/>';
+    extra='<text x="150" y="40" font-size="40" font-weight="800" font-family="Baloo 2,sans-serif" fill="#e0527f">?</text>';
+  }else if(sad){
+    eyes=eye(78,82,0,0)+eye(122,82,0,0);
+    brows='<path d="M66 76L88 66M134 76L112 66" stroke="'+ink+'" stroke-width="3.5" stroke-linecap="round"/>';
+    mouth='<path d="M88 136Q100 124 112 136" stroke="#7a1f3d" stroke-width="3.5" fill="none" stroke-linecap="round"/>';
+    extra='<path d="M64 94Q58 103 64 108Q70 103 64 94Z" fill="#7cc6ff"/>';
+  }else{
+    eyes=eye(78,80,0,0)+eye(122,80,0,0);
+    mouth='<path d="M86 128Q100 144 114 128" stroke="#7a1f3d" stroke-width="3.5" fill="none" stroke-linecap="round"/>';
+  }
+  const lashes=d?'<path d="M70 75L62 71M72 72L66 64M130 75L138 71M128 72L134 64" stroke="'+ink+'" stroke-width="2.8" stroke-linecap="round"/>':'';
+  const bow=d?'<path d="M100 30L76 17L76 43Z M100 30L124 17L124 43Z" fill="#ff4f8b"/><circle cx="100" cy="30" r="7" fill="#e0306f"/>':'';
+  const aria=d?'Diva Pitica':'Chico Pitico';
+  const head='<path d="M50 58Q36 20 70 27Q89 33 91 52Z" fill="'+skin+'"/><path d="M57 52Q51 34 68 36Q80 40 83 50Z" fill="'+ear+'"/>'
+   +'<path d="M150 58Q164 20 130 27Q111 33 109 52Z" fill="'+skin+'"/><path d="M143 52Q149 34 132 36Q120 40 117 50Z" fill="'+ear+'"/>'
+   +'<circle cx="100" cy="86" r="58" fill="'+skin+'"/>'
+   +'<ellipse cx="62" cy="102" rx="9" ry="6" fill="#ff7fa3" opacity=".55"/><ellipse cx="138" cy="102" rx="9" ry="6" fill="#ff7fa3" opacity=".55"/>'
+   +eyes+lashes+brows
+   +'<ellipse cx="100" cy="106" rx="25" ry="17" fill="'+snout+'"/><ellipse cx="91" cy="106" rx="3.6" ry="5.6" fill="'+nos+'"/><ellipse cx="109" cy="106" rx="3.6" ry="5.6" fill="'+nos+'"/>'
+   +mouth+bow+extra;
+  return{d,skin,aria,head};
+}
+function pig(who,mood,cls){
+  const hp=pigHeadParts(who,mood);
+  const d=hp.d,skin=hp.skin,aria=hp.aria;
+  const hoof='#e0527f';
+  const cheer=mood==='cheer';
+  const armL=cheer?'<ellipse cx="38" cy="118" rx="11" ry="27" transform="rotate(-35 38 118)" fill="'+skin+'"/>':'<ellipse cx="48" cy="167" rx="11" ry="26" transform="rotate(14 48 167)" fill="'+skin+'"/>';
+  const armR=cheer?'<ellipse cx="162" cy="118" rx="11" ry="27" transform="rotate(35 162 118)" fill="'+skin+'"/>':'<ellipse cx="152" cy="167" rx="11" ry="26" transform="rotate(-14 152 167)" fill="'+skin+'"/>';
+  const outfit=d
+   /* Diva: vestidinho rosa evasê, mangas bufantes, cinto verde CITi e barra branca */
+   ?'<path d="M52 150Q52 128 74 124L126 124Q148 128 148 150L151 188L163 223Q165 231 155 231L45 231Q35 231 37 223L49 188Z" fill="#ff5fa2"/>'
+    +'<path d="M126 128Q148 132 148 152L151 188L163 223L150 228Q146 190 126 128Z" fill="#e8438b" opacity=".6"/>'
+    +'<path d="M38 224Q100 236 162 224" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>'
+    +'<g fill="#fff" opacity=".7"><circle cx="66" cy="196" r="3"/><circle cx="92" cy="206" r="3"/><circle cx="118" cy="198" r="3"/><circle cx="140" cy="210" r="3"/><circle cx="62" cy="216" r="3"/><circle cx="104" cy="220" r="3"/></g>'
+    +'<rect x="50" y="162" width="100" height="10" rx="3" fill="#00f87d"/>'
+    +'<path d="M100 167L88 159L88 175Z M100 167L112 159L112 175Z" fill="#00c25f"/><circle cx="100" cy="167" r="4.5" fill="#00a050"/>'
+    +'<ellipse cx="54" cy="140" rx="15" ry="13" fill="#ff5fa2"/><ellipse cx="146" cy="140" rx="15" ry="13" fill="#ff5fa2"/>'
+    +'<path d="M42 147Q54 154 66 147" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M134 147Q146 154 158 147" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>'
+   /* Chico: camisa CITi com barra e punhos mais escuros, sombra lateral, logo maior, bermuda jeans */
+   :'<path d="M50 150Q50 128 72 124L128 124Q150 128 150 150L153 210Q153 224 140 224L60 224Q47 224 47 210Z" fill="#00f87d"/>'
+    +'<path d="M47 210L153 210Q153 224 140 224L60 224Q47 224 47 210Z" fill="#00d36a"/>'
+    +'<path d="M126 128Q148 132 150 152L153 210Q153 221 146 223L134 223Q142 180 126 128Z" fill="#00d36a" opacity=".6"/>'
+    +'<ellipse cx="54" cy="141" rx="14" ry="15" fill="#00f87d"/><ellipse cx="146" cy="141" rx="14" ry="15" fill="#00f87d"/>'
+    +'<path d="M40 150Q54 160 68 150L66 155Q54 164 42 156Z" fill="#00b85a"/><path d="M132 150Q146 160 160 150L158 156Q146 164 134 155Z" fill="#00b85a"/>'
+    +'<image href="'+LOGO_W+'" x="64" y="158" width="72" height="37" preserveAspectRatio="xMidYMid meet"/>';
+  return '<svg class="pig '+(cls||'')+'" viewBox="0 0 200 250" role="img" aria-label="'+aria+'">'
+   +'<ellipse cx="100" cy="242" rx="62" ry="7" fill="rgba(0,0,0,.14)"/>'
+   +'<rect x="68" y="210" width="24" height="28" rx="10" fill="'+skin+'"/><rect x="108" y="210" width="24" height="28" rx="10" fill="'+skin+'"/>'
+   +'<ellipse cx="80" cy="238" rx="14" ry="6.5" fill="'+hoof+'"/><ellipse cx="120" cy="238" rx="14" ry="6.5" fill="'+hoof+'"/>'
+   +armL+armR
+   +outfit
+   +hp.head+'</svg>';
+}
 const heart=(full)=>'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-5.2-8-11a4.6 4.6 0 0 1 8-3 4.6 4.6 0 0 1 8 3c0 5.8-8 11-8 11z" fill="'+(full?'#e0306f':'rgba(4,48,27,.25)')+'"/></svg>';
 const star=(on)=>'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z" fill="'+(on?'#ffb800':'var(--line)')+'"/></svg>';
 const stars=(n)=>'<span class="stars" aria-label="'+n+' de 3 estrelas">'+[1,2,3].map(i=>star(i<=n)).join('')+'</span>';
@@ -1060,7 +1133,7 @@ const V={
  cells:(arr,o)=>{o=o||{};return '<div class="sv-cells">'+arr.map((x,i)=>'<div class="svcell '+((o.off||[]).includes(i)?'off ':'')+((o.hl||[]).includes(i)?'hl':'')+'"><b>'+x+'</b><i>'+i+'</i></div>').join('')+'</div>';},
  cmp:(a,b)=>'<div class="sv-cmp">'+[a,b].map(x=>rv('<div class="sv-col '+(x.c||'')+'"><h3>'+x.t+'</h3>'+x.h+'</div>')).join('')+'</div>',
  chips:l=>'<div class="sv-types">'+l.map(x=>rv('<div class="sv-type '+x.c+'"><b>'+x.n+'</b><code>'+x.ex+'</code><small>'+x.s+'</small></div>')).join('')+'</div>',
- machine:(i,n,o)=>'<div class="sv-machine">'+rv('<div class="mi"><small>entrada</small><b>'+i+'</b></div>')+rv('<div class="mb"><div class="gear"></div><b>'+n+'</b><div class="belt"></div></div>')+rv('<div class="mi mout"><small>saída</small><b>'+o+'</b></div>')+'</div>',
+ machine:(i,n,o)=>'<div class="sv-machine">'+rv('<div class="mi"><small>entrada</small><b>'+i+'</b></div><div class="mb"><div class="gear"></div><b>'+n+'</b><div class="belt"></div></div><div class="mi mout"><small>saída</small><b>'+o+'</b></div>')+'</div>',
  tt:(op,rows)=>'<table class="sv-tt"><tbody>'+rows.map(r=>'<tr><td>'+r[0]+'</td><td class="'+(r[1]?'t':'f')+'">'+r[1]+'</td></tr>').join('')+'</tbody></table>',
  card:(t,pairs)=>'<div class="sv-idcard"><h4>'+t+'</h4>'+pairs.map(p=>'<div class="kv"><span>'+p[0]+'</span><b>'+p[1]+'</b></div>').join('')+'</div>'
 };
@@ -1327,7 +1400,7 @@ function renderLevelChrome(){
   $('#lvhead').innerHTML='<div class="lvbar"><button class="back" id="bk" aria-label="Voltar ao mapa">←</button><h1>'+cur.L.id+'. '+esc(cur.L.title)+'</h1>'
    +'</div><div class="phases" id="phases"></div><div class="dots" id="dots"></div>';
   $('#bk').onclick=renderMap;
-  if(!cls){const rb=document.createElement('button');rb.className='btn ghost small';rb.id='rev';rb.textContent='Rever o conteúdo';rb.onclick=()=>{S.mode='train';save();startLevel(cur.L.id);};$('.lvbar').appendChild(rb);}
+  if(!cls){const rb=document.createElement('button');rb.className='btn ghost small';rb.id='rev';rb.innerHTML='Rever<span> o conteúdo</span>';rb.onclick=()=>{S.mode='train';save();startLevel(cur.L.id);};$('.lvbar').appendChild(rb);}
   drawDots();
 }
 function drawDots(){const d=$('#dots');if(!d)return;
@@ -1524,7 +1597,7 @@ function rBlocks(s,st){
   const motion=s.blocks.filter(b=>b==='move'||b==='left'||b==='right'),control=s.blocks.filter(b=>b==='repeat'||b==='if');
   const tpls=arr=>arr.map(b=>'<div class="tplwrap">'+blk({t:b,body:[],els:[]},true)+'</div>').join('');
   st.innerHTML='<article class="card"><h2>'+s.title+'</h2>'+coach(s.who,s.mood,s.say)+'<p>'+s.task+'</p>'
-   +'<div class="stagebar"><div class="board-wrap"><div class="board" id="bd" style="--cols:'+cols+'">'+cells+'<div class="actor" id="ac" style="--r:'+start.r+';--c:'+start.c+'">'+actorMark()+'<i class="dir" id="dr">'+DARR[start.d]+'</i></div></div></div>'
+   +'<div class="stagebar"><div class="board-wrap"><div class="board" id="bd" style="--cols:'+cols+'">'+cells+'<div class="actor" id="ac" style="--r:'+start.r+';--c:'+start.c+'">'+pig('chico','happy')+'<i class="dir" id="dr">'+DARR[start.d]+'</i></div></div></div>'
    +'<div class="runbox"><button class="btn" id="go">▶ Executar</button><button class="btn ghost small" id="clr">Limpar</button><button class="btn ghost small" id="hint">Dica</button><span id="cnt" class="tchip"></span></div></div>'
    +'<p class="muted">Arraste os blocos da esquerda e encaixe embaixo de "quando ▶ for clicado". Para apagar, arraste o bloco de volta para a paleta.</p>'
    +'<div class="build"><aside class="palette2" id="pal"><h4>Blocos</h4>'+(motion.length?'<div class="cat">Movimento</div>'+tpls(motion):'')+(control.length?'<div class="cat ctl">Controle</div>'+tpls(control):'')+'</aside><div class="ws" id="ws"></div></div>'
