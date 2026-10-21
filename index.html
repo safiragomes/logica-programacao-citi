@@ -26,22 +26,17 @@
   --good:#3fe088; --good-bg:#0f3a24; --bad:#ff7a90; --bad-bg:#3d1620; --warn:#ffcb6b; --warn-bg:#3b2d0b;
   --code-bg:#030d08; color-scheme:dark;}
 
-/* tema escuro fixo (os dois modos) — identidade da EJ (CITi 30 anos), verde técnico */
+/* tema escuro fixo (os dois modos) — identidade da EJ (CITi 30 anos), verde técnico, Poppins; rosa substituído por verde em toda a aplicação */
 body{
   --brand:#2ddb60 !important; --brand-deep:#1aa84a !important; --brand-ink:#04150a !important;
-  --bg:#050b08 !important; --surface:#0d1a15 !important; --surface2:#122621 !important; --line:#1d3a2d !important;
-  --fg:#f3f8f6 !important; --muted:#8fa8a0 !important;
-  --good:#2ddb60 !important; --good-bg:#102a1c !important; --bad:#ff6b7a !important; --bad-bg:#2a1016 !important; --warn:#ffcb6b !important; --warn-bg:#2a2208 !important;
-  --code-bg:#020806 !important; --code-fg:#dff3ea !important;
-  color-scheme:dark;
-}
-/* modo Treinamento: Poppins, rosa substituído por verde, paleta alinhada ao deck SDD/TDD (preto quase puro + verde técnico) */
-body[data-mode="train"]{
-  --f-display:'Poppins',system-ui,sans-serif !important;
-  --f-body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif !important;
-  --pink:#2ddb60 !important; --pink-deep:#1aa84a !important;
   --bg:#040906 !important; --surface:#0b1511 !important; --surface2:#101e19 !important; --line:#1c3a2c !important;
   --fg:#f7f9f8 !important; --muted:#93b0a5 !important;
+  --pink:#2ddb60 !important; --pink-deep:#1aa84a !important;
+  --good:#2ddb60 !important; --good-bg:#102a1c !important; --bad:#ff6b7a !important; --bad-bg:#2a1016 !important; --warn:#ffcb6b !important; --warn-bg:#2a2208 !important;
+  --code-bg:#020806 !important; --code-fg:#dff3ea !important;
+  --f-display:'Poppins',system-ui,sans-serif !important;
+  --f-body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif !important;
+  color-scheme:dark;
 }
 
 *{box-sizing:border-box}
@@ -89,24 +84,26 @@ button{font-family:inherit;color:inherit}
 main{padding-block:22px 80px}
 
 /* botões */
-.btn{font:800 1.05rem var(--f-display);border:0;border-radius:14px;padding:11px 22px;background:var(--brand);color:var(--brand-ink);box-shadow:0 4px 0 var(--brand-deep);cursor:pointer;transition:transform .08s,box-shadow .08s}
-.btn:hover:not(:disabled){filter:brightness(1.04)}
-.btn:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 var(--brand-deep)}
+.btn{font:800 1.02rem var(--f-display);border:0;border-radius:14px;padding:11px 22px;background:var(--brand);color:var(--brand-ink);box-shadow:0 12px 26px -14px color-mix(in srgb,var(--brand) 75%,transparent);cursor:pointer;transition:transform .12s,filter .12s,box-shadow .12s}
+.btn:hover:not(:disabled){filter:brightness(1.07);transform:translateY(-1px)}
+.btn:active:not(:disabled){transform:translateY(0);filter:brightness(.97)}
 .btn:disabled{opacity:.42;cursor:not-allowed}
-.btn.ghost{background:var(--surface);color:var(--fg);border:2px solid var(--line);box-shadow:0 4px 0 var(--line)}
-.btn.small{font-size:.9rem;padding:7px 14px;border-radius:12px;box-shadow:0 3px 0 var(--brand-deep)}
-.btn.ghost.small{box-shadow:0 3px 0 var(--line)}
-.btn.pink{background:var(--pink);color:#4a0f26;box-shadow:0 4px 0 var(--pink-deep)}
+.btn.ghost{background:color-mix(in srgb,var(--surface) 90%,transparent);color:var(--fg);border:1.5px solid var(--line);box-shadow:none}
+.btn.ghost:hover:not(:disabled){border-color:var(--brand);filter:none}
+.btn.small{font-size:.9rem;padding:7px 14px;border-radius:12px}
+.btn.pink{background:var(--pink);color:var(--brand-ink);box-shadow:0 12px 26px -14px color-mix(in srgb,var(--pink) 75%,transparent)}
 
-/* mapa */
-.hero{display:flex;align-items:center;gap:20px;flex-wrap:wrap;background:var(--surface);border:2px solid var(--line);border-radius:28px;padding:20px 22px;margin-bottom:26px}
+/* mapa — hero em estética de slide de capa */
+.hero{position:relative;overflow:hidden;display:flex;align-items:center;gap:20px;flex-wrap:wrap;background:color-mix(in srgb,var(--surface) 92%,transparent);border:1px solid color-mix(in srgb,var(--brand) 14%,var(--line));border-radius:28px;padding:26px 28px;margin-bottom:26px;box-shadow:0 20px 48px -30px rgba(0,0,0,.55);background-image:var(--bg-open,none);background-repeat:no-repeat;background-position:right -10% bottom -30%;background-size:min(380px,34%) auto}
 .hero .pigs{display:flex;align-items:flex-end;gap:0;flex:0 0 auto}
 .hero .pigs .pig{width:118px}
-.hero .txt{flex:1 1 280px;min-width:0}
+.hero .txt{position:relative;z-index:1;flex:1 1 280px;min-width:0}
+.hero .txt>.tag{display:inline-block;background:none;color:var(--brand);padding:0;margin:0 0 12px;letter-spacing:.16em}
+.hero .txt>.tag::before{content:"";display:block;width:30px;height:3px;border-radius:99px;background:var(--brand);margin-bottom:10px}
 .hero h1{font-size:clamp(1.9rem,6vw,2.7rem);font-weight:800}
-.hero p{color:var(--muted);font-weight:600}
+.hero p{color:var(--muted);font-weight:600;max-width:60ch}
 .hero .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:14px}
-.seg{display:inline-flex;border:2px solid var(--line);border-radius:12px;overflow:hidden}
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:12px;overflow:hidden}
 .seg button{border:0;background:var(--surface);padding:6px 14px;font:800 .9rem var(--f-display);cursor:pointer;color:var(--muted)}
 .seg button[aria-pressed="true"]{background:var(--brand);color:var(--brand-ink)}
 .block{margin-bottom:34px}
@@ -115,19 +112,19 @@ main{padding-block:22px 80px}
 .bhead h3{font-size:1.3rem}
 .bhead small{color:var(--muted);font-weight:600;display:block}
 .trail{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;position:relative}
-.node{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:12px 16px;cursor:pointer;box-shadow:0 4px 0 var(--line);transition:transform .1s}
-.node:hover{transform:translateY(-2px)}
-.node .n{flex:0 0 auto;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;font:800 1.35rem var(--f-display);background:var(--surface2);color:var(--fg);border:3px solid var(--line)}
-.node.done .n{background:var(--brand);color:var(--brand-ink);border-color:var(--brand-deep)}
-.node.next{border-color:var(--brand-deep)}
-.node.next .n{background:var(--brand);color:var(--brand-ink);border-color:var(--brand-deep);animation:pulse 1.8s ease-in-out infinite}
+.node{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:color-mix(in srgb,var(--surface2) 55%,transparent);border:1.5px solid var(--line);border-radius:18px;padding:12px 16px;cursor:pointer;transition:transform .12s,border-color .12s}
+.node:hover{transform:translateY(-2px);border-color:var(--brand)}
+.node .n{flex:0 0 auto;width:50px;height:50px;border-radius:50%;display:grid;place-items:center;font:800 1.3rem var(--f-display);background:none;color:var(--brand);border:2px solid var(--line)}
+.node.done .n{background:color-mix(in srgb,var(--brand) 16%,var(--surface));border-color:var(--brand);color:var(--brand)}
+.node.next{border-color:var(--brand)}
+.node.next .n{border-color:var(--brand);box-shadow:0 0 0 5px color-mix(in srgb,var(--brand) 18%,transparent);animation:ringpulse 2s ease-in-out infinite}
 .node .info{flex:1;min-width:0}
 .node .info b{font:800 1.1rem var(--f-display);display:block}
 .node .info span{color:var(--muted);font-size:.92rem}
 .node .meta{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:0 0 auto}
 .stars{display:flex;gap:2px}
 .stars svg{width:18px;height:18px}
-.tchip{font:800 .8rem var(--f-display);background:var(--warn-bg);color:var(--warn);border-radius:99px;padding:2px 10px;white-space:nowrap}
+.tchip{font:800 .75rem var(--f-display);background:none;border:1px solid color-mix(in srgb,var(--warn) 45%,var(--line));color:var(--warn);border-radius:99px;padding:2px 10px;white-space:nowrap}
 @media (min-width:640px){.trail .node:nth-child(even){margin-left:36px;width:calc(100% - 36px)}}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,248,125,.55)}50%{box-shadow:0 0 0 10px rgba(0,248,125,0)}}
 .summary{background:var(--warn-bg);color:var(--warn);border-radius:16px;padding:10px 16px;font-weight:800;margin-bottom:22px}
@@ -185,7 +182,7 @@ input[type=range]{accent-color:var(--good);width:min(320px,100%)}
 .fb.good{background:var(--good-bg);color:var(--good)}
 .fb.bad{background:var(--bad-bg);color:var(--bad)}
 .fb.info{background:var(--warn-bg);color:var(--warn)}
-.tag{display:inline-block;font:800 .75rem var(--f-display);text-transform:uppercase;letter-spacing:.06em;background:var(--pink);color:#4a0f26;border-radius:99px;padding:2px 10px;margin-left:8px;vertical-align:middle}
+.tag{display:inline-block;font:800 .75rem var(--f-display);text-transform:uppercase;letter-spacing:.06em;background:var(--pink);color:var(--brand-ink);border-radius:99px;padding:2px 10px;margin-left:8px;vertical-align:middle}
 .placed{display:flex;flex-direction:column;gap:8px;margin:10px 0}
 .placed div{display:flex;gap:10px;align-items:center;background:var(--good-bg);color:var(--good);border-radius:12px;padding:10px 12px;font-weight:700}
 .placed b{font:800 1rem var(--f-display);background:var(--good);color:var(--surface);width:26px;height:26px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto}
@@ -508,7 +505,7 @@ body[data-mode="train"] .op-top .op-logo{order:2;margin-top:18px}
 body[data-mode="train"] .sv-num{background:none;border:1.5px solid color-mix(in srgb,var(--brand) 55%,transparent);color:var(--brand);padding:4px 14px}
 body[data-mode="train"] .sv-box,body[data-mode="train"] .sv-col,body[data-mode="train"] .sv-type,body[data-mode="train"] .sv-gate,body[data-mode="train"] .sv-mrow,body[data-mode="train"] .sv-idcard,body[data-mode="train"] .sv-tools .tool,body[data-mode="train"] .sv-recap .rc,body[data-mode="train"] .sv-recapgrid .rg,body[data-mode="train"] .sv-lamp .stp,body[data-mode="train"] .sv-person,body[data-mode="train"] .sv-promise .st{border-width:1.5px;border-radius:18px;background:color-mix(in srgb,var(--surface2) 55%,transparent)}
 body[data-mode="train"] .sv-recap .rc i,body[data-mode="train"] .sv-recapgrid .rg i,body[data-mode="train"] .sv-lamp .stp i{background:none!important;border:none;color:var(--brand);font-size:1.3em;width:auto;height:auto}
-body[data-mode="train"] .acc{color:var(--brand)}
+.acc{color:var(--brand)}
 body[data-mode="train"] .slide.open{background-image:var(--bg-open,none);background-repeat:no-repeat;background-position:right -6% bottom -8%;background-size:min(420px,38%) auto}
 body[data-mode="train"] .slide.open .op-txt{max-width:min(640px,58%)}
 
@@ -1371,7 +1368,7 @@ function renderMap(){
   if(TR())return mapTrain();
   const first=LV.find(l=>!S.done[l.id]);
   const nb=Object.keys(S.badges||{}).length;
-  app.innerHTML='<div class="hero"><div class="txt"><span class="tag" style="margin-left:0">Modo Aspirante</span><h1>Lógica de Programação</h1><p>Pratique o que viu no treinamento: quebra-cabeças, quizzes e desafios de código, com bônus e conquistas. O conteúdo está no modo Treinamento. Em cada nível, use <b>Rever o conteúdo</b> se precisar.</p><div class="row"><button class="btn" id="go">'+(first?(S.xp?'Continuar: '+first.title:'Começar'):'Rever')+'</button><button class="btn ghost" id="labgo">Laboratório de código</button></div></div></div>'
+  app.innerHTML='<div class="hero"><div class="txt"><span class="tag">Modo Aspirante</span><h1>'+acc('Lógica de Programação')+'</h1><p>Pratique o que viu no treinamento: quebra-cabeças, quizzes e desafios de código, com bônus e conquistas. O conteúdo está no modo Treinamento. Em cada nível, use <b>Rever o conteúdo</b> se precisar.</p><div class="row"><button class="btn" id="go">'+(first?(S.xp?'Continuar: '+first.title:'Começar'):'Rever')+'</button><button class="btn ghost" id="labgo">Laboratório de código</button></div></div></div>'
    +worldMap(first)
    +'<section class="block"><div class="bhead"><div><h3>Conquistas</h3><small>'+nb+' de '+BADGES.length+' desbloqueadas</small></div></div><div class="badges">'
    +BADGES.map(b=>'<div class="badge '+(S.badges[b.id]?'on':'')+'"><b>'+(S.badges[b.id]?'★ ':'☆ ')+b.name+'</b><span>'+b.desc+'</span></div>').join('')+'</div></section>'
@@ -1386,7 +1383,7 @@ function mapTrain(){
   const blk=(b,title,sub)=>{return '<section class="block"><div class="bhead"><div><h3>'+title+'</h3><small>'+sub+'</small></div></div><ol class="trail">'
    +LV.filter(l=>l.block===b).map(l=>{let t=0;for(const x of LV){if(x.id===l.id)break;t+=minsOf(x);}const ini=hhmm(toMin(S.tstart)+t);
      return '<li><button class="node" data-id="'+l.id+'"><span class="n">'+l.id+'</span><span class="info"><b>'+l.title+'</b><span>'+l.desc+'</span></span><span class="meta"></span></button></li>';}).join('')+'</ol></section>';};
-  app.innerHTML='<div class="hero"><div class="txt"><span class="tag" style="margin-left:0">Modo Treinamento</span><h1>Roteiro da aula</h1><p>Apresentação contínua: avance com a seta → ou a barra de espaço e os tópicos se encadeiam sozinhos.</p><div class="row"><button class="btn" id="go">Começar a apresentação</button><button class="btn ghost" id="labgo">Laboratório de código</button></div></div></div>'
+  app.innerHTML='<div class="hero"><div class="txt"><span class="tag">Modo Treinamento</span><h1>'+acc('Roteiro da aula')+'</h1><p>Apresentação contínua: avance com a seta → ou a barra de espaço e os tópicos se encadeiam sozinhos.</p><div class="row"><button class="btn" id="go">Começar a apresentação</button><button class="btn ghost" id="labgo">Laboratório de código</button></div></div></div>'
    +blk(1,'Bloco 1: Lógica e fundamentos de JS','Apresentador A')+blk(2,'Bloco 2: Estruturas de dados e TypeScript','Apresentador B');
   $$('.node').forEach(n=>n.onclick=()=>startLevel(+n.dataset.id));
   $('#go').onclick=()=>startLevel(1);$('#labgo').onclick=renderLabView;
