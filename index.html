@@ -168,14 +168,14 @@ main{padding-block:22px 80px}
 input[type=text],input[type=number],select{font:600 1rem var(--f-mono);padding:8px 10px;border:2px solid var(--line);border-radius:10px;background:var(--surface);color:var(--fg);max-width:100%}
 input[type=number]{width:5.5em}
 input[type=range]{accent-color:var(--good);width:min(320px,100%)}
-.chip{border:2px solid var(--line);background:var(--surface);border-radius:12px;padding:6px 12px;font:700 .95rem var(--f-mono);cursor:pointer;box-shadow:0 3px 0 var(--line)}
-.chip:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
-.chip.on{background:var(--brand);color:var(--brand-ink);border-color:var(--brand-deep);box-shadow:0 3px 0 var(--brand-deep)}
+.chip{border:1.5px solid var(--line);background:color-mix(in srgb,var(--surface2) 55%,transparent);border-radius:12px;padding:6px 12px;font:700 .95rem var(--f-mono);cursor:pointer;transition:transform .1s,border-color .1s}
+.chip:active{transform:translateY(1px)}
+.chip.on{background:color-mix(in srgb,var(--brand) 16%,var(--surface));color:var(--brand);border-color:var(--brand)}
 .chip:disabled{opacity:.4}
-.opt{display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:10px;border:2px solid var(--line);border-radius:14px;background:var(--surface);font:700 1rem var(--f-body);box-shadow:0 3px 0 var(--line);cursor:pointer}
-.opt:hover:not(:disabled){border-color:var(--brand-deep)}
-.opt.good{border-color:var(--good);background:var(--good-bg);box-shadow:0 3px 0 var(--good)}
-.opt.bad{border-color:var(--bad);background:var(--bad-bg);box-shadow:0 3px 0 var(--bad);animation:shake .3s}
+.opt{display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:10px;border:1.5px solid var(--line);border-radius:14px;background:color-mix(in srgb,var(--surface2) 55%,transparent);font:700 1rem var(--f-body);cursor:pointer;transition:border-color .12s,transform .12s}
+.opt:hover:not(:disabled){border-color:var(--brand);transform:translateY(-1px)}
+.opt.good{border-color:var(--good);background:var(--good-bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg);animation:shake .3s}
 .opt code{background:transparent;padding:0}
 @keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 .fb{border-radius:14px;padding:12px 14px;margin-top:6px;font-weight:600}
