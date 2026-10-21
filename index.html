@@ -509,7 +509,8 @@ body[data-mode="train"] .sv-num{background:none;border:1.5px solid color-mix(in 
 body[data-mode="train"] .sv-box,body[data-mode="train"] .sv-col,body[data-mode="train"] .sv-type,body[data-mode="train"] .sv-gate,body[data-mode="train"] .sv-mrow,body[data-mode="train"] .sv-idcard,body[data-mode="train"] .sv-tools .tool,body[data-mode="train"] .sv-recap .rc,body[data-mode="train"] .sv-recapgrid .rg,body[data-mode="train"] .sv-lamp .stp,body[data-mode="train"] .sv-person,body[data-mode="train"] .sv-promise .st{border-width:1.5px;border-radius:18px;background:color-mix(in srgb,var(--surface2) 55%,transparent)}
 body[data-mode="train"] .sv-recap .rc i,body[data-mode="train"] .sv-recapgrid .rg i,body[data-mode="train"] .sv-lamp .stp i{background:none!important;border:none;color:var(--brand);font-size:1.3em;width:auto;height:auto}
 body[data-mode="train"] .acc{color:var(--brand)}
-body[data-mode="train"] .slide.open{background-image:var(--bg-open,none);background-repeat:no-repeat;background-position:right -8% bottom -10%;background-size:min(640px,56%) auto}
+body[data-mode="train"] .slide.open{background-image:var(--bg-open,none);background-repeat:no-repeat;background-position:right -6% bottom -8%;background-size:min(420px,38%) auto}
+body[data-mode="train"] .slide.open .op-txt{max-width:min(640px,58%)}
 
 .sv-lamp{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}@media(max-width:760px){.sv-lamp{grid-template-columns:1fr}}.sv-lamp>.rv{display:flex}
 .sv-lamp .stp{display:flex;align-items:center;gap:14px;width:100%;border:3px solid var(--line);border-radius:20px;padding:14px 16px;background:var(--surface)}
@@ -550,33 +551,23 @@ body[data-mode="train"] .slide .live-hint{margin-bottom:8px!important}
 .lvbar h1{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media(max-width:480px){.lvbar #rev span{display:none}}
 
-/* mapa do aspirante */
-.wmap{position:relative;width:100%;max-width:720px;margin:6px auto 26px;aspect-ratio:800/1700;border-radius:30px;overflow:hidden;border:3px solid var(--line);box-shadow:0 8px 0 -2px var(--line)}
+/* mapa do aspirante: trilha limpa, sem cenário infantil */
+.wmap{position:relative;width:100%;max-width:720px;margin:6px auto 26px;aspect-ratio:800/1700;border-radius:28px;overflow:hidden;background:var(--surface);border:1px solid color-mix(in srgb,var(--brand) 14%,var(--line));box-shadow:0 20px 48px -28px rgba(0,0,0,.5)}
 .wm-bg{position:absolute;inset:0;width:100%;height:100%}
-.wm-bg .wground{fill:color-mix(in srgb,var(--brand) 22%,var(--bg))}
-.wm-bg .wpath0{fill:none;stroke:color-mix(in srgb,#b99660 80%,var(--bg));stroke-width:58;stroke-linecap:round;stroke-linejoin:round}
-.wm-bg .wpath{fill:none;stroke:color-mix(in srgb,#f0dcae 85%,var(--bg));stroke-width:48;stroke-linecap:round;stroke-linejoin:round}
-.wm-bg .wpath1{fill:none;stroke:#fff;stroke-opacity:.55;stroke-width:4;stroke-dasharray:3 16;stroke-linecap:round}
-.wm-bg .wcl *{fill:#fff;opacity:.85}
-.wm-bg .wt .trunk{fill:#8a5a34}.wm-bg .wt .tsh{fill:#06331a;opacity:.2}.wm-bg .wt .c1{fill:#2e9d5d}.wm-bg .wt .c2{fill:#3fbd73}.wm-bg .wt .c3{fill:#74dc98;opacity:.8}
-.wm-bg .pond{fill:#6fb6e8}.wm-bg .pond2{fill:#a6dcff;opacity:.7}
-.wm-bg .tuft{fill:#1f8f55;opacity:.7}.wm-bg .stem{stroke:#1f8f55;stroke-width:3;fill:none}
-.wm-bg .tbase{fill:#e8c9a0}.wm-bg .pole{stroke:#7a4b2a;stroke-width:3}
-.wm-bg .garland{stroke:#ffd95a;stroke-width:5;stroke-dasharray:2 10;stroke-linecap:round}
-.wm-bg .fleg{fill:none;stroke:#7a4b2a;stroke-width:5}.wm-bg .frim{fill:none;stroke:#fff;stroke-width:4}.wm-bg .fsp line{stroke:#fff;stroke-width:2.5}
-.wm-bg .bstr{stroke:#fff;stroke-width:1.5;fill:none}
+.wm-bg .wground{fill:var(--surface)}
+.wm-bg .wdots{opacity:.5;color:var(--line)}
+.wm-bg .wpath0{fill:none;stroke:var(--line);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.wm-bg .wpath{fill:none;stroke:var(--brand-deep);stroke-width:3;stroke-dasharray:1 11;stroke-linecap:round;stroke-linejoin:round;opacity:.9}
 .wn{position:absolute;transform:translate(-50%,-50%);border:0;background:none;padding:0;cursor:pointer;display:grid;justify-items:center;width:20%}
-.wn .wc{width:clamp(38px,9vw,66px);aspect-ratio:1;border-radius:50%;background:var(--surface);border:4px solid var(--brand-deep);display:flex;align-items:center;justify-content:center;font:800 clamp(1rem,2.8vw,1.6rem) var(--f-display);color:var(--fg);box-shadow:0 5px 0 var(--brand-deep);transition:transform .15s}
-.wn:hover .wc{transform:translateY(-3px) scale(1.06)}
-.wn.done .wc{background:var(--brand);color:var(--brand-ink)}
-.wn.next .wc{background:var(--pink);border-color:var(--pink-deep);box-shadow:0 5px 0 var(--pink-deep);color:#4a0f26;animation:pulse 1.6s infinite}
-.wn .wl{position:absolute;top:100%;margin-top:6px;background:color-mix(in srgb,var(--surface) 92%,transparent);border:2px solid var(--line);border-radius:12px;padding:2px 10px;font:700 clamp(.65rem,1.7vw,.9rem)/1.25 var(--f-body);text-align:center;width:max-content;max-width:150%;display:grid;gap:0;justify-items:center}
+.wn .wc{width:clamp(38px,9vw,60px);aspect-ratio:1;border-radius:50%;background:var(--surface);border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font:800 clamp(1rem,2.8vw,1.5rem) var(--f-display);color:var(--fg);transition:transform .15s,border-color .15s}
+.wn:hover .wc{transform:translateY(-2px);border-color:var(--brand)}
+.wn.done .wc{background:color-mix(in srgb,var(--brand) 16%,var(--surface));border-color:var(--brand);color:var(--brand)}
+.wn.next .wc{border-color:var(--brand);color:var(--brand);box-shadow:0 0 0 5px color-mix(in srgb,var(--brand) 18%,transparent);animation:ringpulse 2s ease-in-out infinite}
+.wn .wl{position:absolute;top:100%;margin-top:6px;background:color-mix(in srgb,var(--surface) 92%,transparent);border:1px solid var(--line);border-radius:10px;padding:2px 10px;font:700 clamp(.65rem,1.7vw,.9rem)/1.25 var(--f-body);text-align:center;width:max-content;max-width:150%;display:grid;gap:0;justify-items:center}
 .wn .wl b{font-weight:800}
-.wn .wpig{position:absolute;bottom:62%;width:clamp(50px,14vw,100px);pointer-events:none}.wn .wpig .pig{width:100%}
-.wn.l .wpig{left:-40%}.wn.r .wpig{right:-40%}
-.wsign{position:absolute;left:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:8px;background:var(--warn-bg);color:var(--warn);border:3px solid var(--warn);border-radius:16px;padding:4px 14px 4px 6px;font:800 clamp(.7rem,2vw,1rem) var(--f-display);white-space:normal;max-width:42%;pointer-events:none}
-.wsign .pig{width:clamp(30px,6vw,46px)}
-.wend{position:absolute;left:50%;bottom:1.2%;transform:translateX(-50%);font:800 clamp(.9rem,2.6vw,1.4rem) var(--f-display);background:var(--pink);color:#4a0f26;border-radius:99px;padding:3px 18px}
+@keyframes ringpulse{0%,100%{box-shadow:0 0 0 5px color-mix(in srgb,var(--brand) 18%,transparent)}50%{box-shadow:0 0 0 9px color-mix(in srgb,var(--brand) 8%,transparent)}}
+.wsign{position:absolute;left:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:8px;background:color-mix(in srgb,var(--surface) 92%,transparent);color:var(--brand);border:1px solid color-mix(in srgb,var(--brand) 40%,var(--line));border-radius:99px;padding:5px 16px;font:800 clamp(.68rem,1.7vw,.85rem) var(--f-display);text-transform:uppercase;letter-spacing:.08em;white-space:normal;max-width:50%;pointer-events:none}
+.wend{position:absolute;left:50%;bottom:1.6%;transform:translateX(-50%);font:800 clamp(.8rem,2.2vw,1rem) var(--f-display);text-transform:uppercase;letter-spacing:.08em;color:var(--brand);background:none;border:1px solid color-mix(in srgb,var(--brand) 40%,var(--line));border-radius:99px;padding:5px 18px}
 .wsign.wleft{left:4%;transform:translateY(-50%)}
 </style>
 
@@ -1362,30 +1353,16 @@ function worldMap(first){
   let d='M'+route[0].x+' '+route[0].y;
   for(let i=0;i<route.length-1;i++){const p0=route[Math.max(0,i-1)],p1=route[i],p2=route[i+1],p3=route[Math.min(route.length-1,i+2)];
     d+=' C'+(p1.x+(p2.x-p0.x)/6).toFixed(1)+' '+(p1.y+(p2.y-p0.y)/6).toFixed(1)+','+(p2.x-(p3.x-p1.x)/6).toFixed(1)+' '+(p2.y-(p3.y-p1.y)/6).toFixed(1)+','+p2.x+' '+p2.y;}
-  const near=[];route.forEach((a,i)=>{const b=route[i+1];if(!b)return;for(let t=0;t<=1;t+=.1)near.push({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t});});
-  let r=5;const rnd=()=>(r=(r*16807)%2147483647)/2147483647;
-  const free=(x,y,m)=>near.every(q=>Math.hypot(q.x-x,q.y-y)>m)&&y<1540;
-  const cols=['#ff8fb0','#ffd95a','#ffffff','#c6a5ff'];
-  let deco='';
-  for(let n=0,tries=0;n<22&&tries<400;tries++){const x=20+rnd()*760,y=200+rnd()*1300;if(!free(x,y,120))continue;n++;const sc=.5+rnd()*.5;
-    deco+='<g class="wt" transform="translate('+x.toFixed(0)+' '+y.toFixed(0)+') scale('+sc.toFixed(2)+')"><ellipse class="tsh" cx="6" cy="64" rx="38" ry="7"/><rect class="trunk" x="-7" y="10" width="14" height="54" rx="5"/><circle class="c1" cx="-22" cy="4" r="30"/><circle class="c1" cx="22" cy="6" r="28"/><circle class="c2" cx="0" cy="-18" r="36"/><circle class="c3" cx="-10" cy="-26" r="16"/></g>';}
-  for(let n=0,tries=0;n<2&&tries<200;tries++){const x=60+rnd()*680,y=300+rnd()*1100;if(!free(x,y,150))continue;n++;deco+='<ellipse class="pond" cx="'+x.toFixed(0)+'" cy="'+y.toFixed(0)+'" rx="70" ry="30"/><ellipse class="pond2" cx="'+(x-12).toFixed(0)+'" cy="'+(y-6).toFixed(0)+'" rx="44" ry="14"/>';}
-  for(let n=0,tries=0;n<46&&tries<600;tries++){const x=rnd()*800,y=120+rnd()*1400;if(!free(x,y,70))continue;n++;
-    deco+=Math.random()>2?'':(n%2?'<path class="tuft" transform="translate('+x.toFixed(0)+' '+y.toFixed(0)+')" d="M-8 0 L-4 -15 L0 0 L3 -21 L7 0 L11 -11 L14 0Z"/>':'<g transform="translate('+x.toFixed(0)+' '+y.toFixed(0)+')"><path class="stem" d="M0 0 V-18"/><circle cx="0" cy="-22" r="6" fill="'+cols[n%4]+'"/><circle cx="0" cy="-22" r="2.4" fill="#fff3a0"/></g>');}
-  const cloud=(x,y,k)=>'<g class="wcl" transform="translate('+x+' '+y+') scale('+k+')"><circle cx="0" cy="0" r="22"/><circle cx="30" cy="-12" r="30"/><circle cx="64" cy="0" r="22"/><rect x="-22" y="0" width="108" height="22" rx="11"/></g>';
-  const tent=(x,y,k,c)=>'<g transform="translate('+x+' '+y+') scale('+k+')"><path d="M-44 0 L0 -56 L44 0Z" fill="'+c+'"/><path d="M-15 0 L0 -56 L15 0Z" fill="#fff"/><path d="M-44 0 H44 V14 H-44Z" class="tbase"/><path d="M0 -56 V-74" class="pole"/><path d="M0 -74 L16 -68 L0 -62Z" fill="'+c+'"/></g>';
-  const spokes=[0,1,2,3].map(i=>'<line x1="0" y1="-52" x2="0" y2="52" transform="rotate('+(i*45)+')"/>').join('');
-  const fest='<g class="wfest" transform="translate(0 1560)">'+tent(280,60,1.1,'#ff8fb0')+tent(520,60,1.1,'#ffd95a')+tent(400,70,1.5,'#c6a5ff')+'<g transform="translate(640 20)"><path class="fleg" d="M-36 66 L0 0 L36 66"/><circle r="52" class="frim"/><circle r="26" class="frim"/><g class="fsp">'+spokes+'</g></g><g transform="translate(150 20)"><ellipse rx="16" ry="21" fill="#ff8fb0"/><path d="M0 21 Q-5 40 2 60" class="bstr"/></g><path class="garland" d="M200 8 Q300 40 400 8 T600 8" fill="none"/></g>';
-  const house='<g transform="translate(400 30)"><rect x="-34" y="-6" width="68" height="40" rx="6" fill="#ffe3b8"/><path d="M-42 -4 L0 -40 L42 -4Z" fill="#ff8fb0"/><rect x="-9" y="10" width="18" height="24" rx="4" fill="#8a5a34"/></g>';
-  const bg='<svg class="wm-bg" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" aria-hidden="true"><rect class="wground" width="'+W+'" height="'+H+'"/>'
-   +cloud(90,60,1)+cloud(560,110,.8)+cloud(300,10,.6)
-   +'<path class="wpath0" d="'+d+'"/><path class="wpath" d="'+d+'"/><path class="wpath1" d="'+d+'"/>'
-   +deco+house+fest+'</svg>';
+  const checkSvg='<svg viewBox="0 0 24 24" width="48%" height="48%" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>';
+  const bg='<svg class="wm-bg" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" aria-hidden="true"><defs>'
+   +'<pattern id="wmDots" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.6" fill="currentColor"/></pattern></defs>'
+   +'<rect class="wground" width="'+W+'" height="'+H+'"/><rect class="wdots" width="'+W+'" height="'+H+'" fill="url(#wmDots)"/>'
+   +'<path class="wpath0" d="'+d+'"/><path class="wpath" d="'+d+'"/></svg>';
   const sign=(y,t,left)=>'<div class="wsign'+(left?' wleft':'')+'" style="top:'+(y/H*100).toFixed(2)+'%"><b>'+t+'</b></div>';
   const nodes=pts.map(p=>{const l=p.l,dn=S.done[l.id],nx=first&&first.id===l.id;
     return '<button class="wn '+(dn?'done':nx?'next':'')+' '+(p.x<400?'l':'r')+'" style="left:'+(p.x/W*100).toFixed(2)+'%;top:'+(p.y/H*100).toFixed(2)+'%" data-id="'+l.id+'" aria-label="'+l.id+'. '+l.title+'">'
-     +'<span class="wc">'+(dn?'✓':l.id)+'</span><span class="wl"><b>'+l.title+'</b>'+(dn?stars(dn):'')+'</span></button>';}).join('');
-  return '<div class="wmap">'+bg+sign(112,'Bloco 1 · Lógica e fundamentos')+sign(840,'Bloco 2 · Dados e TypeScript',true)+nodes+'<div class="wend">Você chegou!</div></div>';
+     +'<span class="wc">'+(dn?checkSvg:l.id)+'</span><span class="wl"><b>'+l.title+'</b>'+(dn?stars(dn):'')+'</span></button>';}).join('');
+  return '<div class="wmap">'+bg+sign(112,'Bloco 1 · Lógica e fundamentos')+sign(840,'Bloco 2 · Dados e TypeScript',true)+nodes+'<div class="wend">Trilha concluída</div></div>';
 }
 function hhmm(m){m=((m%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');}
 function renderMap(){
@@ -1755,14 +1732,19 @@ function fitSlide(){
   const foot=$('.foot');
   const top=card.getBoundingClientRect().top+window.scrollY;
   const avail=Math.max(240,window.innerHeight-top-(foot&&!foot.hidden?foot.offsetHeight+18:0)-14);
+  inner.style.transform='';inner.style.width='';inner.style.minHeight='';
   card.style.height=avail+'px';
   const cs=getComputedStyle(card);const availH=avail-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom);
-  inner.style.transform='';inner.style.width='';inner.style.minHeight='';
+  if(card.querySelector('.build')){
+    const natural=inner.scrollHeight;const kk=Math.min(1,(availH-6)/natural);
+    if(kk<.999){inner.style.transform='scale('+kk+')';inner.style.transformOrigin='top center';inner.style.minHeight=(availH/kk)+'px';}
+    card.style.overflow='hidden';return;
+  }
   let k=1;
-  const test=kk=>{inner.style.width=(100/kk)+'%';inner.style.transform='scale('+kk+')';inner.style.transformOrigin='top left';return inner.scrollHeight*kk<=availH-10;};
-  const grow=!card.querySelector('.build');
+  const origin=(card.classList.contains('cover')||card.classList.contains('open'))?'left center':'top left';
+  const test=kk=>{inner.style.width=(100/kk)+'%';inner.style.transform='scale('+kk+')';inner.style.transformOrigin=origin;return inner.scrollHeight*kk<=availH-18;};
   if(!test(1)){let lo=.35,hi=1;for(let i=0;i<10;i++){const mid=(lo+hi)/2;if(test(mid))lo=mid;else hi=mid;}k=lo;test(k);}
-  else if(grow){let lo=1,hi=1.55;for(let i=0;i<8;i++){const mid=(lo+hi)/2;if(test(mid))lo=mid;else hi=mid;}k=lo;test(k);}
+  else{let lo=1,hi=1.3;for(let i=0;i<8;i++){const mid=(lo+hi)/2;if(test(mid))lo=mid;else hi=mid;}k=lo;test(k);}
   if(Math.abs(k-1)<.01){inner.style.transform='';inner.style.width='';k=1;}
   inner.style.minHeight=(availH/k)+'px';
   card.style.overflow=k<=.36?'auto':'hidden';
