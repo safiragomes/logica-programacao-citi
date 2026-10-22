@@ -248,10 +248,9 @@ textarea.ed{width:100%;min-height:190px;resize:vertical;background:var(--code-bg
 .cell.g::after{content:"";position:absolute;left:calc(34% + 3px);top:14%;width:34%;height:34%;background:#ff5fa2;clip-path:polygon(0 0,100% 50%,0 100%)}
 .cell.w{background:radial-gradient(circle at 28% 30%,#37a96a 0 26%,transparent 28%),radial-gradient(circle at 72% 66%,#2a9158 0 28%,transparent 30%),#1d7048}
 .gl{position:absolute;inset:2px}
-.actor{position:absolute;z-index:3;width:var(--cell);height:var(--cell);left:calc(var(--c) * (var(--cell) + 2px) + 2px);top:calc(var(--r) * (var(--cell) + 2px) + 2px);transition:left .3s linear,top .3s linear}
-.actor svg{width:100%;height:100%;display:block;filter:drop-shadow(0 6px 10px rgba(45,219,96,.35))}
+.actor{position:absolute;z-index:3;width:var(--cell);height:var(--cell);left:calc(var(--c) * (var(--cell) + 2px) + 2px);top:calc(var(--r) * (var(--cell) + 2px) + 2px);transition:left .3s linear,top .3s linear;--dir-deg:0deg}
+.actor svg{width:100%;height:100%;display:block;filter:drop-shadow(0 6px 10px rgba(45,219,96,.35));transform:rotate(var(--dir-deg));transition:transform .2s ease}
 .actor.bump{animation:shake .3s}
-.dir{position:absolute;right:-3px;top:-3px;width:18px;height:18px;border-radius:50%;background:var(--brand);color:var(--brand-ink);font:800 .58rem/18px var(--f-display);text-align:center;font-style:normal;border:2px solid var(--brand-deep)}
 .blk .x{margin-left:auto}
 .lvwrap{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
 .lvbar{position:relative;z-index:2;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
@@ -278,6 +277,11 @@ body[data-sky="night"] .backdrop{--tint:#5a3fb0;background:radial-gradient(color
 .code code{background:none;padding:0;border-radius:0;font-size:inherit;color:inherit}
 .code{border:1px solid color-mix(in srgb,var(--code-fg) 16%,transparent);tab-size:2;font-variant-ligatures:none}
 textarea.ed{white-space:pre;overflow:auto;tab-size:2;font-variant-ligatures:none;border-color:color-mix(in srgb,var(--code-fg) 16%,transparent)}
+.ed-wrap{position:relative}
+.ed-wrap .ed-hl{position:absolute;inset:0;margin:0;padding:12px 14px;font:500 .9rem/1.6 var(--f-mono);white-space:pre;overflow:hidden;pointer-events:none;border:2px solid transparent;border-radius:14px;tab-size:2;font-variant-ligatures:none;background:var(--code-bg);color:var(--code-fg)}
+.ed-wrap .ed-hl code{background:none;padding:0;color:inherit;font:inherit}
+.ed-wrap textarea.ed{position:relative;background:transparent;color:transparent;caret-color:var(--code-fg)}
+.ed-wrap textarea.ed::selection{background:color-mix(in srgb,var(--brand) 35%,transparent);color:transparent}
 .code .hl{display:inline-block;min-width:100%;box-sizing:border-box}
 /* quebra-cabeça de blocos (peças que encaixam) */
 .stagebar{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin:12px 0 6px}
@@ -1114,6 +1118,7 @@ const V={
 };
 const S_=(title,html,o)=>Object.assign({kind:'slide',title,html},o||{});
 const LIVE=(title,hint,ts)=>S_(title,'<p class="live-hint">'+hint+'</p>',{kicker:'Ao vivo',live:ts?'ts':'js'});
+const TOOLS_SLIDE=S_('Onde praticar: sem instalar nada','<div class="sv-tools">'+rv('<div class="tool"><b>VS Code</b><span>o editor do dia a dia</span></div>')+rv('<div class="tool"><b>TS Playground</b><span>JavaScript e TypeScript direto no navegador</span><code>typescriptlang.org/play</code></div>')+'</div>'+rv('<p class="sv-cap">Nada para instalar: abra o Playground e escreva. Mais pra frente, quando chegarmos em TypeScript, ele também vira o seu editor com tipos.</p>'),{kicker:'Antes de começar'});
 const SL={
  'Programar é dar instruções':[
   S_('Dinâmica: como trocar uma lâmpada?','<div class="sv-lamp">'+['Desligar o interruptor','Pegar a escada e a lâmpada nova','Subir na escada','Tirar a lâmpada queimada','Rosquear a lâmpada nova','Ligar o interruptor'].map((t,k)=>rv('<div class="stp '+(k<2?'ka':k<5?'kb':'kc')+'"><i>'+(k+1)+'</i><b>'+t+'</b></div>')).join('')+'</div>'+rv('<p class="sv-cap">Cada pessoa descreveria de um jeito. O computador precisa de todos os passos, na ordem certa.</p>'),{kicker:'Algoritmo',replace:true,mood:'think'}),
@@ -1159,8 +1164,7 @@ const SL={
  'JavaScript com rede de proteção':[
   S_('O TypeScript pega o erro antes de rodar',V.cmp({t:'JavaScript',c:'bad',h:'<pre class="sv-mini">somar(5, "10")</pre><p class="verdict f">"510"</p><small>roda, mas devolve um resultado errado, sem aviso</small>'},{t:'TypeScript',c:'good',h:'<pre class="sv-mini squig">somar(5, <u>"10"</u>)</pre><p class="verdict t">erro no editor</p><small>"string" não cabe em "number": você vê antes de rodar</small>'}),{kicker:'TypeScript',mood:'think'})],
  'Tipos, funções tipadas e interface':[
-  S_('Tipos depois dos dois pontos','<div class="sv-row start">'+rv('<pre class="sv-anat small"><span class="a1">function</span> dobrar(x<span class="a2">: number</span>)<span class="a3">: number</span> {\n  return x * 2;\n}</pre>')+rv(V.card('interface Pessoa',[['nome','string'],['idade','number'],['ativo?','boolean (opcional)']]))+'</div>'+'<div class="sv-legend">'+rv('<span class="l2">tipo do parâmetro</span>')+rv('<span class="l3">tipo do retorno</span>')+'</div>',{kicker:'TypeScript'}),
-  S_('Onde praticar: sem instalar nada','<div class="sv-tools">'+rv('<div class="tool"><b>VS Code</b><span>o editor do dia a dia</span></div>')+rv('<div class="tool"><b>TS Playground</b><span>TypeScript direto no navegador</span><code>typescriptlang.org/play</code></div>')+'</div>'+rv('<p class="sv-cap">Nada para instalar: abra o Playground e escreva.</p>'),{kicker:'Ferramentas'})]
+  S_('Tipos depois dos dois pontos','<div class="sv-row start">'+rv('<pre class="sv-anat small"><span class="a1">function</span> dobrar(x<span class="a2">: number</span>)<span class="a3">: number</span> {\n  return x * 2;\n}</pre>')+rv(V.card('interface Pessoa',[['nome','string'],['idade','number'],['ativo?','boolean (opcional)']]))+'</div>'+'<div class="sv-legend">'+rv('<span class="l2">tipo do parâmetro</span>')+rv('<span class="l3">tipo do retorno</span>')+'</div>',{kicker:'TypeScript'})]
 };
 SL['O laço for, passo a passo'].push(LIVE('Vamos codar: for','Imprima os números de 1 a 5. Depois conte de 2 em 2.'));
 SL['let e const: caixas com nome'].push(LIVE('Vamos codar: let e const','Declare fatias com let e presente com const. Depois tente trocar o presente e leia o erro.'));
@@ -1177,10 +1181,10 @@ SL['Array de objetos'].push(LIVE('Vamos codar: array de objetos','Crie uma lista
 SL['JavaScript com rede de proteção'].push(LIVE('Vamos codar: o bug do TypeScript','Escreva somar(a, b) sem tipos e chame com 5 e "10". Depois adicione : number e veja o erro no Playground.',true));
 SL['Tipos, funções tipadas e interface'].splice(1,0,LIVE('Vamos codar: tipos e interface','Anote tipos em uma variável e em uma função. Depois crie uma interface Pessoa e use no parâmetro.',true));
 function tsBox(){return '<div class="lab labbox"><h4>Código ao vivo (TypeScript)</h4><textarea class="ed lb-ed" rows="6" spellcheck="false" wrap="off" autocapitalize="off" autocomplete="off" placeholder="// escreva em TypeScript e cole no Playground para ver os erros" aria-label="Editor de TypeScript"></textarea><div class="row" style="margin-top:10px"><button class="btn small lb-copy">Copiar código</button><a class="btn ghost small" href="https://www.typescriptlang.org/play" target="_blank" rel="noopener">Abrir o TS Playground</a></div></div>';}
-function mountTsBox(root){const ed=$('.lb-ed',root);ed.onkeydown=e=>tabKey(e);$('.lb-copy',root).onclick=async()=>{try{await navigator.clipboard.writeText(ed.value);toast('Código copiado');}catch(e){ed.select();toast('Selecionado: use Ctrl + C');}};}
+function mountTsBox(root){const ed=$('.lb-ed',root);wireEditor(ed);$('.lb-copy',root).onclick=async()=>{try{await navigator.clipboard.writeText(ed.value);toast('Código copiado');}catch(e){ed.select();toast('Selecionado: use Ctrl + C');}};}
 function aspSteps(l){return l.steps.filter(x=>x.kind!=='lesson'||(l.id===12&&x.title==='O que você aprendeu'));}
 function trainSteps(l){
-  const out=l.id===1?[{kind:'opening'},{kind:'cover'}]:[{kind:'cover'}];
+  const out=l.id===1?[{kind:'opening'},TOOLS_SLIDE,{kind:'cover'}]:[{kind:'cover'}];
   l.steps.forEach(s=>{
     if(s.kind==='story'||s.kind==='quiz'||s.kind==='order'||s.bonus)return;
     if(s.kind==='blocks'&&!(l.id===1&&/repetir/.test(s.title)))return;
@@ -1376,7 +1380,7 @@ function rCode(s,st){
   const i=cur.idx;const key=(s.bonus?'k':'c')+cur.L.id+'-'+i;
   st.innerHTML='<article class="card">'+exHead(s)+'<textarea class="ed" id="ed" spellcheck="false" wrap="off" autocapitalize="off" autocomplete="off" aria-label="Seu código">'+esc(s.starter)+'</textarea><div class="row" style="margin-top:12px"><button class="btn" id="run">Rodar testes</button><button class="btn ghost small" id="hint">Dica</button><button class="btn ghost small" id="sol" disabled>Ver gabarito</button></div><div id="fb"></div><ul class="tests" id="tests"></ul></article>';
   const ed=$('#ed',st),fb=$('#fb',st);
-  ed.onkeydown=e=>{if(e.key==='Tab'){e.preventDefault();const a=ed.selectionStart;ed.value=ed.value.slice(0,a)+'  '+ed.value.slice(ed.selectionEnd);ed.selectionStart=ed.selectionEnd=a+2;}};
+  wireEditor(ed);
   $('#hint',st).onclick=()=>{fb.innerHTML='<div class="fb info">Dica: '+s.hint+'</div>';};
   const showSol=()=>{fb.innerHTML='<div class="fb info">Gabarito:'+code(s.sol)+'</div>';};
   $('#sol',st).onclick=showSol;
@@ -1398,7 +1402,7 @@ function rTs(s,st){
   const i=cur.idx;const key=(s.bonus?'k':'c')+cur.L.id+'-'+i;
   st.innerHTML='<article class="card">'+exHead(s)+'<p>Código em JavaScript:</p>'+code(s.js)+'<textarea class="ed" id="ed" spellcheck="false" wrap="off" autocapitalize="off" autocomplete="off" aria-label="Seu código em TypeScript">'+esc(s.starter)+'</textarea><div class="row" style="margin-top:12px"><button class="btn" id="run">Conferir</button><button class="btn ghost small" id="hint">Dica</button><button class="btn ghost small" id="sol" disabled>Ver gabarito</button></div><div id="fb"></div><ul class="tests" id="tests"></ul></article>';
   const ed=$('#ed',st),fb=$('#fb',st);
-  ed.onkeydown=e=>{if(e.key==='Tab'){e.preventDefault();const a=ed.selectionStart;ed.value=ed.value.slice(0,a)+'  '+ed.value.slice(ed.selectionEnd);ed.selectionStart=ed.selectionEnd=a+2;}};
+  wireEditor(ed);
   $('#hint',st).onclick=()=>{fb.innerHTML='<div class="fb info">Dica: '+s.hint+'</div>';};
   $('#sol',st).onclick=()=>{fb.innerHTML='<div class="fb info">Gabarito:'+code(s.sol)+'<p>Cole no TS Playground para ver o TypeScript em ação.</p></div>';};
   if(cur.ok[i]){fb.innerHTML='<div class="fb good">Desafio concluído!</div>';$('#sol',st).disabled=false;}
@@ -1411,7 +1415,41 @@ function rTs(s,st){
 }
 
 /* ============ caixas de código e laboratório ============ */
-function tabKey(e){if(e.key==='Tab'){e.preventDefault();const t=e.target,a=t.selectionStart;t.value=t.value.slice(0,a)+'  '+t.value.slice(t.selectionEnd);t.selectionStart=t.selectionEnd=a+2;}}
+function wireEditor(ed,onRun){
+  const wrap=document.createElement('div');wrap.className='ed-wrap';
+  ed.parentNode.insertBefore(wrap,ed);
+  wrap.insertAdjacentHTML('afterbegin','<pre class="ed-hl code" aria-hidden="true"><code></code></pre>');
+  wrap.appendChild(ed);
+  const hlCode=$('code',wrap),hlPre=$('.ed-hl',wrap);
+  const paint=()=>{hlCode.innerHTML=hl(ed.value)+'\n';hlPre.scrollTop=ed.scrollTop;hlPre.scrollLeft=ed.scrollLeft;};
+  const sync=()=>{hlPre.scrollTop=ed.scrollTop;hlPre.scrollLeft=ed.scrollLeft;};
+  ed.addEventListener('input',paint);
+  ed.addEventListener('scroll',sync);
+  ed.addEventListener('keydown',e=>{
+    if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){if(onRun){e.preventDefault();onRun();}return;}
+    if(e.key==='Tab'){
+      e.preventDefault();const a=ed.selectionStart,b=ed.selectionEnd;
+      ed.value=ed.value.slice(0,a)+'  '+ed.value.slice(b);ed.selectionStart=ed.selectionEnd=a+2;paint();return;
+    }
+    if(e.key==='Enter'){
+      e.preventDefault();const pos=ed.selectionStart,v=ed.value;
+      const lineStart=v.lastIndexOf('\n',pos-1)+1,line=v.slice(lineStart,pos);
+      const indent=(line.match(/^[ \t]*/)||[''])[0],trimmed=line.trim();
+      const opens='{[(',closes='}])',lastCh=trimmed.slice(-1),oIdx=opens.indexOf(lastCh);
+      const extra=oIdx>=0?'  ':'';
+      if(oIdx>=0&&v[pos]===closes[oIdx]){
+        const insert='\n'+indent+extra+'\n'+indent;
+        ed.value=v.slice(0,pos)+insert+v.slice(pos);ed.selectionStart=ed.selectionEnd=pos+1+indent.length+extra.length;
+      }else{
+        const insert='\n'+indent+extra;
+        ed.value=v.slice(0,pos)+insert+v.slice(pos);ed.selectionStart=ed.selectionEnd=pos+insert.length;
+      }
+      paint();
+    }
+  });
+  paint();
+  return paint;
+}
 function labBox(src,rows,title){return '<div class="lab labbox"><h4>'+(title||'Teste você: edite e execute')+'</h4><textarea class="ed lb-ed" rows="'+rows+'" spellcheck="false" wrap="off" autocapitalize="off" autocomplete="off" placeholder="// escreva o código aqui e execute com Ctrl + Enter" aria-label="Editor de código">'+esc(src)+'</textarea><div class="row" style="margin-top:10px"><button class="btn small lb-run">Executar</button><button class="btn ghost small lb-reset">'+(src?'Restaurar exemplo':'Limpar')+'</button><span class="hintkey">Ctrl + Enter</span></div><pre class="out lb-out" style="white-space:pre-wrap">A saída do console.log aparece aqui.</pre></div>';}
 function mountLabBox(root,src){
   let base=src;const ed=$('.lb-ed',root),out=$('.lb-out',root);
@@ -1424,10 +1462,10 @@ function mountLabBox(root,src){
     else out.className='out lb-out';
     out.textContent=t||'(nada foi impresso: use console.log para mostrar valores)';
   }
-  ed.onkeydown=e=>{tabKey(e);if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();run();}};
+  const repaint=wireEditor(ed,run);
   $('.lb-run',root).onclick=run;
-  $('.lb-reset',root).onclick=()=>{ed.value=base;out.className='out lb-out';out.textContent='A saída do console.log aparece aqui.';};
-  return{set(v){base=v;ed.value=v;}};
+  $('.lb-reset',root).onclick=()=>{ed.value=base;repaint();out.className='out lb-out';out.textContent='A saída do console.log aparece aqui.';};
+  return{set(v){base=v;ed.value=v;repaint();}};
 }
 function renderLabView(){
   view='lab';cur=null;clearInterval(tick);document.body.dataset.sky='day';renderHud();
@@ -1440,7 +1478,7 @@ function renderLabView(){
 }
 
 /* ============ quebra-cabeça de blocos (estilo Scratch) ============ */
-const DIRS=['N','E','S','W'],DV={N:[-1,0],E:[0,1],S:[1,0],W:[0,-1]},DARR={N:'▲',E:'▶',S:'▼',W:'◀'};
+const DIRS=['N','E','S','W'],DV={N:[-1,0],E:[0,1],S:[1,0],W:[0,-1]},DDEG={N:0,E:90,S:180,W:270};
 const PAL={move:['mv','andar'],left:['mv','virar à esquerda'],right:['mv','virar à direita'],repeat:['repeat','repetir'],if:['if','se / senão']};
 const BNAME={move:'andar',left:'virar à esquerda',right:'virar à direita'};
 let bid=0;
@@ -1487,13 +1525,14 @@ function rBlocks(s,st){
   const motion=s.blocks.filter(b=>b==='move'||b==='left'||b==='right'),control=s.blocks.filter(b=>b==='repeat'||b==='if');
   const tpls=arr=>arr.map(b=>'<div class="tplwrap">'+blk({t:b,body:[],els:[]},true)+'</div>').join('');
   st.innerHTML='<article class="card"><h2>'+s.title+'</h2>'+coach(s.who,s.mood,s.say)+'<p>'+s.task+'</p>'
-   +'<div class="stagebar"><div class="board-wrap"><div class="board" id="bd" style="--cols:'+cols+'">'+cells+'<div class="actor" id="ac" style="--r:'+start.r+';--c:'+start.c+'">'+actorIcon()+'<i class="dir" id="dr">'+DARR[start.d]+'</i></div></div></div>'
+   +'<div class="stagebar"><div class="board-wrap"><div class="board" id="bd" style="--cols:'+cols+'">'+cells+'<div class="actor" id="ac" style="--r:'+start.r+';--c:'+start.c+';--dir-deg:'+DDEG[start.d]+'deg">'+actorIcon()+'</div></div></div>'
    +'<div class="runbox"><button class="btn" id="go">▶ Executar</button><button class="btn ghost small" id="clr">Limpar</button><button class="btn ghost small" id="hint">Dica</button><span id="cnt" class="tchip"></span></div></div>'
    +'<p class="muted">Arraste os blocos da esquerda e encaixe embaixo de "quando ▶ for clicado". Para apagar, arraste o bloco de volta para a paleta.</p>'
    +'<div class="build"><aside class="palette2" id="pal"><h4>Blocos</h4>'+(motion.length?'<div class="cat">Movimento</div>'+tpls(motion):'')+(control.length?'<div class="cat ctl">Controle</div>'+tpls(control):'')+'</aside><div class="ws" id="ws"></div></div>'
    +'<div id="fb"></div><div id="jswrap" hidden><p><b>Seu programa em JavaScript:</b></p><pre class="code" id="js"></pre></div></article>';
-  const ac=$('#ac',st),dr=$('#dr',st),fb=$('#fb',st),ws=$('#ws',st),pal=$('#pal',st);
-  const place=(r,c,d)=>{ac.style.setProperty('--r',r);ac.style.setProperty('--c',c);dr.textContent=DARR[d];};
+  const ac=$('#ac',st),fb=$('#fb',st),ws=$('#ws',st),pal=$('#pal',st);
+  let curDeg=DDEG[start.d];
+  const place=(r,c,d)=>{ac.style.setProperty('--r',r);ac.style.setProperty('--c',c);const delta=(((DDEG[d]-curDeg)%360+540)%360)-180;curDeg+=delta;ac.style.setProperty('--dir-deg',curDeg+'deg');};
   const getList=id=>{if(id==='root')return P;const p=id.split(':'),n=findNode(P,+p[0]);return n?n[p[1]]:P;};
   function info(){
     const n=countB(P);$('#cnt',st).textContent='Blocos: '+n+' / '+s.max;$('#cnt',st).className='tchip'+(n>s.max?' over':'');
