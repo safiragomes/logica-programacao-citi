@@ -1520,7 +1520,7 @@ function wireEditor(ed,onRun){
       e.preventDefault();const pos=ed.selectionStart,v=ed.value;
       const lineStart=v.lastIndexOf('\n',pos-1)+1,line=v.slice(lineStart,pos);
       const indent=(line.match(/^[ \t]*/)||[''])[0],trimmed=line.trim();
-      const opens='{[(',closes='}])',lastCh=trimmed.slice(-1),oIdx=opens.indexOf(lastCh);
+      const opens='{[(',closes='}])',lastCh=trimmed.slice(-1),oIdx=lastCh?opens.indexOf(lastCh):-1;
       const extra=oIdx>=0?'  ':'';
       if(oIdx>=0&&v[pos]===closes[oIdx]){
         const insert='\n'+indent+extra+'\n'+indent;
