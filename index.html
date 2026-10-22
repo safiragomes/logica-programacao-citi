@@ -606,14 +606,27 @@ body::before{background:#040906 !important}
 .sa-group-label.cyan{color:#5CE1E6}
 .sa-row{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
 .sa-row .sa-text{flex:1 1 320px;min-width:0}
-.sa-photo{border-radius:20px;border:3px solid var(--line);box-shadow:0 20px 40px -20px rgba(0,0,0,.5);flex:0 1 340px;max-width:340px;width:100%;object-fit:cover;aspect-ratio:4/3}
+.sa-photo{border-radius:20px;border:3px solid var(--line);box-shadow:0 20px 40px -20px rgba(0,0,0,.5);flex:0 1 340px;max-width:340px;width:100%;object-fit:cover;aspect-ratio:4/3;display:block}
+.sa-photo-wrap{position:relative;flex:0 1 340px;max-width:340px;width:100%}
+.sa-photo-wrap .sa-photo{max-width:none}
+.sa-photo-wrap .sa-badge{position:absolute;left:-16px;bottom:-16px;margin:0;z-index:2}
 .sa-tags{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
 .sa-tags span{font:700 .9rem var(--f-display);border:1.5px solid color-mix(in srgb,var(--brand) 55%,transparent);color:var(--fg);padding:5px 18px;border-radius:99px}
-.sa-badge{display:inline-block;font:700 1.05rem var(--f-display);color:var(--brand-ink);background:var(--brand);padding:8px 20px;border-radius:99px;margin:14px 0}
+.sa-badge{display:inline-block;font:700 1.05rem var(--f-display);color:var(--brand-ink);background:var(--brand);padding:8px 20px;border-radius:99px;margin:14px 0;box-shadow:0 12px 28px -6px rgba(0,0,0,.5);white-space:nowrap}
 .sa-giant{font-size:1.5em}
 .sa-logo{height:38px;width:auto;align-self:flex-start;display:block;margin-bottom:14px}
-.sa-huge{font:800 clamp(3rem,9vw,5.4rem) var(--f-display);color:#e02466;line-height:1;margin:4px 0}
-.sa-photos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;margin-top:18px;max-width:560px}
+.sa-logo-tr{position:absolute;top:44px;right:0;margin-bottom:0}
+.sa-huge{font-weight:800;font-family:var(--f-display);font-size:clamp(3.6rem,10vw,7rem)!important;color:#e02466;line-height:1;margin:4px 0}
+.sa-cols{display:flex;gap:clamp(20px,4vw,40px);align-items:center}
+.sa-cols .sa-text{flex:1 1 380px;min-width:0}
+.sa-cols .sa-photo{flex:0 1 380px;max-width:380px;margin-top:14px}
+.sa-list{display:flex;flex-direction:column;gap:16px;margin-top:18px}
+.sa-item{display:flex;align-items:flex-start;gap:16px}
+.sa-item svg{flex:none;color:var(--brand);margin-top:2px}
+.sa-item b{display:block;font:800 1.1rem var(--f-display);line-height:1.2}
+.sa-item span{display:block;color:var(--muted);font-size:.92rem;line-height:1.4;margin-top:2px}
+.sa-item.orange svg{color:#ff6a13}
+.sa-photos-grid{flex:0 0 clamp(220px,32vw,340px);display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .sa-photos-grid img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:16px;border:3px solid #fff;box-shadow:0 10px 24px rgba(224,36,102,.2)}
 .acc2{color:#5CE1E6}
 /* tema <div>a: claro, rosa */
@@ -632,6 +645,10 @@ body::before{background:#040906 !important}
 .slide.diva .sa-tags span{border-color:rgba(224,36,102,.35);color:#b0124f;background:#fbd3e2}
 .slide.diva .sa-group-label{color:#e02466}
 .slide.diva .sa-photo{border-color:#fff}
+.slide.diva .sa-item svg{color:#e02466}
+.slide.diva .sa-item b{color:#e02466}
+.slide.diva .sa-item span{color:#5a2a40}
+.slide.diva .sa-item.orange svg,.slide.diva .sa-item.orange b{color:#c2410c}
 .slide.diva .sa-skip .btn.ghost{background:rgba(255,255,255,.6);color:#2b0f1c;border-color:rgba(224,36,102,.4)}
 </style>
 </head>
@@ -1183,6 +1200,10 @@ function saCard(o){
   const tags=o.tags?'<div class="sa-tags">'+o.tags.map(saTag).join('')+'</div>':'';
   return '<div class="sa-card'+cls+'">'+head+kick+'<b>'+o.title+'</b><span>'+o.desc+'</span>'+tags+'</div>';
 }
+function saItem(o){
+  const cls=o.cls?' '+o.cls:'';
+  return '<div class="sa-item'+cls+'">'+o.icon+'<div><b>'+o.title+'</b><span>'+o.desc+'</span></div></div>';
+}
 const ICO_CODE='<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>';
 const ICO_PEOPLE='<circle cx="9" cy="7" r="4"/><path d="M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/>';
 const ICO_GRAD='<path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>';
@@ -1193,7 +1214,7 @@ const ICO_GLOBE='<circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M1
 const ICO_DB='<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/>';
 const SUBAREA_SLIDES=[
  {kind:'subarea',title:'Subárea Dev',html:
-  '<div class="sa-row"><div class="sa-text"><span class="sa-kicker">CITi · Processo seletivo</span><h2>Subárea<br><span class="acc sa-giant">Dev</span></h2><p class="sa-sub">Onde ideias viram produto de verdade.</p><span class="sa-badge">A maior subárea do CITi</span><div class="sa-tags">'+['Squads','Ritos','Lab de Inovação'].map(saTag).join('')+'</div></div><img class="sa-photo" src="'+SA_TEAM+'" alt="Integrantes da subárea de Dev do CITi posando com a bandeira verde do CITi"></div>'},
+  '<div class="sa-row"><div class="sa-text"><span class="sa-kicker">CITi · Processo seletivo</span><h2>Subárea<br><span class="acc sa-giant">Dev</span></h2><p class="sa-sub">Onde ideias viram produto de verdade.</p><div class="sa-tags">'+['Squads','Ritos','Lab de Inovação'].map(saTag).join('')+'</div></div><div class="sa-photo-wrap"><img class="sa-photo" src="'+SA_TEAM+'" alt="Integrantes da subárea de Dev do CITi posando com a bandeira verde do CITi"><span class="sa-badge">A maior subárea do CITi</span></div></div>'},
  {kind:'subarea',title:'Aqui você constrói produto de verdade',html:
   '<span class="sa-kicker">Subárea Dev · a maior do CITi</span><h2>Aqui você constrói <span class="acc">produto de verdade</span></h2><p class="sa-sub">É em Dev que ideias viram software no ar, para clientes reais, em time.</p><div class="sa-grid">'
   +saCard({icon:SA_ICON(ICO_CODE),title:'Projetos reais',desc:'Software de verdade para clientes de verdade.'})
@@ -1217,15 +1238,15 @@ const SUBAREA_SLIDES=[
   +saCard({num:'04',title:'Inovação aplicada',desc:'O que provou valor chega aos squads.',cls:'cyan'})
   +'</div>'},
  {kind:'subarea',theme:'diva',title:'Onde a técnica encontra a voz',html:
-  '<img class="sa-logo" src="'+SA_LOGO+'" alt="Logo do coletivo div-a"><h2>Onde a técnica<br><span class="acc">encontra a voz</span></h2><p class="sa-sub">Em uma área majoritariamente masculina, o <b>&lt;div&gt;a</b> existe para acolher e para que as meninas se vejam umas nas outras.</p><div class="sa-grid">'
-  +saCard({icon:SA_ICON(ICO_PEOPLE),title:'Acolhimento',desc:'Um lugar para chegar, pertencer e pedir ajuda.'})
-  +saCard({icon:SA_ICON(ICO_STAR),title:'Identificação',desc:'Ver outras mulheres ocupando espaço em Dev.'})
-  +saCard({icon:SA_ICON(ICO_BOLT),title:'Impacto na subárea',desc:'Mais mulheres entrando, ficando e crescendo.',cls:'orange'})
-  +'</div><div class="sa-photos-grid">'+[SA_P1,SA_P2,SA_P3,SA_P4,SA_P5,SA_P6].map(p=>'<img src="'+p+'" alt="Integrante do coletivo div-a">').join('')+'</div>'},
+  '<div class="sa-cols"><div class="sa-text"><img class="sa-logo" src="'+SA_LOGO+'" alt="Logo do coletivo div-a"><h2>Onde a técnica<br><span class="acc">encontra a voz</span></h2><p class="sa-sub">Em uma área majoritariamente masculina, o <b>&lt;div&gt;a</b> existe para acolher e para que as meninas se vejam umas nas outras.</p><div class="sa-list">'
+  +saItem({icon:SA_ICON(ICO_PEOPLE),title:'Acolhimento',desc:'Um lugar para chegar, pertencer e pedir ajuda.'})
+  +saItem({icon:SA_ICON(ICO_STAR),title:'Identificação',desc:'Ver outras mulheres ocupando espaço em Dev.'})
+  +saItem({icon:SA_ICON(ICO_BOLT),title:'Impacto na subárea',desc:'Mais mulheres entrando, ficando e crescendo.',cls:'orange'})
+  +'</div></div><div class="sa-photos-grid">'+[SA_P1,SA_P2,SA_P3,SA_P4,SA_P5,SA_P6].map(p=>'<img src="'+p+'" alt="Integrante do coletivo div-a">').join('')+'</div></div>'},
  {kind:'subarea',theme:'diva',title:'600+ inscritas em três trilhas',html:
-  '<img class="sa-logo" src="'+SA_LOGO+'" alt="Logo do coletivo div-a"><span class="sa-kicker">Minicurso 5.0</span><p class="sa-huge">600+</p><h2>inscritas em <span class="acc2">três trilhas</span></h2><p class="sa-sub">Um espaço para aprender tecnologia junto, organizado pelo <b>&lt;div&gt;a</b>, o coletivo de mulheres de dados e desenvolvimento do CITi.</p><img class="sa-photo" style="max-width:420px;margin-top:14px" src="'+SA_GROUP+'" alt="Seis integrantes do div-a sorrindo, de camiseta branca com o logo do coletivo">'},
+  '<div class="sa-cols"><div class="sa-text"><img class="sa-logo" src="'+SA_LOGO+'" alt="Logo do coletivo div-a"><span class="sa-kicker">Minicurso 5.0</span><p class="sa-huge">600+</p><h2>inscritas em <span class="acc2">três trilhas</span></h2><p class="sa-sub">Um espaço para aprender tecnologia junto, organizado pelo <b>&lt;div&gt;a</b>, o coletivo de mulheres de dados e desenvolvimento do CITi.</p></div><img class="sa-photo" src="'+SA_GROUP+'" alt="Seis integrantes do div-a sorrindo, de camiseta branca com o logo do coletivo"></div>'},
  {kind:'subarea',theme:'diva',title:'Uma formação, três pontos de partida',html:
-  '<span class="sa-kicker">Minicurso 5.0 · Formação</span><h2>Uma formação, <span class="acc">três pontos de partida</span></h2><p class="sa-sub">Do primeiro contato com a web às tecnologias que sustentam soluções complexas, cada trilha leva a participante um passo além.</p><div class="sa-grid">'
+  '<img class="sa-logo sa-logo-tr" src="'+SA_LOGO+'" alt="Logo do coletivo div-a"><span class="sa-kicker">Minicurso 5.0 · Formação</span><h2>Uma formação, <span class="acc">três pontos de partida</span></h2><p class="sa-sub">Do primeiro contato com a web às tecnologias que sustentam soluções complexas, cada trilha leva a participante um passo além.</p><div class="sa-grid">'
   +saCard({icon:SA_ICON(ICO_GLOBE),kicker:'Trilha 1 · Fundamentos',title:'Web básico',desc:'Como a web funciona e os primeiros passos para construir páginas.',tags:['HTML','CSS','Front e back']})
   +saCard({icon:SA_ICON(ICO_CODE),kicker:'Trilha 2 · Aprofundamento',title:'Web intermediário',desc:'Tecnologias mais avançadas para construir soluções mais complexas.',tags:['React','TypeScript','Node']})
   +saCard({icon:SA_ICON(ICO_DB),kicker:'Trilha 3 · Dados',title:'Dados',desc:'Uma formação voltada para dados e para a construção de agentes.',tags:['Agentes'],cls:'orange'})
