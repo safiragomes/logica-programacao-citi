@@ -1181,7 +1181,7 @@ function rSubarea(s,st){
 }
 const SL={
  'Programar é dar instruções':[
-  S_('Todo algoritmo tem três partes',V.flow([{k:'Entrada',t:'O que entra',s:'lâmpada nova e escada',c:'g'},{k:'Processamento',t:'O que se faz',s:'desligar, subir, trocar',c:'y'},{k:'Saída',t:'O que sai',s:'luz acesa',c:'p'}])+rv('<p class="sv-cap">Se mudar a entrada (outra lâmpada, outra altura), o resultado pode mudar. Com um programa é igual.</p>'),{kicker:'Algoritmo'}),
+  S_('Todo algoritmo tem três partes',V.flow([{k:'Entrada',t:'O que entra',s:'ingredientes',c:'g'},{k:'Processamento',t:'O que se faz',s:'misturar, assar',c:'y'},{k:'Saída',t:'O que sai',s:'bolo pronto',c:'p'}])+rv('<p class="sv-cap">Se mudar a entrada (outros ingredientes), o resultado pode mudar. Com um programa é igual.</p>'),{kicker:'Algoritmo'}),
   S_('Dinâmica: como trocar uma lâmpada?','<div class="sv-lamp">'+['Desligar o interruptor','Pegar a escada e a lâmpada nova','Subir na escada','Tirar a lâmpada queimada','Rosquear a lâmpada nova','Ligar o interruptor'].map((t,k)=>rv('<div class="stp '+(k<2?'ka':k<5?'kb':'kc')+'"><i>'+(k+1)+'</i><b>'+t+'</b></div>')).join('')+'</div>'+rv('<p class="sv-cap">Cada pessoa descreveria de um jeito. O computador precisa de todos os passos, na ordem certa.</p>'),{kicker:'Algoritmo',replace:true,mood:'think'})],
  'let e const: caixas com nome':[
   S_('Variável é uma caixa com etiqueta','<div class="sv-row">'+rv(V.jar('fatias','8','let','o conteúdo pode mudar'))+rv(V.jar('presente','"bolo"','const','lacrada: não troca'))+'</div>',{kicker:'Variáveis'})],
