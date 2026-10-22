@@ -589,67 +589,34 @@ body::before{background:#040906 !important}
 .lvbar .back{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:var(--fg)}
 .lvbar .back:hover{border-color:var(--brand)}
 .foot .btn.ghost{background:rgba(8,17,12,.8)}
-/* conteúdo Subárea Dev (CITi) */
-.sa-skip{position:absolute;top:0;right:0;z-index:2}
-.sa-kicker{display:block;font:800 .78rem var(--f-display);text-transform:uppercase;letter-spacing:.16em;color:var(--brand);margin-bottom:12px}
-.sa-kicker::before{content:"";display:block;width:34px;height:3px;border-radius:99px;background:var(--brand);margin-bottom:12px}
-.sa-sub{color:var(--muted);font-weight:600;font-size:clamp(1.05rem,1.8vw,1.3rem);max-width:70ch;margin:4px 0 0}
-.sa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-top:14px}
-.sa-card{background:color-mix(in srgb,var(--surface2) 55%,transparent);border:1.5px solid var(--line);border-radius:18px;padding:22px 20px;display:grid;gap:8px;align-content:start;height:100%}
-.sa-card svg{color:var(--brand)}
-.sa-card b{font:800 1.15rem var(--f-display);line-height:1.2}
-.sa-card span{color:var(--muted);font-size:.95rem;line-height:1.4}
-.sa-card i{font:800 1rem var(--f-display);color:var(--brand);font-style:normal;letter-spacing:.06em}
-.sa-card.cyan{border-color:color-mix(in srgb,#5CE1E6 45%,var(--line))}
-.sa-card.cyan svg,.sa-card.cyan i{color:#5CE1E6}
-.sa-group-label{display:block;font:800 .78rem var(--f-display);text-transform:uppercase;letter-spacing:.1em;color:var(--brand);margin:18px 0 2px}
-.sa-group-label.cyan{color:#5CE1E6}
-.sa-row{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
-.sa-row .sa-text{flex:1 1 320px;min-width:0}
-.sa-photo{border-radius:20px;border:3px solid var(--line);box-shadow:0 20px 40px -20px rgba(0,0,0,.5);flex:0 1 340px;max-width:340px;width:100%;object-fit:cover;aspect-ratio:4/3;display:block}
-.sa-photo-wrap{position:relative;flex:0 1 340px;max-width:340px;width:100%}
-.sa-photo-wrap .sa-photo{max-width:none}
-.sa-photo-wrap .sa-badge{position:absolute;left:-16px;bottom:-16px;margin:0;z-index:2}
-.sa-tags{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
-.sa-tags span{font:700 .9rem var(--f-display);border:1.5px solid color-mix(in srgb,var(--brand) 55%,transparent);color:var(--fg);padding:5px 18px;border-radius:99px}
-.sa-badge{display:inline-block;font:700 1.05rem var(--f-display);color:var(--brand-ink);background:var(--brand);padding:8px 20px;border-radius:99px;margin:14px 0;box-shadow:0 12px 28px -6px rgba(0,0,0,.5);white-space:nowrap}
-.sa-giant{font-size:1.5em}
-.sa-logo{height:38px;width:auto;align-self:flex-start;display:block;margin-bottom:14px}
-.sa-logo-tr{position:absolute;top:44px;right:0;margin-bottom:0}
-.sa-huge{font-weight:800;font-family:var(--f-display);font-size:clamp(3.6rem,10vw,7rem)!important;color:#e02466;line-height:1;margin:4px 0}
-.sa-cols{display:flex;gap:clamp(20px,4vw,40px);align-items:center}
-.sa-cols .sa-text{flex:1 1 380px;min-width:0}
-.sa-cols .sa-photo{flex:0 1 380px;max-width:380px;margin-top:14px}
-.sa-list{display:flex;flex-direction:column;gap:16px;margin-top:18px}
-.sa-item{display:flex;align-items:flex-start;gap:16px}
-.sa-item svg{flex:none;color:var(--brand);margin-top:2px}
-.sa-item b{display:block;font:800 1.1rem var(--f-display);line-height:1.2}
-.sa-item span{display:block;color:var(--muted);font-size:.92rem;line-height:1.4;margin-top:2px}
-.sa-item.orange svg{color:#ff6a13}
-.sa-photos-grid{flex:0 0 clamp(220px,32vw,340px);display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.sa-photos-grid img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:16px;border:3px solid #fff;box-shadow:0 10px 24px rgba(224,36,102,.2)}
-.acc2{color:#5CE1E6}
-/* tema <div>a: claro, rosa */
-.slide.diva{background:#fdeff5 !important;color:#2b0f1c;border-color:rgba(224,36,102,.25) !important}
-.slide.diva .sa-kicker{color:#e02466}
-.slide.diva .sa-kicker::before{background:#e02466}
-.slide.diva .sa-sub{color:#5a2a40}
-.slide.diva .acc{color:#e02466}
-.slide.diva .acc2{color:#c2410c}
-.slide.diva h2::after{background:#e02466 !important}
-.slide.diva .sa-card{background:rgba(255,255,255,.7);border-color:rgba(224,36,102,.3)}
-.slide.diva .sa-card svg,.slide.diva .sa-card i{color:#e02466}
-.slide.diva .sa-card span{color:#5a2a40}
-.slide.diva .sa-card.orange{border-color:rgba(255,106,19,.4)}
-.slide.diva .sa-card.orange svg,.slide.diva .sa-card.orange i{color:#c2410c}
-.slide.diva .sa-tags span{border-color:rgba(224,36,102,.35);color:#b0124f;background:#fbd3e2}
-.slide.diva .sa-group-label{color:#e02466}
-.slide.diva .sa-photo{border-color:#fff}
-.slide.diva .sa-item svg{color:#e02466}
-.slide.diva .sa-item b{color:#e02466}
-.slide.diva .sa-item span{color:#5a2a40}
-.slide.diva .sa-item.orange svg,.slide.diva .sa-item.orange b{color:#c2410c}
-.slide.diva .sa-skip .btn.ghost{background:rgba(255,255,255,.6);color:#2b0f1c;border-color:rgba(224,36,102,.4)}
+/* conteúdo Subárea Dev (CITi): slides originais 1920x1080 escalados, fiéis ao arquivo de origem */
+.sdk-wrap{position:relative;left:50%;transform:translateX(-50%);width:max(320px,min(1280px,calc(100vw - 32px),calc((100vh - 230px)*16/9)));display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.sdk-frame{width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;border-radius:16px;background:#050806;box-shadow:0 24px 60px -24px rgba(0,0,0,.7);border:1px solid rgba(45,219,96,.25)}
+.sdk-canvas{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0}
+.sdk-sec{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;box-sizing:border-box;text-align:left;line-height:normal}
+.sdk-sec *{box-sizing:border-box}
+.sdk-sec p,.sdk-sec h1,.sdk-sec h2,.sdk-sec h3{margin:0}
+.sdk-sec h1,.sdk-sec h2{font-family:'Poppins',Arial,sans-serif;text-wrap:initial}
+.sdk-sec img{max-width:none;display:block}
+.sdk-sec svg{display:block;flex:none}
+.sdk-sec>*{position:relative;z-index:1}
+.sdk-sec>[style*="absolute"]{position:absolute;z-index:0}
+.sdk-sec>p[style*="absolute"]{z-index:2}
+
+/* fundo rosa durante a parte do <div>a, com transição */
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity .9s ease;
+ background:radial-gradient(60vw 50vh at 85% 10%,rgba(255,106,19,.18),transparent 70%),radial-gradient(70vw 60vh at 10% 90%,rgba(224,36,102,.28),transparent 70%),linear-gradient(160deg,#fdeff5,#f8c4d9)}
+body.diva-on::after{opacity:1}
+body.diva-on .lvbar h1{background:rgba(255,255,255,.75);color:#2b0f1c;border-color:rgba(224,36,102,.3)}
+body.diva-on .foot .btn.ghost{background:rgba(255,255,255,.75);color:#2b0f1c;border-color:rgba(224,36,102,.35)}
+body.diva-on .foot .btn:not(.ghost){background:#e02466;color:#fff}
+.lvbar h1,.foot .btn{transition:background .6s,color .6s,border-color .6s}
+body.diva-on .lvbar .back{background:rgba(255,255,255,.75);color:#2b0f1c;border-color:rgba(224,36,102,.35)}
+@keyframes sdkIn{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+.sdk-frame{animation:sdkIn .6s cubic-bezier(.2,.7,.2,1) both}
+body.diva-on .sdk-frame{box-shadow:0 24px 60px -24px rgba(224,36,102,.55);border-color:rgba(224,36,102,.3)}
+body.diva-on #saSkip{background:rgba(255,255,255,.75);color:#2b0f1c;border-color:rgba(224,36,102,.35)}
+@media (prefers-reduced-motion:reduce){body::after{transition:none}.sdk-frame{animation:none}}
 </style>
 </head>
 <body>
@@ -1191,70 +1158,22 @@ const S_=(title,html,o)=>Object.assign({kind:'slide',title,html},o||{});
 const LIVE=(title,hint,ts)=>S_(title,'<p class="live-hint">'+hint+'</p>',{kicker:'Ao vivo',live:ts?'ts':'js'});
 const TOOLS_SLIDE=S_('Onde praticar: sem instalar nada','<div class="sv-tools">'+rv('<div class="tool"><b>VS Code</b><span>o editor do dia a dia</span></div>')+rv('<div class="tool"><b>TS Playground</b><span>JavaScript e TypeScript direto no navegador</span><code>typescriptlang.org/play</code></div>')+'</div>'+rv('<p class="sv-cap">Nada para instalar: abra o Playground e escreva. Mais pra frente, quando chegarmos em TypeScript, ele também vira o seu editor com tipos.</p>'),{kicker:'Antes de começar'});
 
-const SA_ICON=d=>'<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+d+'</svg>';
-const saTag=t=>'<span>'+t+'</span>';
-function saCard(o){
-  const cls=o.cls?' '+o.cls:'';
-  const head=o.icon||(o.num?'<i>'+o.num+'</i>':'');
-  const kick=o.kicker?'<i style="font-size:.78rem;letter-spacing:.08em;text-transform:uppercase">'+o.kicker+'</i>':'';
-  const tags=o.tags?'<div class="sa-tags">'+o.tags.map(saTag).join('')+'</div>':'';
-  return '<div class="sa-card'+cls+'">'+head+kick+'<b>'+o.title+'</b><span>'+o.desc+'</span>'+tags+'</div>';
-}
-function saItem(o){
-  const cls=o.cls?' '+o.cls:'';
-  return '<div class="sa-item'+cls+'">'+o.icon+'<div><b>'+o.title+'</b><span>'+o.desc+'</span></div></div>';
-}
-const ICO_CODE='<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>';
-const ICO_PEOPLE='<circle cx="9" cy="7" r="4"/><path d="M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/>';
-const ICO_GRAD='<path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>';
-const ICO_BULB='<path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/>';
-const ICO_STAR='<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>';
-const ICO_BOLT='<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>';
-const ICO_GLOBE='<circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>';
-const ICO_DB='<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/>';
-const SUBAREA_SLIDES=[
- {kind:'subarea',title:'Subárea Dev',html:
-  '<div class="sa-row"><div class="sa-text"><span class="sa-kicker">CITi · Processo seletivo</span><h2>Subárea<br><span class="acc sa-giant">Dev</span></h2><p class="sa-sub">Onde ideias viram produto de verdade.</p><div class="sa-tags">'+['Squads','Ritos','Lab de Inovação'].map(saTag).join('')+'</div></div><div class="sa-photo-wrap"><img class="sa-photo" src="'+SA_TEAM+'" alt="Integrantes da subárea de Dev do CITi posando com a bandeira verde do CITi"><span class="sa-badge">A maior subárea do CITi</span></div></div>'},
- {kind:'subarea',title:'Aqui você constrói produto de verdade',html:
-  '<span class="sa-kicker">Subárea Dev · a maior do CITi</span><h2>Aqui você constrói <span class="acc">produto de verdade</span></h2><p class="sa-sub">É em Dev que ideias viram software no ar, para clientes reais, em time.</p><div class="sa-grid">'
-  +saCard({icon:SA_ICON(ICO_CODE),title:'Projetos reais',desc:'Software de verdade para clientes de verdade.'})
-  +saCard({icon:SA_ICON(ICO_PEOPLE),title:'Squads',desc:'Você constrói em time, nunca sozinho.'})
-  +saCard({icon:SA_ICON(ICO_GRAD),title:'Aprender fazendo',desc:'Do primeiro commit ao deploy.'})
-  +saCard({icon:SA_ICON(ICO_BULB),title:'Sempre à frente',desc:'O Lab de Inovação traz o que está em alta no mercado.',cls:'cyan'})
-  +'</div>'},
- {kind:'subarea',title:'Um ritmo que move a entrega',html:
-  '<span class="sa-kicker">Ritos de Dev</span><h2>Um ritmo que <span class="acc">move a entrega</span></h2>'
-  +'<span class="sa-group-label">No squad</span><div class="sa-grid">'
-  +saCard({title:'Planning',desc:'Define o ciclo'})+saCard({title:'Working day',desc:'Constrói junto'})+saCard({title:'Daily',desc:'Alinha rápido'})+saCard({title:'Review',desc:'Mostra a entrega'})
-  +'</div><span class="sa-group-label cyan">Em toda a subárea</span><div class="sa-grid">'
-  +saCard({title:'Call de Dev',desc:'Uma mostra de mundos: cada squad apresenta o que fez e como está o projeto.',cls:'cyan'})
-  +saCard({title:'Dev Day',desc:'A Working day geral: todos os squads construindo juntos.',cls:'cyan'})
-  +'</div>'},
- {kind:'subarea',title:'Lab de Inovação',html:
-  '<span class="sa-kicker">Dev · Inovação</span><h2>Lab de <span class="acc">Inovação</span></h2><p class="sa-sub">O laboratório que pesquisa e entende os processos de Dev para melhorá-los, trazendo o que está forte no mercado e faz sentido para a subárea.</p><div class="sa-grid">'
-  +saCard({num:'01',title:'Radar de mercado',desc:'Tecnologias e práticas em alta.'})
-  +saCard({num:'02',title:'Diagnóstico',desc:'Onde os processos de Dev podem melhorar.'})
-  +saCard({num:'03',title:'Experimentação',desc:'Testes pequenos antes de adotar.',cls:'cyan'})
-  +saCard({num:'04',title:'Inovação aplicada',desc:'O que provou valor chega aos squads.',cls:'cyan'})
-  +'</div>'},
- {kind:'subarea',theme:'diva',title:'Onde a técnica encontra a voz',html:
-  '<div class="sa-cols"><div class="sa-text"><img class="sa-logo" src="'+SA_LOGO+'" alt="Logo do coletivo div-a"><h2>Onde a técnica<br><span class="acc">encontra a voz</span></h2><p class="sa-sub">Em uma área majoritariamente masculina, o <b>&lt;div&gt;a</b> existe para acolher e para que as meninas se vejam umas nas outras.</p><div class="sa-list">'
-  +saItem({icon:SA_ICON(ICO_PEOPLE),title:'Acolhimento',desc:'Um lugar para chegar, pertencer e pedir ajuda.'})
-  +saItem({icon:SA_ICON(ICO_STAR),title:'Identificação',desc:'Ver outras mulheres ocupando espaço em Dev.'})
-  +saItem({icon:SA_ICON(ICO_BOLT),title:'Impacto na subárea',desc:'Mais mulheres entrando, ficando e crescendo.',cls:'orange'})
-  +'</div></div><div class="sa-photos-grid">'+[SA_P1,SA_P2,SA_P3,SA_P4,SA_P5,SA_P6].map(p=>'<img src="'+p+'" alt="Integrante do coletivo div-a">').join('')+'</div></div>'},
- {kind:'subarea',theme:'diva',title:'600+ inscritas em três trilhas',html:
-  '<div class="sa-cols"><div class="sa-text"><img class="sa-logo" src="'+SA_LOGO+'" alt="Logo do coletivo div-a"><span class="sa-kicker">Minicurso 5.0</span><p class="sa-huge">600+</p><h2>inscritas em <span class="acc2">três trilhas</span></h2><p class="sa-sub">Um espaço para aprender tecnologia junto, organizado pelo <b>&lt;div&gt;a</b>, o coletivo de mulheres de dados e desenvolvimento do CITi.</p></div><img class="sa-photo" src="'+SA_GROUP+'" alt="Seis integrantes do div-a sorrindo, de camiseta branca com o logo do coletivo"></div>'},
- {kind:'subarea',theme:'diva',title:'Uma formação, três pontos de partida',html:
-  '<img class="sa-logo sa-logo-tr" src="'+SA_LOGO+'" alt="Logo do coletivo div-a"><span class="sa-kicker">Minicurso 5.0 · Formação</span><h2>Uma formação, <span class="acc">três pontos de partida</span></h2><p class="sa-sub">Do primeiro contato com a web às tecnologias que sustentam soluções complexas, cada trilha leva a participante um passo além.</p><div class="sa-grid">'
-  +saCard({icon:SA_ICON(ICO_GLOBE),kicker:'Trilha 1 · Fundamentos',title:'Web básico',desc:'Como a web funciona e os primeiros passos para construir páginas.',tags:['HTML','CSS','Front e back']})
-  +saCard({icon:SA_ICON(ICO_CODE),kicker:'Trilha 2 · Aprofundamento',title:'Web intermediário',desc:'Tecnologias mais avançadas para construir soluções mais complexas.',tags:['React','TypeScript','Node']})
-  +saCard({icon:SA_ICON(ICO_DB),kicker:'Trilha 3 · Dados',title:'Dados',desc:'Uma formação voltada para dados e para a construção de agentes.',tags:['Agentes'],cls:'orange'})
-  +'</div>'}
+const SUBAREA_SLIDES=[ {kind:'subarea',title:'Subárea Dev',html:'<div class="sdk-sec" id="cover" data-transition="fade" style="background:#050806;color:#F7F9F8;font-family:\'Poppins\', Arial, sans-serif;padding:170px 128px 110px;display:flex;flex-direction:column;justify-content:center;gap:10px"><div style="position:absolute;left:912px;top:268px;width:880px;height:495px;border-radius:32px;background:rgba(45,219,96,0.2);border:2px solid rgba(45,219,96,0.6)"></div><img src="'+SA_TEAM+'" style="position:absolute;left:888px;top:244px;width:880px;height:495px;object-fit:cover;border-radius:32px;border:4px solid #F7F9F8;box-shadow:0 24px 70px rgba(0,0,0,0.55)"><p style="position:absolute;left:856px;top:700px;font-size:28px;font-weight:700;color:#04150A;background:#2DDB60;padding:14px 32px;border-radius:50px;box-shadow:0 12px 30px rgba(0,0,0,0.45)">A maior subárea do CITi</p><p style="font-size:26px;font-weight:700;letter-spacing:8px;color:#2DDB60;text-transform:uppercase;width:760px">CITi · Processo seletivo</p><h1 style="font-size:124px;font-weight:700;line-height:1.0;width:760px">Subárea</h1><p style="font-size:260px;font-weight:700;line-height:0.95;color:#2DDB60;width:760px">Dev</p><p style="font-size:40px;line-height:1.3;color:#D6E3DB;width:760px">Onde ideias viram produto de verdade.</p><div style="display:flex;flex-direction:row;gap:14px;padding-top:16px"><p style="font-size:24px;font-weight:600;color:#F7F9F8;border:2px solid rgba(45,219,96,0.8);padding:8px 26px;border-radius:40px">Squads</p><p style="font-size:24px;font-weight:600;color:#F7F9F8;border:2px solid rgba(45,219,96,0.8);padding:8px 26px;border-radius:40px">Ritos</p><p style="font-size:24px;font-weight:600;color:#F7F9F8;border:2px solid rgba(45,219,96,0.8);padding:8px 26px;border-radius:40px">Lab de Inovação</p></div></div>'},
+ {kind:'subarea',title:'Aqui você constrói produto de verdade',html:'<div class="sdk-sec" id="dev" data-transition="fade" style="background:#050806;color:#F7F9F8;font-family:\'Poppins\', Arial, sans-serif;padding:190px 128px 140px;display:flex;flex-direction:column;justify-content:center;gap:40px"><div style="display:flex;flex-direction:column;gap:14px"><p style="font-size:24px;font-weight:700;letter-spacing:6px;color:#2DDB60;text-transform:uppercase">Subárea Dev · a maior do CITi</p><h2 style="font-size:80px;font-weight:700;line-height:1.08">Aqui você constrói <span style="color:#2DDB60">produto de verdade</span></h2></div><p style="font-size:36px;line-height:1.4;color:#D6E3DB;width:1300px">É em Dev que ideias viram software no ar, para clientes reais, em time.</p><div style="display:flex;flex-direction:row;gap:22px"><div style="flex:1;display:flex;flex-direction:column;gap:12px;background:rgba(6,16,11,0.66);backdrop-filter:blur(12px);border:2px solid rgba(45,219,96,0.55);border-radius:22px;padding:40px 34px"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#2DDB60" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg><p style="font-size:36px;font-weight:700;line-height:1.15">Projetos reais</p><p style="font-size:26px;line-height:1.4;color:#C9D8CF">Software de verdade para clientes de verdade.</p></div><div style="flex:1;display:flex;flex-direction:column;gap:12px;background:rgba(6,16,11,0.66);backdrop-filter:blur(12px);border:2px solid rgba(45,219,96,0.55);border-radius:22px;padding:40px 34px"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#2DDB60" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/></svg><p style="font-size:36px;font-weight:700;line-height:1.15">Squads</p><p style="font-size:26px;line-height:1.4;color:#C9D8CF">Você constrói em time, nunca sozinho.</p></div><div style="flex:1;display:flex;flex-direction:column;gap:12px;background:rgba(6,16,11,0.66);backdrop-filter:blur(12px);border:2px solid rgba(45,219,96,0.55);border-radius:22px;padding:40px 34px"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#2DDB60" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg><p style="font-size:36px;font-weight:700;line-height:1.15">Aprender fazendo</p><p style="font-size:26px;line-height:1.4;color:#C9D8CF">Do primeiro commit ao deploy.</p></div><div style="flex:1;display:flex;flex-direction:column;gap:12px;background:rgba(6,16,11,0.66);backdrop-filter:blur(12px);border:2px solid rgba(92,225,230,0.55);border-radius:22px;padding:40px 34px"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#5CE1E6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg><p style="font-size:36px;font-weight:700;line-height:1.15">Sempre à frente</p><p style="font-size:26px;line-height:1.4;color:#C9D8CF">O Lab de Inovação traz o que está em alta no mercado.</p></div></div></div>'},
+ {kind:'subarea',title:'Um ritmo que move a entrega',html:'<div class="sdk-sec" id="ritos" data-transition="fade" style="background:#050806;color:#F7F9F8;font-family:\'Poppins\', Arial, sans-serif;padding:190px 128px 130px;display:flex;flex-direction:column;justify-content:center;gap:36px"><div style="display:flex;flex-direction:column;gap:14px"><p style="font-size:24px;font-weight:700;letter-spacing:6px;color:#2DDB60;text-transform:uppercase">Ritos de Dev</p><h2 style="font-size:76px;font-weight:700;line-height:1.08">Um ritmo que <span style="color:#2DDB60">move a entrega</span></h2></div><div style="display:flex;flex-direction:column;gap:14px"><p style="font-size:24px;font-weight:700;letter-spacing:4px;color:#2DDB60">NO SQUAD</p><div style="display:flex;flex-direction:row;gap:18px"><div style="flex:1;display:flex;flex-direction:column;gap:6px;background:rgba(6,16,11,0.66);backdrop-filter:blur(12px);border:2px solid rgba(45,219,96,0.5);border-radius:20px;padding:30px 28px"><p style="font-size:40px;font-weight:700">Planning</p><p style="font-size:28px;line-height:1.35;color:#C9D8CF">Define o ciclo</p></div><div style="flex:1;display:flex;flex-direction:column;gap:6px;background:rgba(6,16,11,0.66);backdrop-filter:blur(12px);border:2px solid rgba(45,219,96,0.5);border-radius:20px;padding:30px 28px"><p style="font-size:40px;font-weight:700">Working day</p><p style="font-size:28px;line-height:1.35;color:#C9D8CF">Constrói junto</p></div><div style="flex:1;display:flex;flex-direction:column;gap:6px;background:rgba(6,16,11,0.66);backdrop-filter:blur(12px);border:2px solid rgba(45,219,96,0.5);border-radius:20px;padding:30px 28px"><p style="font-size:40px;font-weight:700">Daily</p><p style="font-size:28px;line-height:1.35;color:#C9D8CF">Alinha rápido</p></div><div style="flex:1;display:flex;flex-direction:column;gap:6px;background:rgba(6,16,11,0.66);backdrop-filter:blur(12px);border:2px solid rgba(45,219,96,0.5);border-radius:20px;padding:30px 28px"><p style="font-size:40px;font-weight:700">Review</p><p style="font-size:28px;line-height:1.35;color:#C9D8CF">Mostra a entrega</p></div></div></div><div style="display:flex;flex-direction:column;gap:14px"><p style="font-size:24px;font-weight:700;letter-spacing:4px;color:#5CE1E6">EM TODA A SUBÁREA</p><div style="display:flex;flex-direction:row;gap:18px"><div style="flex:1;display:flex;flex-direction:column;gap:6px;background:rgba(6,16,11,0.66);backdrop-filter:blur(12px);border:2px solid rgba(92,225,230,0.55);border-radius:20px;padding:30px 32px"><p style="font-size:40px;font-weight:700">Call de Dev</p><p style="font-size:28px;line-height:1.35;color:#C9D8CF">Uma mostra de mundos: cada squad apresenta o que fez e como está o projeto.</p></div><div style="flex:1;display:flex;flex-direction:column;gap:6px;background:rgba(6,16,11,0.66);backdrop-filter:blur(12px);border:2px solid rgba(92,225,230,0.55);border-radius:20px;padding:30px 32px"><p style="font-size:40px;font-weight:700">Dev Day</p><p style="font-size:28px;line-height:1.35;color:#C9D8CF">A Working day geral: todos os squads construindo juntos.</p></div></div></div></div>'},
+ {kind:'subarea',title:'Lab de Inovação',html:'<div class="sdk-sec" id="lab" data-transition="fade" style="background:#050806;color:#F7F9F8;font-family:\'Poppins\', Arial, sans-serif;padding:190px 128px 140px;display:flex;flex-direction:column;justify-content:center;gap:40px"><div style="display:flex;flex-direction:column;gap:14px"><p style="font-size:24px;font-weight:700;letter-spacing:6px;color:#2DDB60;text-transform:uppercase">Dev · Inovação</p><h2 style="font-size:88px;font-weight:700;line-height:1.05">Lab de <span style="color:#2DDB60">Inovação</span></h2></div><p style="font-size:36px;line-height:1.4;color:#D6E3DB;width:1150px">O laboratório que pesquisa e entende os processos de Dev para melhorá-los, trazendo o que está forte no mercado e faz sentido para a subárea.</p><div style="display:flex;flex-direction:row;gap:20px"><div style="flex:1;display:flex;flex-direction:column;gap:10px;background:rgba(6,16,11,0.66);backdrop-filter:blur(12px);border:2px solid rgba(45,219,96,0.55);border-radius:22px;padding:36px 30px"><p style="font-size:24px;font-weight:700;letter-spacing:4px;color:#2DDB60">01</p><p style="font-size:36px;font-weight:700;line-height:1.15">Radar de mercado</p><p style="font-size:26px;line-height:1.4;color:#C9D8CF">Tecnologias e práticas em alta.</p></div><div style="flex:1;display:flex;flex-direction:column;gap:10px;background:rgba(6,16,11,0.66);backdrop-filter:blur(12px);border:2px solid rgba(45,219,96,0.55);border-radius:22px;padding:36px 30px"><p style="font-size:24px;font-weight:700;letter-spacing:4px;color:#2DDB60">02</p><p style="font-size:36px;font-weight:700;line-height:1.15">Diagnóstico</p><p style="font-size:26px;line-height:1.4;color:#C9D8CF">Onde os processos de Dev podem melhorar.</p></div><div style="flex:1;display:flex;flex-direction:column;gap:10px;background:rgba(6,16,11,0.66);backdrop-filter:blur(12px);border:2px solid rgba(92,225,230,0.55);border-radius:22px;padding:36px 30px"><p style="font-size:24px;font-weight:700;letter-spacing:4px;color:#5CE1E6">03</p><p style="font-size:36px;font-weight:700;line-height:1.15">Experimentação</p><p style="font-size:26px;line-height:1.4;color:#C9D8CF">Testes pequenos antes de adotar.</p></div><div style="flex:1;display:flex;flex-direction:column;gap:10px;background:rgba(6,16,11,0.66);backdrop-filter:blur(12px);border:2px solid rgba(92,225,230,0.55);border-radius:22px;padding:36px 30px"><p style="font-size:24px;font-weight:700;letter-spacing:4px;color:#5CE1E6">04</p><p style="font-size:36px;font-weight:700;line-height:1.15">Inovação aplicada</p><p style="font-size:26px;line-height:1.4;color:#C9D8CF">O que provou valor chega aos squads.</p></div></div></div>'},
+ {kind:'subarea',theme:'diva',title:'Onde a técnica encontra a voz',html:'<div class="sdk-sec" id="diva" data-transition="fade" style="background:#FDEFF5;color:#2B0F1C;font-family:\'Poppins\', Arial, sans-serif;padding:190px 128px 120px;display:flex;flex-direction:column;justify-content:center;gap:24px"><img src="'+SA_LOGO+'" style="width:360px;height:62px;object-fit:contain"><h2 style="font-size:76px;font-weight:700;line-height:1.08;width:860px">Onde a técnica<br><span style="color:#E02466">encontra a voz</span></h2><p style="font-size:30px;line-height:1.4;color:#5A2A40;width:840px">Em uma área majoritariamente masculina, o <b>&lt;div&gt;a</b> existe para acolher e para que as meninas se vejam umas nas outras.</p><div style="display:flex;flex-direction:row;align-items:center;gap:22px;width:840px"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#E02466" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/></svg><div style="display:flex;flex-direction:column;gap:2px"><p style="font-size:32px;font-weight:700;color:#E02466">Acolhimento</p><p style="font-size:26px;line-height:1.35;color:#5A2A40">Um lugar para chegar, pertencer e pedir ajuda.</p></div></div><div style="display:flex;flex-direction:row;align-items:center;gap:22px;width:840px"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#E02466" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><div style="display:flex;flex-direction:column;gap:2px"><p style="font-size:32px;font-weight:700;color:#E02466">Identificação</p><p style="font-size:26px;line-height:1.35;color:#5A2A40">Ver outras mulheres ocupando espaço em Dev.</p></div></div><div style="display:flex;flex-direction:row;align-items:center;gap:22px;width:840px"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><div style="display:flex;flex-direction:column;gap:2px"><p style="font-size:32px;font-weight:700;color:#C2410C">Impacto na subárea</p><p style="font-size:26px;line-height:1.35;color:#5A2A40">Mais mulheres entrando, ficando e crescendo.</p></div></div><img src="'+SA_P1+'" style="position:absolute;left:1000px;top:230px;width:250px;height:320px;object-fit:cover;border-radius:28px;border:5px solid #FFFFFF;box-shadow:0 16px 36px rgba(224,36,102,0.28)"><img src="'+SA_P2+'" style="position:absolute;left:1271px;top:290px;width:250px;height:320px;object-fit:cover;border-radius:28px;border:5px solid #FFFFFF;box-shadow:0 16px 36px rgba(224,36,102,0.28)"><img src="'+SA_P3+'" style="position:absolute;left:1542px;top:230px;width:250px;height:320px;object-fit:cover;border-radius:28px;border:5px solid #FFFFFF;box-shadow:0 16px 36px rgba(224,36,102,0.28)"><img src="'+SA_P4+'" style="position:absolute;left:1000px;top:580px;width:250px;height:320px;object-fit:cover;border-radius:28px;border:5px solid #FFFFFF;box-shadow:0 16px 36px rgba(224,36,102,0.28)"><img src="'+SA_P5+'" style="position:absolute;left:1271px;top:640px;width:250px;height:320px;object-fit:cover;border-radius:28px;border:5px solid #FFFFFF;box-shadow:0 16px 36px rgba(224,36,102,0.28)"><img src="'+SA_P6+'" style="position:absolute;left:1542px;top:580px;width:250px;height:320px;object-fit:cover;border-radius:28px;border:5px solid #FFFFFF;box-shadow:0 16px 36px rgba(224,36,102,0.28)"></div>'},
+ {kind:'subarea',theme:'diva',title:'600+ inscritas em três trilhas',html:'<div class="sdk-sec" id="minicurso" data-transition="fade" style="background:#FDEFF5;color:#2B0F1C;font-family:\'Poppins\', Arial, sans-serif;padding:210px 128px 130px;display:flex;flex-direction:column;justify-content:center;gap:10px"><img src="'+SA_LOGO+'" style="width:380px;height:66px;object-fit:contain"><p style="font-size:24px;font-weight:700;letter-spacing:6px;color:#E02466;text-transform:uppercase;width:820px">Minicurso 5.0</p><p style="font-size:210px;font-weight:700;line-height:1;color:#E02466;width:820px">600+</p><h2 style="font-size:60px;font-weight:700;line-height:1.1;width:820px">inscritas em <span style="color:#FF6A13">três trilhas</span></h2><p style="font-size:30px;line-height:1.4;color:#5A2A40;width:780px">Um espaço para aprender tecnologia junto, organizado pelo <b>&lt;div&gt;a</b>, o coletivo de mulheres de dados e desenvolvimento do CITi.</p><img src="'+SA_GROUP+'" style="position:absolute;left:992px;top:300px;width:800px;height:533px;object-fit:cover;border-radius:24px;border:4px solid #FFFFFF"></div>'},
+ {kind:'subarea',theme:'diva',title:'Uma formação, três pontos de partida',html:'<div class="sdk-sec" id="trilhas" data-transition="fade" style="background:#FDEFF5;color:#2B0F1C;font-family:\'Poppins\', Arial, sans-serif;padding:190px 128px 120px;display:flex;flex-direction:column;justify-content:center;gap:30px"><img src="'+SA_LOGO+'" style="position:absolute;left:1432px;top:200px;width:360px;height:62px;object-fit:contain"><div style="display:flex;flex-direction:column;gap:12px"><p style="font-size:24px;font-weight:700;letter-spacing:6px;color:#E02466;text-transform:uppercase;width:1200px">Minicurso 5.0 · Formação</p><h2 style="font-size:60px;font-weight:700;line-height:1.1;width:1260px">Uma formação, <span style="color:#E02466">três pontos de partida</span></h2></div><p style="font-size:30px;line-height:1.4;color:#5A2A40;width:1300px">Do primeiro contato com a web às tecnologias que sustentam soluções complexas, cada trilha leva a participante um passo além.</p><div style="display:flex;flex-direction:row;gap:24px"><div style="flex:1;display:flex;flex-direction:column;gap:12px;background:rgba(255,255,255,0.82);border:2px solid rgba(224,36,102,0.3);border-radius:24px;padding:32px 32px"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#E02466" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><p style="font-size:22px;font-weight:700;letter-spacing:3px;color:#E02466;text-transform:uppercase">Trilha 1 · Fundamentos</p><p style="font-size:40px;font-weight:700;line-height:1.1">Web básico</p><p style="font-size:26px;line-height:1.4;color:#5A2A40">Como a web funciona e os primeiros passos para construir páginas.</p><div style="display:flex;flex-direction:row;flex-wrap:wrap;gap:10px;padding-top:6px"><p style="font-size:24px;font-weight:600;color:#B0124F;background:#FBD3E2;padding:4px 16px;border-radius:30px">HTML</p><p style="font-size:24px;font-weight:600;color:#B0124F;background:#FBD3E2;padding:4px 16px;border-radius:30px">CSS</p><p style="font-size:24px;font-weight:600;color:#B0124F;background:#FBD3E2;padding:4px 16px;border-radius:30px">Front e back</p></div></div><div style="flex:1;display:flex;flex-direction:column;gap:12px;background:rgba(255,255,255,0.82);border:2px solid rgba(224,36,102,0.3);border-radius:24px;padding:32px 32px"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#E02466" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg><p style="font-size:22px;font-weight:700;letter-spacing:3px;color:#E02466;text-transform:uppercase">Trilha 2 · Aprofundamento</p><p style="font-size:40px;font-weight:700;line-height:1.1">Web intermediário</p><p style="font-size:26px;line-height:1.4;color:#5A2A40">Tecnologias mais avançadas para construir soluções mais complexas.</p><div style="display:flex;flex-direction:row;flex-wrap:wrap;gap:10px;padding-top:6px"><p style="font-size:24px;font-weight:600;color:#B0124F;background:#FBD3E2;padding:4px 16px;border-radius:30px">React</p><p style="font-size:24px;font-weight:600;color:#B0124F;background:#FBD3E2;padding:4px 16px;border-radius:30px">TypeScript</p><p style="font-size:24px;font-weight:600;color:#B0124F;background:#FBD3E2;padding:4px 16px;border-radius:30px">Node</p></div></div><div style="flex:1;display:flex;flex-direction:column;gap:12px;background:rgba(255,255,255,0.82);border:2px solid rgba(255,106,19,0.45);border-radius:24px;padding:32px 32px"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#D9500A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg><p style="font-size:22px;font-weight:700;letter-spacing:3px;color:#C2410C;text-transform:uppercase">Trilha 3 · Dados</p><p style="font-size:40px;font-weight:700;line-height:1.1">Dados</p><p style="font-size:26px;line-height:1.4;color:#5A2A40">Uma formação voltada para dados e para a construção de agentes.</p><div style="display:flex;flex-direction:row;flex-wrap:wrap;gap:10px;padding-top:6px"><p style="font-size:24px;font-weight:600;color:#9A3412;background:#FFDCC4;padding:4px 16px;border-radius:30px">Agentes</p></div></div></div></div>'}
 ];
+let sdkRO=null;
 function rSubarea(s,st){
-  st.innerHTML='<article class="card slide'+(s.theme==='diva'?' diva':'')+'"><div class="sa-skip"><button class="btn ghost small" id="saSkip">Pular esta parte →</button></div>'+s.html+'</article>';
-  $('#saSkip',st).onclick=()=>{const idx=cur.steps.indexOf(TOOLS_SLIDE);if(idx>=0){cur.idx=idx;cur.back=false;renderStep();}};
+  if(sdkRO){sdkRO.disconnect();sdkRO=null;}
+  st.innerHTML='<div class="sdk-wrap"><button class="btn ghost small" id="saSkip">Pular esta parte →</button><div class="sdk-frame"><div class="sdk-canvas">'+s.html+'</div></div></div>';
+  const fr=$('.sdk-frame',st),cv=$('.sdk-canvas',st);
+  const fit=()=>{cv.style.transform='scale('+(fr.clientWidth/1920)+')';};
+  fit();if(window.ResizeObserver){sdkRO=new ResizeObserver(fit);sdkRO.observe(fr);}else addEventListener('resize',fit);
+  $('#saSkip',st).onclick=()=>{const i=cur.steps.indexOf(TOOLS_SLIDE);if(i>=0){cur.idx=i;cur.back=false;renderStep();}};
 }
 const SL={
  'Programar é dar instruções':[
@@ -1387,6 +1306,7 @@ function worldMap(first){
 }
 function hhmm(m){m=((m%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');}
 function renderMap(){
+  document.body.classList.remove('diva-on');
   clearInterval(cur&&cur.exT);view='map';cur=null;clearInterval(tick);document.body.dataset.sky='day';delete document.body.dataset.lv;renderHud();
   window.scrollTo(0,0);
   if(TR())return mapTrain();
@@ -1473,6 +1393,7 @@ function lose(){
 function renderStep(){
   if(!TR()){S.pos={L:cur.L.id,idx:cur.idx};save();}
   const s=cur.steps[cur.idx],st=$('#stage');$('.foot').hidden=false;
+  document.body.classList.toggle('diva-on',s.theme==='diva');
   clearTimeout(cur.pzT);clearInterval(cur.exT);
   const R={opening:rOpening,ending:rEnding,cover:rCover,slide:rSlide,subarea:rSubarea,recap:rRecap,lesson:rLesson,quiz:rQuiz,order:rOrder,code:rCode,tscheck:rTs,blocks:rBlocks}[s.kind];
   R(s,st);st.insertAdjacentHTML('afterbegin',ribbon());
