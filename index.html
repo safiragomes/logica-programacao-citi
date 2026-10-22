@@ -1247,7 +1247,7 @@ function trainSteps(l){
   const out=l.id===1?[{kind:'opening'},...SUBAREA_SLIDES,TOOLS_SLIDE,{kind:'cover'}]:[{kind:'cover'}];
   l.steps.forEach(s=>{
     if(s.kind==='story'||s.kind==='quiz'||s.kind==='order'||s.bonus)return;
-    if(s.kind==='blocks'&&!(l.id===1&&/repetir/.test(s.title)))return;
+    if(s.kind==='blocks')return;
     if((s.kind==='code'||s.kind==='tscheck')&&l.id!==6&&l.id!==11)return;
     if((l.id===6&&/^Desafio [34]/.test(s.title))||(l.id===11&&/^Desafio [23]/.test(s.title)))return;
     if(s.kind==='lesson'){(SL[s.title]||[]).forEach(x=>out.push(x));return;}
